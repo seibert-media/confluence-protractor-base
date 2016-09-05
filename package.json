@@ -4,7 +4,7 @@
   "description": "Base project for protractor e2e tests with confluence",
   "main": "index.js",
   "scripts": {
-    "test": "protractor protractorConfig.js"
+    "test": "node_modules/.bin/protractor protractorConfig.js"
   },
   "repository": {
     "type": "git",
