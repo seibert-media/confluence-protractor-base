@@ -10,26 +10,41 @@ function ConfluenceLogin() {
 	this.login = function (username, password) {
 		browser.get('/login.action');
 
-		element(by.name('os_username')).sendKeys(username);
-		element(by.name('os_password')).sendKeys(password);
-
-		var loginButton = element(by.id('loginButton')); // pageObjectUtils.logPromise(loginButton.isPresent());
-		loginButton.click();
-
-		assert(element(by.css('#captcha-container')).isPresent(), false, 'Captcha required. Log in manually once.');
-
-		browser.getCurrentUrl().then(function (url) {
-			if (url.endsWith('plugins/termsofuse/agreement.action')) {
-				console.warn('Confirm terms of use for  "' + username + '" (possibly dependent from plugin version)');
-				self.confirmTermsOfUse();
+		this.currentUsername().then(function (currentUsername) {
+			if (username === currentUsername) {
+				// user is already logged in: redirect to dashboard
+				browser.get('/');
+				return;
 			}
-		});
 
-		browser.getCurrentUrl().then(function (url) {
-			if (url.endsWith('welcome.action')) {
-				console.warn('Try to skip welcome.action for "' + username + '" (possibly dependent from confluence version)');
-				self.skipWelcomeProcedure();
+			if (currentUsername !== '') {
+				console.log('Logged in with wrong user (' + currentUsername + '). Switch to: ' + username);
+				// logout if logged in with wrong user
+				self.logout();
+				browser.get('/login.action');
 			}
+
+			element(by.name('os_username')).sendKeys(username);
+			element(by.name('os_password')).sendKeys(password);
+
+			var loginButton = element(by.id('loginButton')); // pageObjectUtils.logPromise(loginButton.isPresent());
+			loginButton.click();
+
+			assert(element(by.css('#captcha-container')).isPresent(), false, 'Captcha required. Log in manually once.');
+
+			browser.getCurrentUrl().then(function (url) {
+				if (url.endsWith('plugins/termsofuse/agreement.action')) {
+					console.warn('Confirm terms of use for  "' + username + '" (possibly dependent from plugin version)');
+					self.confirmTermsOfUse();
+				}
+			});
+
+			browser.getCurrentUrl().then(function (url) {
+				if (url.endsWith('welcome.action')) {
+					console.warn('Try to skip welcome.action for "' + username + '" (possibly dependent from confluence version)');
+					self.skipWelcomeProcedure();
+				}
+			});
 		});
 	};
 

@@ -2,11 +2,11 @@
 var confluenceConfig = require("../confluenceConfig");
 var ConfluenceLogin = require('../page-objects/ConfluenceLogin');
 
-describe('Confluence Login', function() {
+describe('ConfluenceLogin (page object)', function() {
 
 	var confluenceLogin = new ConfluenceLogin();
 
-	describe('with admin user', function () {
+	describe('loginAsAdmin', function () {
 		beforeEach(function () {
 			confluenceLogin.loginAsAdmin();
 		});
@@ -26,7 +26,7 @@ describe('Confluence Login', function() {
 	});
 
 
-	describe('with test user', function () {
+	describe('login() with test user', function () {
 		var testUser = confluenceConfig.USERS.TEST_USER;
 
 		beforeEach(function () {
@@ -44,6 +44,12 @@ describe('Confluence Login', function() {
 		it('logs in the admin users', function () {
 			expect(confluenceLogin.currentUsername()).toBe(testUser.USERNAME);
 		});
+
+		it('switches the user without logout', function () {
+			confluenceLogin.loginAsAdmin();
+			expect(confluenceLogin.currentUsername()).toBe(confluenceConfig.USERS.ADMIN.USERNAME);
+		})
 	});
+
 
 });
