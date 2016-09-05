@@ -1,5 +1,6 @@
 
 module.exports = {
+	confluenceConfig: require('./confluenceConfig'),
 	pageObjects: {
 		ConfluenceLogin: require('./page-objects/ConfluenceLogin')
 	},
