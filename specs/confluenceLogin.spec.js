@@ -16,7 +16,6 @@ describe('ConfluenceLogin (page object)', function() {
 		});
 
 		it('opens dashboard', function() {
-
 			expect(browser.getTitle()).toEqual(confluenceConfig.DASHBOARD_TITLE);
 		});
 

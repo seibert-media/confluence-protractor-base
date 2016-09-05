@@ -52,6 +52,20 @@ function ConfluenceLogin() {
 		this.login(confluenceConfig.USERS.ADMIN.USERNAME, confluenceConfig.USERS.ADMIN.PASSWORD);
 	};
 
+	this.authenticateAsAdmin = function () {
+		this.loginAsAdmin();
+
+		// authenticate
+		browser.get('/authenticate.action');
+
+		element(by.name('password')).sendKeys(confluenceConfig.USERS.ADMIN.PASSWORD);
+		element(by.name('authenticate')).click();
+
+		browser.get('/admin');
+
+		assert(element(by.css('.admin-body')).isPresent(), true, 'Admin authentication failed');
+	};
+
 	this.currentUsername = function () {
 		return browser.executeScript(function () {
 			return AJS.params.remoteUser;
