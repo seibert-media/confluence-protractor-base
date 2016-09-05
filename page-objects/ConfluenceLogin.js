@@ -1,6 +1,6 @@
 var confluenceConfig = require("../confluenceConfig");
 
-var pageObjectUtils = require('../pageObjectUtils');
+var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
 
 function ConfluenceLogin() {
