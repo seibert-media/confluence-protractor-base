@@ -84,6 +84,9 @@ function ConfluenceLogin() {
 		});
 	}
 	this.skipWelcomeProcedure = function () {
+		// skip welcome message
+		clickIfPresent(element(by.id('grow-intro-welcome-start')));
+
 		// skip video
 		clickIfPresent(element(by.id('grow-intro-video-skip-button')));
 
