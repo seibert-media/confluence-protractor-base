@@ -2,6 +2,7 @@ var confluenceConfig = require("../confluenceConfig");
 
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
+var clickIfPresent = pageObjectUtils.clickIfPresent;
 
 function ConfluenceLogin() {
 
@@ -76,13 +77,6 @@ function ConfluenceLogin() {
 		browser.get('/logout.action');
 	};
 
-	function clickIfPresent(elementPromise) {
-		elementPromise.isPresent().then(function (isPresent) {
-			if (isPresent) {
-				elementPromise.click();
-			}
-		});
-	}
 	this.skipWelcomeProcedure = function () {
 		// skip welcome message
 		clickIfPresent(element(by.id('grow-intro-welcome-start')));
