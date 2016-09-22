@@ -14,6 +14,11 @@ function UniversalPluginManager() {
 
 		browser.get('/plugins/servlet/upm');
 
+		// dismiss up to three notifications if they occur
+		clickIfPresent(element(by.css('.dismiss-notification')));
+		clickIfPresent(element(by.css('.dismiss-notification')));
+		clickIfPresent(element(by.css('.dismiss-notification')));
+
 		// open upload dialog
 		element(by.id('upm-upload')).click();
 
