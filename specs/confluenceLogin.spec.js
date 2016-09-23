@@ -1,6 +1,7 @@
 
 var confluenceConfig = require("../confluenceConfig");
 var ConfluenceLogin = require('../page-objects/ConfluenceLogin');
+var pageObjectUtils = require('../utils/pageObjectUtils');
 
 describe('ConfluenceLogin (page object)', function() {
 
