@@ -35,16 +35,14 @@ function UniversalPluginManager() {
 		clickIfPresent(element(by.css('button.confirm')));
 		clickIfPresent(element(by.css('button.upm-upload-plugin-submit')));
 
-		// wait for
+		// check and wait for plugin name
 		var $pluginName = element(by.css('.plugin-name'));
-
 		browser.wait(function() {
 			return browser.isElementPresent($pluginName);
 		}, timeout);
-
-
 		assert($pluginName.getText(), pluginName, 'Plugin name not found');
 
+		// try confirm buttons for different confluence versiions
 		clickIfPresent(element(by.css('button.confirm')));
 		clickIfPresent(element(by.css('button.button-panel-cancel-link')));
 	}
