@@ -1,4 +1,5 @@
 var UniversalPluginManager = require('../page-objects/UniversalPluginManager');
+var pageObjectUtils = require('../utils/pageObjectUtils');
 
 fdescribe('UniversalPluginManager (page object)', function() {
 
@@ -14,4 +15,5 @@ fdescribe('UniversalPluginManager (page object)', function() {
 
 	});
 
+	afterEach(pageObjectUtils.takeScreenshot);
 });
