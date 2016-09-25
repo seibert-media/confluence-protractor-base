@@ -6,5 +6,12 @@ exports.config = {
 	},
 	framework: 'jasmine',
 	seleniumAddress: 'http://localhost:4444/wd/hub',
-	specs: ['specs/*.spec.js']
+	specs: ['specs/*.spec.js'],
+	onPrepare: function() {
+		var jasmineReporters = require('jasmine-reporters');
+		jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
+			consolidateAll: true,
+			filePrefix: 'ui-test-results'
+		}));
+	}
 };
