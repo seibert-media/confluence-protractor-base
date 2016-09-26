@@ -8,5 +8,8 @@ module.exports = {
 	},
 	utils: {
 		pageObjectUtils: require('./utils/pageObjectUtils')
+	},
+	jasmineReporters: {
+		screenshotReporter: require('.jasmineReporters/screenshotReporter')
 	}
 };
