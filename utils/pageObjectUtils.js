@@ -5,6 +5,9 @@ var generateScreenshotName = (function () {
 	};
 }());
 
+var fs = require('fs');
+var screenshotPath = 'screenshots/'
+
 var pageObjectUtils = {
 	assert: function (promise, expectedValue, message) {
 		promise.then(function (value) {
@@ -28,8 +31,11 @@ var pageObjectUtils = {
 	takeScreenshot: function (imageName) {
 		imageName = imageName || generateScreenshotName();
 
+		if (!fs.existsSync(screenshotPath)){
+			fs.mkdirSync(screenshotPath);
+		}
 		browser.takeScreenshot().then(function (base64Screenshot) {
-			require("fs").writeFile(imageName, base64Screenshot, 'base64', function(error) {
+			require("fs").writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function(error) {
 				if (error) {
 					console.log(error);
 				}
