@@ -1,4 +1,4 @@
-var pageObjectUtils = require('./pageObjectUtils');
+var pageObjectUtils = require('../utils/pageObjectUtils');
 
 module.exports = {
 	specDone: function(result) {
