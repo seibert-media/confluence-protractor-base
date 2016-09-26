@@ -28,6 +28,8 @@ function UniversalPluginManager() {
 
 		// get path and upload plugin
 		var absolutePath = path.resolve(process.cwd(), fileToUpload);
+		// check if file exists
+		require('fs').accessSync(absolutePath);
 		console.log('Plugin path: ' + absolutePath);
 		element(by.id('upm-upload-file')).sendKeys(absolutePath);
 
