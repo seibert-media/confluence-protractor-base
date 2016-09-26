@@ -11,6 +11,6 @@ module.exports = {
 		pageObjectUtils: require('./utils/pageObjectUtils')
 	},
 	jasmineReporters: {
-		screenshotReporter: require('.jasmineReporters/screenshotReporter')
+		screenshotReporter: require('./jasmineReporters/screenshotReporter')
 	}
 };
