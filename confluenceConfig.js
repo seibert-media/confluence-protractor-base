@@ -1,5 +1,10 @@
 "use strict";
 
+if (typeof browser === 'undefined') {
+	// only run when in protractor context
+	return;
+}
+
 var merge = require('lodash').merge;
 
 // ignoreSynchronization prevents protractor from waiting for angular
