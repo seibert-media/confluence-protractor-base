@@ -29,8 +29,10 @@ var pageObjectUtils = {
 		imageName = imageName || generateScreenshotName();
 
 		browser.takeScreenshot().then(function (base64Screenshot) {
-			require("fs").writeFile(imageName, base64Screenshot, 'base64', function(err) {
-				console.log(err);
+			require("fs").writeFile(imageName, base64Screenshot, 'base64', function(error) {
+				if (error) {
+					console.log(error);
+				}
 			})
 		});
 	}
