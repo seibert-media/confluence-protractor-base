@@ -51,7 +51,4 @@ describe('ConfluenceLogin (page object)', function() {
 		})
 	});
 
-	afterEach(function () {
-		pageObjectUtils.takeScreenshot()
-	});
 });
