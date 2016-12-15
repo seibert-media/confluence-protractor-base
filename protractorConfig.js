@@ -1,6 +1,6 @@
 // conf.js
 exports.config = {
-	baseUrl: 'http://localhost:8090',
+	baseUrl: 'http://localhost:8090/',
 	params: {
 		confluenceConfig: 'default'
 	},
