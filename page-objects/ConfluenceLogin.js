@@ -1,6 +1,8 @@
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
+var openPage = pageObjectUtils.openPage;
+var element = pageObjectUtils.asyncElement;
 
 function ConfluenceLogin() {
 	this.confluenceConfig = require("../loadConfluenceConfig");
@@ -8,12 +10,12 @@ function ConfluenceLogin() {
 	var self = this;
 
 	this.login = function (username, password) {
-		browser.get('/login.action');
+		openPage('/login.action');
 
 		this.currentUsername().then(function (currentUsername) {
 			if (username === currentUsername) {
 				// user is already logged in: redirect to dashboard
-				browser.get('/');
+				openPage('/');
 				return;
 			}
 
@@ -21,7 +23,7 @@ function ConfluenceLogin() {
 				console.log('Logged in with wrong user (' + currentUsername + '). Switch to: ' + username);
 				// logout if logged in with wrong user
 				self.logout();
-				browser.get('/login.action');
+				openPage('/login.action');
 			}
 
 			element(by.name('os_username')).sendKeys(username);
@@ -56,12 +58,12 @@ function ConfluenceLogin() {
 		this.loginAsAdmin();
 
 		// authenticate
-		browser.get('/authenticate.action');
+		openPage('/authenticate.action');
 
 		element(by.name('password')).sendKeys(this.confluenceConfig().USERS.ADMIN.PASSWORD);
 		element(by.name('authenticate')).click();
 
-		browser.get('/admin');
+		openPage('/admin');
 
 		assert(element(by.css('.admin-body')).isPresent(), true, 'Admin authentication failed');
 	};
@@ -73,7 +75,7 @@ function ConfluenceLogin() {
 	};
 
 	this.logout = function () {
-		browser.get('/logout.action');
+		openPage('/logout.action');
 	};
 
 	this.skipWelcomeProcedure = function () {
@@ -91,14 +93,14 @@ function ConfluenceLogin() {
 		clickIfPresent(element(by.css('.intro-find-spaces-button-continue')));
 
 		// reload dashboard
-		browser.get('/');
+		openPage('/');
 	};
 
 	this.confirmTermsOfUse = function () {
 		clickIfPresent(element(by.css('form[action="/plugins/termsofuse/agreement.action"] input[type="submit"]')));
 
 		// reload dashboard
-		browser.get('/');
+		openPage('/');
 	}
 
 }

@@ -3,6 +3,8 @@ var ConfluenceBase = require('./ConfluenceBase');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
+var openPage = pageObjectUtils.openPage;
+var element = pageObjectUtils.asyncElement;
 
 function UniversalPluginManager() {
 	var self = this;
@@ -38,10 +40,8 @@ function UniversalPluginManager() {
 		clickIfPresent(element(by.css('button.upm-upload-plugin-submit')));
 
 		// check and wait for plugin name
-		var $pluginName = element(by.css('.plugin-name'));
-		browser.wait(function() {
-			return browser.isElementPresent($pluginName);
-		}, timeout);
+		var $pluginName = element(by.css('.plugin-name'), timeout);
+
 		assert($pluginName.getText(), pluginName, 'Plugin name not found');
 
 		// try confirm buttons for different confluence versiions

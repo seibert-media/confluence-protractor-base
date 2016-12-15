@@ -35,8 +35,8 @@ var testUtils = {
 				delete properties.content;
 			}
 
-			Object.keys(properties).forEach(function (key, value) {
-				element[key] = value;
+			Object.keys(properties).forEach(function (key) {
+				element[key] = properties[key];
 			})
 
 			document.body.appendChild(element);
@@ -81,6 +81,7 @@ var testUtils = {
 		};
 		spyOn(element, options.spy);
 
+		// add promise returning function
 		element[options.promise.name] = function () {
 			return promiseMock;
 		};

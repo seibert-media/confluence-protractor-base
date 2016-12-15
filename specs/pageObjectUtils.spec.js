@@ -5,7 +5,9 @@ var pageObjectUtils = require('../utils/pageObjectUtils');
 describe('pageObjectUtils', function() {
 
 	// switch to empty page
-	browser.get('data:,');
+	beforeAll(function () {
+		browser.get('data:,');
+	});
 
 	describe('assert()', function () {
 		it('passes expected values', function (done) {
@@ -59,32 +61,33 @@ describe('pageObjectUtils', function() {
 
 	describe('asyncElement()', function () {
 
-		function addTestElementAsync(elementId) {
+		function addTestElementAsync(id) {
 			setTimeout(function () {
 				testUtils.createDomElement('h1', {
-					id: elementId,
-					content: 'Test'
+					id: id,
+					content: id
 				});
 			}, 1000); // default time out is 2000ms (see utils/pageObjectUtils.js)
 		}
 
-		it('fails when element() is used instead', function () {
-			var elementIds = 'test-element';
-			var selector = by.css('h1');
-			var testElement = element(selector);
+		it('not identical with element', function () {
+			expect(pageObjectUtils.asyncElement).not.toBe(element);
+		})
 
-			addTestElementAsync('test-element');
+		it('fails when element() is used instead', function () {
+			var id = 'headline-for-element';
+			var testElement = element(by.id(id));
+
+			addTestElementAsync(id);
 
 			expect(testElement.isPresent()).toBe(false);
 		});
 
+		it('waits until element is present in document', function () {
+			var id = 'headline-for-async-element';
+			var testElement = pageObjectUtils.asyncElement(by.id(id));
 
-		it('fails when element() is used instead', function () {
-			var elementIds = 'test-element';
-			var selector = by.css('h1');
-			var testElement = pageObjectUtils.asyncElement(selector);
-
-			addTestElementAsync('test-element');
+			addTestElementAsync(id);
 
 			expect(testElement.isPresent()).toBe(true);
 		});

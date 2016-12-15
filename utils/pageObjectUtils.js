@@ -68,16 +68,16 @@ var pageObjectUtils = {
 			return element.isDisplayed();
 		}).first();
 	},
-	openPage: function (url) {
+	openPage: function (path) {
 		if (!browser.baseUrl.endsWith('/')) {
 			throw new Error('openPage need a baseUrl with a trailing /');
 		}
 		return browser.getCurrentUrl().then(function (currentUrl) {
-			var newUrlWithBase = browser.baseUrl + url;
+			var newUrlWithBase = browser.baseUrl + path;
 			if (currentUrl !== newUrlWithBase) {
-				return browser.get(url);
+				return browser.get(path);
 			} else {
-				console.log('Page is already opened: ' + url);
+				console.log('Page is already opened: ' + path);
 			}
 
 		});
