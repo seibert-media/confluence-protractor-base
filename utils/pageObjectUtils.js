@@ -7,7 +7,11 @@ var generateScreenshotName = (function () {
 
 var fs = require('fs');
 var screenshotPath = 'screenshots/'
-var EC = protractor.ExpectedConditions;
+
+
+function EC() {
+	return protractor.ExpectedConditions;
+}
 
 var DEFAULT_ELEMENT_TIMEOUT = 2000;
 var DEFAULT_LOADING_TIMEOUT = 5000;
@@ -49,7 +53,7 @@ var pageObjectUtils = {
 		});
 	},
 	waitForElementToBeClickable: function (element, timeout) {
-		browser.wait(EC.elementToBeClickable(element), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
+		browser.wait(EC().elementToBeClickable(element), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
 			// call element.isPresent to get better message
 			throw new Error('Element not clickable', element);
 		});
@@ -57,7 +61,7 @@ var pageObjectUtils = {
 	},
 	asyncElement: function (selector, timeout) {
 		var asyncElement = element(selector);
-		browser.wait(EC.presenceOf(asyncElement), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
+		browser.wait(EC().presenceOf(asyncElement), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
 			// call element.isPresent to get better message
 			asyncElement.isPresent();
 		});

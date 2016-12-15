@@ -7,13 +7,13 @@ var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 var openPage = pageObjectUtils.openPage;
 
-var EC = protractor.ExpectedConditions;
 
 var blankSpaceSelector = '[data-item-module-complete-key="com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blank-space-item"]';
 var extranetSpaceSelector = '[data-blueprint-module-complete-key="net.seibertmedia.extranet.core:extranet-space-blueprint"]';
 
 function ConfluenceSpace(spaceKey, spaceName) {
 	var self = this;
+	var EC = protractor.ExpectedConditions;
 
 	spaceName = spaceName || spaceKey;
 
