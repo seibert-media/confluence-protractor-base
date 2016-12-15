@@ -15,7 +15,6 @@ function ConfluenceLogin() {
 		this.currentUsername().then(function (currentUsername) {
 			if (username === currentUsername) {
 				// user is already logged in: redirect to dashboard
-				openPage('/');
 				return;
 			}
 
