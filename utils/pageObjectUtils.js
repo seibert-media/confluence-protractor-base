@@ -17,14 +17,14 @@ var pageObjectUtils = {
 		});
 	},
 	logPromise: function (promise) {
-		promise.then(function (value) {
+		return promise.then(function (value) {
 			console.log(value);
 		});
 	},
 	clickIfPresent: function (elementPromise) {
-		elementPromise.isPresent().then(function (isPresent) {
+		return elementPromise.isPresent().then(function (isPresent) {
 			if (isPresent) {
-				elementPromise.click();
+				return elementPromise.click();
 			}
 		});
 	},
