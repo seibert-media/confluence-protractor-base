@@ -7,8 +7,14 @@ var generateScreenshotName = (function () {
 
 var fs = require('fs');
 var screenshotPath = 'screenshots/'
+var EC = protractor.ExpectedConditions;
+
+var DEFAULT_ELEMENT_TIMEOUT = 2000;
+var DEFAULT_LOADING_TIMEOUT = 5000;
 
 var pageObjectUtils = {
+	DEFAULT_ELEMENT_TIMEOUT: DEFAULT_ELEMENT_TIMEOUT,
+	DEFAULT_LOADING_TIMEOUT: DEFAULT_LOADING_TIMEOUT,
 	assert: function (promise, expectedValue, message) {
 		return promise.then(function (value) {
 			if (value != expectedValue) {
@@ -21,25 +27,59 @@ var pageObjectUtils = {
 			console.log(value);
 		});
 	},
-	clickIfPresent: function (elementPromise) {
-		return elementPromise.isPresent().then(function (isPresent) {
+	clickIfPresent: function (element) {
+		return element.isPresent().then(function (isPresent) {
 			if (isPresent) {
-				return elementPromise.click();
+				return element.click();
 			}
 		});
 	},
 	takeScreenshot: function (imageName) {
 		imageName = imageName || generateScreenshotName();
 
-		if (!fs.existsSync(screenshotPath)){
+		if (!fs.existsSync(screenshotPath)) {
 			fs.mkdirSync(screenshotPath);
 		}
-		browser.takeScreenshot().then(function (base64Screenshot) {
-			require("fs").writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function(error) {
+		return browser.takeScreenshot().then(function (base64Screenshot) {
+			return require("fs").writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function (error) {
 				if (error) {
 					console.log(error);
 				}
 			})
+		});
+	},
+	waitForElementToBeClickable: function (element, timeout) {
+		browser.wait(EC.elementToBeClickable(element), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
+			// call element.isPresent to get better message
+			throw new Error('Element not clickable', element);
+		});
+		return element;
+	},
+	asyncElement: function (selector, timeout) {
+		var asyncElement = element(selector);
+		browser.wait(EC.presenceOf(asyncElement), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
+			// call element.isPresent to get better message
+			asyncElement.isPresent();
+		});
+		return asyncElement;
+	},
+	findFirstDisplayed: function (elementSelector) {
+		return element.all(elementSelector).filter(function (element) {
+			return element.isDisplayed();
+		}).first();
+	},
+	openPage: function (url) {
+		if (!browser.baseUrl.endsWith('/')) {
+			throw new Error('openPage need a baseUrl with a trailing /');
+		}
+		return browser.getCurrentUrl().then(function (currentUrl) {
+			var newUrlWithBase = browser.baseUrl + url;
+			if (currentUrl !== newUrlWithBase) {
+				return browser.get(url);
+			} else {
+				console.log('Page is already opened: ' + url);
+			}
+
 		});
 	}
 };
