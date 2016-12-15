@@ -24,6 +24,26 @@ var testUtils = {
 			done();
 		});
 	},
+	createDomElement: function (name, properties) {
+		return browser.executeScript(function (name, properties) {
+			var element = document.createElement(name);
+
+			properties = properties || {};
+
+			if (properties.content) {
+				element.appendChild(document.createTextNode(properties.content));
+				delete properties.content;
+			}
+
+			Object.keys(properties).forEach(function (key, value) {
+				element[key] = value;
+			})
+
+			document.body.appendChild(element);
+
+			return element;
+		}, name, properties);
+	},
 	mockElement: function (options) {
 		var doneFn;
 

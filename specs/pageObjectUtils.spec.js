@@ -4,6 +4,9 @@ var pageObjectUtils = require('../utils/pageObjectUtils');
 
 describe('pageObjectUtils', function() {
 
+	// switch to empty page
+	browser.get('data:,');
+
 	describe('assert()', function () {
 		it('passes expected values', function (done) {
 			var promiseWithExpectedValue = Promise.resolve('Expected value');
@@ -45,12 +48,45 @@ describe('pageObjectUtils', function() {
 		it('calls the element click function when isPresent() promise returns false', function (done) {
 			var clickableElement = clickableElementWithPresentState(false);
 
-
 			pageObjectUtils.clickIfPresent(clickableElement);
 
 			clickableElement.registerDone(done, function () {
 				expect(clickableElement.click).not.toHaveBeenCalled();
 			});
+		});
+
+	});
+
+	describe('asyncElement()', function () {
+
+		function addTestElementAsync(elementId) {
+			setTimeout(function () {
+				testUtils.createDomElement('h1', {
+					id: elementId,
+					content: 'Test'
+				});
+			}, 1000); // default time out is 2000ms (see utils/pageObjectUtils.js)
+		}
+
+		it('fails when element() is used instead', function () {
+			var elementIds = 'test-element';
+			var selector = by.css('h1');
+			var testElement = element(selector);
+
+			addTestElementAsync('test-element');
+
+			expect(testElement.isPresent()).toBe(false);
+		});
+
+
+		it('fails when element() is used instead', function () {
+			var elementIds = 'test-element';
+			var selector = by.css('h1');
+			var testElement = pageObjectUtils.asyncElement(selector);
+
+			addTestElementAsync('test-element');
+
+			expect(testElement.isPresent()).toBe(true);
 		});
 
 
