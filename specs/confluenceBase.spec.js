@@ -8,6 +8,11 @@ describe('ConfluenceBase (page object)', function() {
 	var confluenceConfig = confluenceBase.confluenceConfig();
 
 	describe('openAdminPage', function () {
+
+		afterEach(function () {
+			confluenceBase.logout();
+		});
+
 		it('opens admin page', function() {
 			confluenceBase.openAdminPage();
 			expect(browser.getTitle()).toEqual(confluenceConfig.ADMIN_TITLE);
@@ -17,6 +22,12 @@ describe('ConfluenceBase (page object)', function() {
 			confluenceBase.openAdminPage();
 			expect(confluenceBase.currentUsername()).toBe(confluenceConfig.USERS.ADMIN.USERNAME);
 		});
+
+		it('opens a specific admin if specified', function () {
+			var generalAdminAction = 'admin/viewgeneralconfig.action';
+			confluenceBase.openAdminPage(generalAdminAction);
+			expect(browser.getCurrentUrl()).toContain(generalAdminAction);
+		})
 	});
 
 });

@@ -10,7 +10,7 @@ function ConfluenceLogin() {
 	var self = this;
 
 	this.login = function (username, password) {
-		openPage('/login.action');
+		openPage('login.action');
 
 		this.currentUsername().then(function (currentUsername) {
 			if (username === currentUsername) {
@@ -22,7 +22,7 @@ function ConfluenceLogin() {
 				console.log('Logged in with wrong user (' + currentUsername + '). Switch to: ' + username);
 				// logout if logged in with wrong user
 				self.logout();
-				openPage('/login.action');
+				openPage('login.action');
 			}
 
 			element(by.name('os_username')).sendKeys(username);
@@ -57,14 +57,10 @@ function ConfluenceLogin() {
 		this.loginAsAdmin();
 
 		// authenticate
-		openPage('/authenticate.action');
+		openPage('authenticate.action');
 
 		element(by.name('password')).sendKeys(this.confluenceConfig().USERS.ADMIN.PASSWORD);
 		element(by.name('authenticate')).click();
-
-		openPage('/admin');
-
-		assert(element(by.css('.admin-body')).isPresent(), true, 'Admin authentication failed');
 	};
 
 	this.currentUsername = function () {
@@ -74,7 +70,7 @@ function ConfluenceLogin() {
 	};
 
 	this.logout = function () {
-		openPage('/logout.action');
+		openPage('logout.action');
 	};
 
 	this.skipWelcomeProcedure = function () {
@@ -92,14 +88,14 @@ function ConfluenceLogin() {
 		clickIfPresent(element(by.css('.intro-find-spaces-button-continue')));
 
 		// reload dashboard
-		openPage('/');
+		openPage();
 	};
 
 	this.confirmTermsOfUse = function () {
 		clickIfPresent(element(by.css('form[action="/plugins/termsofuse/agreement.action"] input[type="submit"]')));
 
 		// reload dashboard
-		openPage('/');
+		openPage();
 	}
 
 }

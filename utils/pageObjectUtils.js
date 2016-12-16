@@ -73,18 +73,29 @@ var pageObjectUtils = {
 		}).first();
 	},
 	openPage: function (path) {
+		path = path || '';
 		if (!browser.baseUrl.endsWith('/')) {
-			throw new Error('openPage need a baseUrl with a trailing /');
+			throw new Error('openPage need a baseUrl with a trailing / (baseUrl: ' + browser.baseUrl + ')');
 		}
-		return browser.getCurrentUrl().then(function (currentUrl) {
-			var newUrlWithBase = browser.baseUrl + path;
-			if (currentUrl !== newUrlWithBase) {
+		if (path.startsWith('/')) {
+			throw new Error('openPage need a path without a leading / (path: ' + path + ')');
+		}
+		return pageObjectUtils.getCurrentPath().then(function (currentPath) {
+			if (currentPath !== path) {
 				return browser.get(path);
 			} else {
 				console.log('Page is already opened: ' + path);
 			}
 
 		});
+	},
+	stripUrlToPath: function (url) {
+		return url.replace(browser.baseUrl, '').replace(/\?.*/, '');
+	},
+	getCurrentPath: function () {
+		return browser.getCurrentUrl().then(function (url) {
+			return pageObjectUtils.stripUrlToPath(url)
+		})
 	}
 };
 

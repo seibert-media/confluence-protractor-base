@@ -6,9 +6,15 @@ var openPage = pageObjectUtils.openPage;
 function ConfluenceBase() {
 	var self = this;
 
-	this.openAdminPage = function () {
-		this.authenticateAsAdmin();
-		openPage('/admin');
+	this.openAdminPage = function (path) {
+		path = path || '/admin';
+		openPage(path);
+		pageObjectUtils.getCurrentPath().then(function (url) {
+			if (url.endsWith('authenticate.action') || url.endsWith('login.action')) {
+				self.authenticateAsAdmin();
+				openPage(path);
+			}
+		});
 	};
 
 }
