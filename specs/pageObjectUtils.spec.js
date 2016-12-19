@@ -9,21 +9,65 @@ describe('pageObjectUtils', function() {
 		browser.get('data:,');
 	});
 
-	describe('assert()', function () {
+	fdescribe('assertNotNullSync()', function () {
+		it('passes not null values', function () {
+			pageObjectUtils.assertNotNullSync('');
+			pageObjectUtils.assertNotNullSync({});
+			pageObjectUtils.assertNotNullSync(10);
+		});
+
+		it('fails on unexpected values', function () {
+			expect(function () {
+				pageObjectUtils.assertNotNullSync(null);
+			}).toThrow(new Error('AssertionError for PageObject: Expected non-null value, but was null.'))
+		});
+	});
+
+	describe('assertEqualsSync()', function () {
+		it('passes expected values', function () {
+			pageObjectUtils.assertEqualsSync('Ex', 'Ex');
+		});
+
+		it('passes expected object values', function () {
+			pageObjectUtils.assertEqualsSync({x:10}, {x:10});
+		});
+
+		it('fails on unexpected values', function () {
+			expect(function () {
+				pageObjectUtils.assertEqualsSync('Val', 'Ex', 'Error message');
+			}).toThrow(new Error('AssertionError for PageObject: Error message'))
+		});
+
+		it('fails on unexpected values with default message', function () {
+			expect(function () {
+				pageObjectUtils.assertEqualsSync('Val', 'Ex');
+			}).toThrow(new Error('AssertionError for PageObject: Expected "Ex", but was "Val".'))
+		});
+	});
+
+	describe('assertEquals()', function () {
+		it('has assert as alias', function () {
+			expect(pageObjectUtils.assertEquals).toBe(pageObjectUtils.assert);
+		})
 		it('passes expected values', function (done) {
-			var promiseWithExpectedValue = Promise.resolve('Expected value');
-			var assertPromise = pageObjectUtils.assert(promiseWithExpectedValue, 'Expected value', 'Error message');
+			var promiseWithExpectedValue = Promise.resolve('Ex');
+			var assertPromise = pageObjectUtils.assertEquals(promiseWithExpectedValue, 'Ex', 'Error message');
 
 			testUtils.expectPromiseToBeResolved(assertPromise, done);
 		});
 
 		it('fails on unexpected values', function (done) {
-			var promiseWithUnexpectedValue = Promise.resolve('Unexpected value');
-			var assertPromise = pageObjectUtils.assert(promiseWithUnexpectedValue, 'Expected value', 'Error message');
-			testUtils.expectPromiseFail(assertPromise, done);
+			var promiseWithUnexpectedValue = Promise.resolve('Val');
+			var assertPromise = pageObjectUtils.assertEquals(promiseWithUnexpectedValue, 'Ex', 'Error message');
+			testUtils.expectPromiseFail(assertPromise, done, new Error('AssertionError for PageObject: Error message'));
+		});
+
+		it('fails on unexpected values with default message', function (done) {
+			var promiseWithUnexpectedValue = Promise.resolve('Val');
+			var assertPromise = pageObjectUtils.assertEquals(promiseWithUnexpectedValue, 'Ex');
+			testUtils.expectPromiseFail(assertPromise, done, new Error('AssertionError for PageObject: Expected "Ex", but was "Val".'));
 		});
 	});
-
 
 	describe('clickIfPresent()', function () {
 

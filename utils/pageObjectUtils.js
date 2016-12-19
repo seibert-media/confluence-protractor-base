@@ -33,14 +33,35 @@ function resolveAttributes(promise, attributeList) {
 	});
 }
 
+var ASSERTION_ERROR = 'AssertionError for PageObject: ';
+
+function defaultEqualsFailMessage(value, expected) {
+	return 'Expected ' + JSON.stringify(expected) + ', but was ' + JSON.stringify(value) + '.';
+}
+
 var pageObjectUtils = {
 	DEFAULT_ELEMENT_TIMEOUT: DEFAULT_ELEMENT_TIMEOUT,
 	DEFAULT_LOADING_TIMEOUT: DEFAULT_LOADING_TIMEOUT,
-	assert: function (promise, expectedValue, message) {
-		return promise.then(function (value) {
-			if (value != expectedValue) {
-				throw new Error('AssertionError for PageObject: ' + message);
-			}
+	assertNotNullSync: function (value, message) {
+		if (value == null) {
+			message = message || 'Expected non-null value, but was ' + JSON.stringify(value) + '.'
+			throw new Error(ASSERTION_ERROR + message);
+		}
+	},
+	assertNotNull: function (valuePromise, message) {
+		return valuePromise.then(function (value) {
+			pageObjectUtils.assertNotNullSync(value, message);
+		});
+	},
+	assertEqualsSync: function (value, expectedValue, message) {
+		if (!jasmine.matchersUtil.equals(value, expectedValue)) {
+			message = message || defaultEqualsFailMessage(value, expectedValue);
+			throw new Error(ASSERTION_ERROR + message);
+		}
+	},
+	assertEquals: function (valuePromise, expectedValue, message) {
+		return valuePromise.then(function (value) {
+			pageObjectUtils.assertEqualsSync(value, expectedValue, message);
 		});
 	},
 	logPromise: function (promise) {
@@ -150,6 +171,9 @@ var pageObjectUtils = {
 		});
 	}
 };
+
+// alias
+pageObjectUtils.assert = pageObjectUtils.assertEquals;
 
 Object.defineProperty(pageObjectUtils.asyncElement, 'all', {
 	get: function () {

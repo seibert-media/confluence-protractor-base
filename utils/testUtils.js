@@ -11,16 +11,17 @@ var testUtils = {
 		});
 	},
 
-	expectPromiseFail: function (promise, done, message) {
+	expectPromiseFail: function (promise, done, expectedError) {
 		if (!done instanceof Function) {
 			throw new Error('jasmine done() callback missing')
 		}
 
-		message = message || 'Expected assert to fail';
-
 		promise.then(function (value) {
-			done.fail(message + ' // value: ' + value);
-		}).catch(function () {
+			done.fail('Expected assert to fail // value: ' + value);
+		}).catch(function (error) {
+			if (expectedError && !jasmine.matchersUtil.equals(error, expectedError)) {
+				done.fail('Expected ' + expectedError + ', but was ' + error + '.');
+			}
 			done();
 		});
 	},
