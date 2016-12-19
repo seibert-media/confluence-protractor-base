@@ -67,14 +67,20 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		element(by.css('.aui-popup .create-dialog-create-button')).click();
 
 
+		var createButtonSelector = '.create-dialog-create-button';
 
 		// set space name
 		element(by.name('name')).sendKeys(spaceName).sendKeys('\t');
 
+		// wait for create button before setting a space ckey
+		waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
 		element(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
 
-		var createSpacePromise = waitForElementToBeClickable(findFirstDisplayed(by.css('.create-dialog-create-button'))).click();
+		// wait for create button again before click
+		var createButton = waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
+		browser.wait(createButton.click());
 
+		// wait for new space home to be loadedM
 		browser.wait(EC.urlContains(spaceHome()), DEFAULT_LOADING_TIMEOUT);
 
 		// wait some time until space is updated
