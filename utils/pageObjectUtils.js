@@ -123,10 +123,14 @@ var pageObjectUtils = {
 			'hostname',
 			'port',
 			'pathname',
-			'path',
 			'search',
-			'hash'
-		])
+			'hash',
+
+			// non-standard
+			'path',
+			'pathWithSearch',
+			'pathWithSearchAndHash',
+		]);
 
 		return locationPromise;
 	},
@@ -135,6 +139,8 @@ var pageObjectUtils = {
 
 		// path without leading / to be consistent with openPage()
 		location.path = location.pathname.slice(1);
+		location.pathWithSearch = location.path + location.search;
+		location.pathWithSearchAndHash = location.path + location.search + location.hash;
 
 		return location;
 	},

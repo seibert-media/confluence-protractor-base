@@ -128,11 +128,6 @@ describe('pageObjectUtils', function() {
 			expect(location.pathname).toBe('/login.action');
 		});
 
-
-		it('extracts the "path" (non-standard) from url', function () {
-			expect(location.path).toBe('login.action');
-		});
-
 		it('extracts the "search" from url', function () {
 			expect(location.search).toBe('?permissionViolation=true');
 		});
@@ -140,5 +135,19 @@ describe('pageObjectUtils', function() {
 		it('extracts the "hash" from url', function () {
 			expect(location.hash).toBe('#someHash');
 		});
+
+		describe('non stardard helper attributes', function () {
+			it('extracts the "path" (non-standard) from url', function () {
+				expect(location.path).toBe('login.action');
+			});
+
+			it('extracts the "pathWithSearch" (non-standard) from url', function () {
+				expect(location.pathWithSearch).toBe('login.action?permissionViolation=true');
+			});
+
+			it('extracts the "pathWithSearchAndHash" (non-standard) from url', function () {
+				expect(location.pathWithSearchAndHash).toBe('login.action?permissionViolation=true#someHash');
+			});
+		})
 	})
 });
