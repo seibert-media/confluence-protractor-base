@@ -22,9 +22,5 @@ exports.config = {
 		var screenshotReporter = require('./jasmineReporters/screenshotReporter');
 		jasmineEnv.addReporter(screenshotReporter);
 
-		var customMatchers = require('./jasmineMatchers/customMatchers');
-		jasmineEnv.beforeEach(function() {
-			jasmine.addMatchers(customMatchers);
-		});
 	}
 };
