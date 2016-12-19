@@ -9,7 +9,7 @@ describe('pageObjectUtils', function() {
 		browser.get('data:,');
 	});
 
-	fdescribe('assertNotNullSync()', function () {
+	describe('assertNotNullSync()', function () {
 		it('passes not null values', function () {
 			pageObjectUtils.assertNotNullSync('');
 			pageObjectUtils.assertNotNullSync({});
