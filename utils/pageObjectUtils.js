@@ -8,6 +8,7 @@ var generateScreenshotName = (function () {
 var fs = require('fs');
 var screenshotPath = 'screenshots/'
 
+var parseUrl = require('url').parse;
 
 function EC() {
 	return protractor.ExpectedConditions;
@@ -15,6 +16,22 @@ function EC() {
 
 var DEFAULT_ELEMENT_TIMEOUT = 2000;
 var DEFAULT_LOADING_TIMEOUT = 10000;
+
+function resolveAttribute(promise, attributeName) {
+	var attributPromise = promise.then(function (object) {
+		return object[attributeName];
+	});
+
+	promise[attributeName] = attributPromise;
+
+	return attributPromise;
+}
+
+function resolveAttributes(promise, attributeList) {
+	attributeList.forEach(function (attributeName) {
+		resolveAttribute(promise, attributeName);
+	});
+}
 
 var pageObjectUtils = {
 	DEFAULT_ELEMENT_TIMEOUT: DEFAULT_ELEMENT_TIMEOUT,
@@ -80,22 +97,51 @@ var pageObjectUtils = {
 		if (path.startsWith('/')) {
 			throw new Error('openPage need a path without a leading / (path: ' + path + ')');
 		}
-		return pageObjectUtils.getCurrentPath().then(function (currentPath) {
-			if (currentPath !== path) {
-				return browser.get(path);
-			} else {
+
+		var newLocation = pageObjectUtils.locationFromUrl(browser.baseUrl + path);
+
+		return pageObjectUtils.getLocation().then(function (currentLocation) {
+			if (newLocation.pathname === currentLocation.pathname) {
+
 				console.log('Page is already opened: ' + path);
+			} else {
+				return browser.get(path);
 			}
 
 		});
 	},
-	stripUrlToPath: function (url) {
-		return url.replace(browser.baseUrl, '').replace(/\?.*/, '');
+	getLocation: function () {
+		var locationPromise = browser.getCurrentUrl().then(function (url) {
+			return pageObjectUtils.locationFromUrl(url);
+		});
+
+		// wrap attributes as promises
+		resolveAttributes(locationPromise, [
+			'href',
+			'protocol',
+			'host',
+			'hostname',
+			'port',
+			'pathname',
+			'path',
+			'search',
+			'hash'
+		])
+
+		return locationPromise;
+	},
+	locationFromUrl: function (url) {
+		var location = parseUrl(url);
+
+		// path without leading / to be consistent with openPage()
+		location.path = location.pathname.slice(1);
+
+		return location;
 	},
 	getCurrentPath: function () {
-		return browser.getCurrentUrl().then(function (url) {
-			return pageObjectUtils.stripUrlToPath(url)
-		})
+		return pageObjectUtils.getLocation().then(function (location) {
+			return location.path;
+		});
 	}
 };
 

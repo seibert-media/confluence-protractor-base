@@ -9,8 +9,9 @@ function ConfluenceBase() {
 	this.openAdminPage = function (path) {
 		path = path || 'admin';
 		openPage(path);
-		pageObjectUtils.getCurrentPath().then(function (url) {
-			if (url.endsWith('authenticate.action') || url.endsWith('login.action')) {
+
+		pageObjectUtils.getCurrentPath().then(function (currentPath) {
+			if (currentPath === 'authenticate.action' || currentPath === 'login.action') {
 				self.authenticateAsAdmin();
 				openPage(path);
 			}

@@ -92,6 +92,53 @@ describe('pageObjectUtils', function() {
 			expect(testElement.isPresent()).toBe(true);
 		});
 
-
 	});
+
+	describe('urlToLocation()', function () {
+		var testUrl = 'login.action?permissionViolation=true#someHash';
+		var location;
+
+		beforeEach(function () {
+			pageObjectUtils.openPage(testUrl);
+
+			location = pageObjectUtils.getLocation()
+		});
+
+		it('extracts the "href "from url', function () {
+			expect(location.href).toEqual('http://localhost:8090/login.action?permissionViolation=true#someHash');
+		});
+
+		it('extracts the "protocol" from url', function () {
+			expect(location.protocol).toBe('http:');
+		});
+
+		it('extracts the "host" from url', function () {
+			expect(location.host).toBe('localhost:8090');
+		});
+
+		it('extracts the "hostname" from url', function () {
+			expect(location.hostname).toBe('localhost');
+		});
+
+		it('extracts the "port" from url', function () {
+			expect(location.port).toBe('8090');
+		});
+
+		it('extracts the "pathname" from url', function () {
+			expect(location.pathname).toBe('/login.action');
+		});
+
+
+		it('extracts the "path" (non-standard) from url', function () {
+			expect(location.path).toBe('login.action');
+		});
+
+		it('extracts the "search" from url', function () {
+			expect(location.search).toBe('?permissionViolation=true');
+		});
+
+		it('extracts the "hash" from url', function () {
+			expect(location.hash).toBe('#someHash');
+		});
+	})
 });
