@@ -1,12 +1,14 @@
 var ConfluenceBase = require('./ConfluenceBase');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 
-var asyncElement = pageObjectUtils.asyncElement;
-var findFirstDisplayed = pageObjectUtils.findFirstDisplayed;
+// page object utils imports
 var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
-var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
+var assert = pageObjectUtils.assert;
+var clickIfPresent = pageObjectUtils.clickIfPresent;
+var element = pageObjectUtils.asyncElement;
+var findFirstDisplayed = pageObjectUtils.findFirstDisplayed;
 var openPage = pageObjectUtils.openPage;
-
+var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 
 var blankSpaceSelector = '[data-item-module-complete-key="com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blank-space-item"]';
 var extranetSpaceSelector = '[data-blueprint-module-complete-key="net.seibertmedia.extranet.core:extranet-space-blueprint"]';
@@ -25,7 +27,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 	function spaceEntry() {
 		checkSpaceKey();
 		self.openSpaceDirectory();
-		return asyncElement(by.css('[data-spacekey="' + spaceKey + '"]'));
+		return element(by.css('[data-spacekey="' + spaceKey + '"]'));
 	}
 
 	function spaceHome() {
@@ -52,23 +54,24 @@ function ConfluenceSpace(spaceKey, spaceName) {
 	this.create = function () {
 		this.openSpaceDirectory();
 
-		var createSpaceButton = asyncElement(by.id('addSpaceLink'));
+		var createSpaceButton = element(by.id('addSpaceLink'));
 		createSpaceButton.click();
 
-		var createSpaceFirstTime = asyncElement(by.css('.start-creating-space'));
+		var createSpaceFirstTime = element(by.css('.start-creating-space'));
 		pageObjectUtils.clickIfPresent(createSpaceFirstTime);
 
 		// select space template
-		asyncElement(by.css(blankSpaceSelector)).click();
+		element(by.css(blankSpaceSelector)).click();
 
 		// create button
-		asyncElement(by.css('.aui-popup .create-dialog-create-button')).click();
+		element(by.css('.aui-popup .create-dialog-create-button')).click();
+
 
 
 		// set space name
-		asyncElement(by.name('name')).sendKeys(spaceName).sendKeys('\t');
+		element(by.name('name')).sendKeys(spaceName).sendKeys('\t');
 
-		asyncElement(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
+		element(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
 
 		var createSpacePromise = waitForElementToBeClickable(findFirstDisplayed(by.css('.create-dialog-create-button'))).click();
 
@@ -83,7 +86,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 
 		openPage('spaces/removespace.action?key=' + spaceKey);
 
-		asyncElement(by.id('confirm')).click();
+		clickIfPresent(element(by.id('confirm')));
 
 		// check and wait for plugin name
 		var percentComplete = element(by.id('percentComplete'));
