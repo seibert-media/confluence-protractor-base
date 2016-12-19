@@ -1,3 +1,4 @@
+var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
@@ -5,12 +6,24 @@ var openPage = pageObjectUtils.openPage;
 var element = pageObjectUtils.asyncElement;
 
 function ConfluenceLogin() {
-	this.confluenceConfig = require("../loadConfluenceConfig");
-
 	var self = this;
 
+	this.confluenceConfig = require("../loadConfluenceConfig");
+
+	this.actions = {
+		login: new ConfluenceAction({
+			path: 'login.action'
+		}),
+		logout: new ConfluenceAction({
+			path: 'logout.action'
+		}),
+		authenticate: new ConfluenceAction({
+			path: 'authenticate.action'
+		}),
+	}
+
 	this.login = function (username, password) {
-		openPage('login.action');
+		self.actions.login.open();
 
 		this.currentUsername().then(function (currentUsername) {
 			if (username === currentUsername) {
@@ -21,8 +34,8 @@ function ConfluenceLogin() {
 			if (currentUsername !== '') {
 				console.log('Logged in with wrong user (' + currentUsername + '). Switch to: ' + username);
 				// logout if logged in with wrong user
-				self.logout();
-				openPage('login.action');
+				self.actions.logout.open();
+				self.actions.login.open();
 			}
 
 			element(by.name('os_username')).sendKeys(username);
@@ -57,7 +70,7 @@ function ConfluenceLogin() {
 		this.loginAsAdmin();
 
 		// authenticate
-		openPage('authenticate.action');
+		self.actions.authenticate.open();
 
 		element(by.name('password')).sendKeys(this.confluenceConfig().USERS.ADMIN.PASSWORD);
 		element(by.name('authenticate')).click();
@@ -70,7 +83,7 @@ function ConfluenceLogin() {
 	};
 
 	this.logout = function () {
-		openPage('logout.action');
+		self.actions.logout.open();
 	};
 
 	this.skipWelcomeProcedure = function () {
