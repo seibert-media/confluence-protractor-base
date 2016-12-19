@@ -99,4 +99,11 @@ var pageObjectUtils = {
 	}
 };
 
+Object.defineProperty(pageObjectUtils.asyncElement, 'all', {
+	get: function () {
+		return (element || {}).all
+	}
+});
+
+
 module.exports = pageObjectUtils;
