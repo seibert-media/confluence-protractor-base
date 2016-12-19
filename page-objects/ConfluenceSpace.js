@@ -1,4 +1,5 @@
 var ConfluenceBase = require('./ConfluenceBase');
+var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 
 // page object utils imports
@@ -19,40 +20,38 @@ function ConfluenceSpace(spaceKey, spaceName) {
 
 	spaceName = spaceName || spaceKey;
 
-	function checkSpaceKey() {
-		if (!spaceKey) {
-			throw new Error('No spaceKey set');
-		}
-	}
+	pageObjectUtils.assertNotNull(spaceKey, 'First param "spaceKey" must be set');
+
 	function spaceEntry() {
-		checkSpaceKey();
-		self.openSpaceDirectory();
+		self.actions.spaceDirectory.open();
 		return element(by.css('[data-spacekey="' + spaceKey + '"]'));
 	}
 
-	function spaceHome() {
-		checkSpaceKey();
-		return 'display/' + spaceKey;
-	}
-
 	this.assertSpaceExists = function () {
-		checkSpaceKey();
 		var currentSpaceEntry = spaceEntry();
 		pageObjectUtils.assert(currentSpaceEntry.isPresent(), true, 'Space NOT in space directory. spaceKey: ' + spaceKey);
 	};
 
 	this.assertSpaceExistsNot = function () {
-		checkSpaceKey();
 		var currentSpaceEntry = spaceEntry();
 		pageObjectUtils.assert(currentSpaceEntry.isPresent(), false, 'Unexpected space in space directory. spaceKey: ' + spaceKey);
 	};
 
-	this.openSpaceDirectory = function() {
-		openPage('spacedirectory/view.action');
-	};
+
+	this.actions = {
+		spaceDirectory: new ConfluenceAction({
+			path: 'spacedirectory/view.action'
+		}),
+		spaceHome: new ConfluenceAction({
+			path: 'display/' + spaceKey
+		}),
+		removeSpace: new ConfluenceAction({
+			path: 'spaces/removespace.action?key=' + spaceKey
+		})
+	}
 
 	this.create = function () {
-		this.openSpaceDirectory();
+		self.actions.spaceDirectory.open();
 
 		var createSpaceButton = element(by.id('addSpaceLink'));
 		createSpaceButton.click();
@@ -65,7 +64,6 @@ function ConfluenceSpace(spaceKey, spaceName) {
 
 		// create button
 		element(by.css('.aui-popup .create-dialog-create-button')).click();
-
 
 		var createButtonSelector = '.create-dialog-create-button';
 
@@ -80,17 +78,15 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		var createButton = waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
 		browser.wait(createButton.click());
 
-		// wait for new space home to be loadedM
-		browser.wait(EC.urlContains(spaceHome()), DEFAULT_LOADING_TIMEOUT);
+		// wait for new space home to be loaded
+		browser.wait(EC.urlContains(self.actions.spaceHome.path), DEFAULT_LOADING_TIMEOUT);
 
 		// wait some time until space is updated
-		browser.sleep(DEFAULT_LOADING_TIMEOUT);
+		browser.sleep(DEFAULT_LOADING_TIMEOUT / 2);
 	};
 
 	this.remove = function () {
-		checkSpaceKey();
-
-		openPage('spaces/removespace.action?key=' + spaceKey);
+		this.actions.removeSpace.open();
 
 		clickIfPresent(element(by.id('confirm')));
 
@@ -102,7 +98,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			});
 		}, DEFAULT_LOADING_TIMEOUT);
 
-		openPage(spaceHome());
+		self.actions.spaceHome.open();
 
 		pageObjectUtils.assert(browser.getTitle(), 'Page Not Found - Confluence', 'Expected page not found after remove');
 	};

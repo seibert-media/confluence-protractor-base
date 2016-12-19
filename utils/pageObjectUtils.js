@@ -33,36 +33,46 @@ function resolveAttributes(promise, attributeList) {
 	});
 }
 
-var ASSERTION_ERROR = 'AssertionError for PageObject: ';
-
-function defaultEqualsFailMessage(value, expected) {
-	return 'Expected ' + JSON.stringify(expected) + ', but was ' + JSON.stringify(value) + '.';
+var assertUtils = {
+	ASSERTION_ERROR: 'AssertionError for PageObject: ',
+	defaultEqualsFailMessage: function (value, expected) {
+		return 'Expected ' + JSON.stringify(expected) + ', but was ' + JSON.stringify(value) + '.';
+	},
+	assertNotNullSync: function (value, message) {
+		if (value == null) {
+			message = message || 'Expected non-null value, but was ' + JSON.stringify(value) + '.'
+			throw new Error(assertUtils.ASSERTION_ERROR + message);
+		}
+	},
+	assertEqualsSync: function (value, expectedValue, message) {
+		if (!jasmine.matchersUtil.equals(value, expectedValue)) {
+			message = message || assertUtils.defaultEqualsFailMessage(value, expectedValue);
+			throw new Error(assertUtils.ASSERTION_ERROR + message);
+		}
+	},
 }
 
 var pageObjectUtils = {
 	DEFAULT_ELEMENT_TIMEOUT: DEFAULT_ELEMENT_TIMEOUT,
 	DEFAULT_LOADING_TIMEOUT: DEFAULT_LOADING_TIMEOUT,
-	assertNotNullSync: function (value, message) {
-		if (value == null) {
-			message = message || 'Expected non-null value, but was ' + JSON.stringify(value) + '.'
-			throw new Error(ASSERTION_ERROR + message);
+	assertNotNull: function (value, message) {
+		if (value && value.then) {
+			return value.then(function (value) {
+				assertUtils.assertNotNullSync(value, message);
+			});
+		} else {
+			assertUtils.assertNotNullSync(value, message);
 		}
 	},
-	assertNotNull: function (valuePromise, message) {
-		return valuePromise.then(function (value) {
-			pageObjectUtils.assertNotNullSync(value, message);
-		});
-	},
-	assertEqualsSync: function (value, expectedValue, message) {
-		if (!jasmine.matchersUtil.equals(value, expectedValue)) {
-			message = message || defaultEqualsFailMessage(value, expectedValue);
-			throw new Error(ASSERTION_ERROR + message);
+	assertEquals: function (value, expectedValue, message) {
+		if (value && value.then) {
+			return value.then(function (value) {
+				assertUtils.assertEqualsSync(value, expectedValue, message);
+			});
+		} else {
+			assertUtils.assertEqualsSync(value, expectedValue, message);
 		}
-	},
-	assertEquals: function (valuePromise, expectedValue, message) {
-		return valuePromise.then(function (value) {
-			pageObjectUtils.assertEqualsSync(value, expectedValue, message);
-		});
+
 	},
 	logPromise: function (promise) {
 		return promise.then(function (value) {
