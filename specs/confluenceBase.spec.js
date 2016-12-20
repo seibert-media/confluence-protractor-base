@@ -16,6 +16,7 @@ describe('ConfluenceBase (page object)', function() {
 	describe('confluence version caching for sync access', function () {
 		beforeEach(function () {
 			spyOn(confluenceBase, 'getParamFromAJS').and.callThrough();
+			confluenceBase.resetConflunceVersion();
 		});
 
 		it('has not called getParamForAJS', function () {
@@ -24,18 +25,18 @@ describe('ConfluenceBase (page object)', function() {
 
 		it('throws in error if confluenceVersionSync() is called without caching', function () {
 			expect(function () {
-				confluenceBase.confluenceVersionSync();
-			}).toThrow(new Error('Param confluenceVersion not yet set. Can only be called after a async call caches the value.'))
+				confluenceBase.confluenceVersion();
+			}).toThrow(new Error('No confluenceVersion is loaded. Use loadConfluenceVersion in a setup function (onPrepare)'));
 		});
 
 		it('calls getParamForAJS when loading confluence version', function () {
-			expect(confluenceBase.confluenceVersion()).toBeDefined();
+			expect(confluenceBase.loadConfluenceVersion()).toBeDefined();
 			expect(confluenceBase.getParamFromAJS).toHaveBeenCalledWith('versionNumber');
 		});
 
 		it('caches the value after async method is resolved', function (done) {
-			confluenceBase.confluenceVersion().then(function (confluenceVersionAsyncResult) {
-				var confluenceVersion = confluenceBase.confluenceVersionSync();
+			confluenceBase.loadConfluenceVersion().then(function (confluenceVersionAsyncResult) {
+				var confluenceVersion = confluenceBase.confluenceVersion();
 				expect(confluenceVersion).toBeDefined();
 				expect(confluenceVersion).toEqual(confluenceVersionAsyncResult);
 				done();

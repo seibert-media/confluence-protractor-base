@@ -10,8 +10,6 @@ var element = pageObjectUtils.asyncElement;
 function ConfluenceLogin() {
 	var self = this;
 
-	var confluenceVersion;
-
 	this.confluenceConfig = require("../loadConfluenceConfig");
 
 	function testUser() {
@@ -98,24 +96,6 @@ function ConfluenceLogin() {
 
 	this.currentUsername = function () {
 		return this.getParamFromAJS('remoteUser', '');
-	};
-
-	this.confluenceVersion = function () {
-		if (confluenceVersion) {
-			return Promise.resolve(confluenceVersion);
-		}
-
-		return this.getParamFromAJS('versionNumber').then(function(version) {
-			confluenceVersion = Version.parse(version);
-			return confluenceVersion;
-		});
-	};
-
-	this.confluenceVersionSync = function () {
-		if (!confluenceVersion) {
-			throw new Error('Param confluenceVersion not yet set. Can only be called after a async call caches the value.')
-		}
-		return confluenceVersion;
 	};
 
 	this.getParamFromAJS = function (paramName, defaultValue) {

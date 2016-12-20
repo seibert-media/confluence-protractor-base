@@ -36,13 +36,16 @@ Version.compare = function (versionA, versionB) {
 };
 
 
-Version.parse = function (versionString) {
-	var versionSplit = versionString.split('.');
+Version.parse = function (version) {
+	if (version instanceof Version) {
+		return new Version(version.version, version.major, version.minor, version.patch);
+	}
+	var versionSplit = version.split('.');
 	var major = checkNumberStringAndDefault(versionSplit[0]);
 	var minor = checkNumberStringAndDefault(versionSplit[1]);
 	var patch = checkNumberStringAndDefault(versionSplit[2]);
 
-	return new Version(versionString, major, minor, patch);
+	return new Version(version, major, minor, patch);
 };
 
 module.exports = Version;
