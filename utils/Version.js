@@ -7,7 +7,27 @@ function Version(version, major, minor, patch) {
 
 Version.prototype.toString = function () {
 	return this.version;
-}
+};
+
+Version.prototype.equals = function (otherVersion) {
+	return Version.compare(this, otherVersion) === 0;
+};
+
+Version.prototype.lessThan = function (otherVersion) {
+	return Version.compare(this, otherVersion) < 0;
+};
+
+Version.prototype.lessThanEquals = function (otherVersion) {
+	return Version.compare(this, otherVersion) <= 0;
+};
+
+Version.prototype.greaterThan = function (otherVersion) {
+	return Version.compare(this, otherVersion) > 0;
+};
+
+Version.prototype.greaterThanEquals = function (otherVersion) {
+	return Version.compare(this, otherVersion) >= 0;
+};
 
 function checkNumberStringAndDefault(versionPart) {
 	if (!versionPart) {
@@ -20,6 +40,9 @@ function checkNumberStringAndDefault(versionPart) {
 }
 
 Version.compare = function (versionA, versionB) {
+	versionA = Version.parse(versionA);
+	versionB = Version.parse(versionB);
+
 	var majorCompare = versionA.major - versionB.major;
 	var minorCompare = versionA.minor - versionB.minor;
 	var patchCompare = versionA.patch - versionB.patch;
