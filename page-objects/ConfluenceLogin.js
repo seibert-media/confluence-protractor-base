@@ -10,6 +10,14 @@ function ConfluenceLogin() {
 
 	this.confluenceConfig = require("../loadConfluenceConfig");
 
+	function testUser() {
+		return self.confluenceConfig().USERS.TEST_USER;
+	}
+
+	function admin() {
+		return self.confluenceConfig().USERS.ADMIN;
+	}
+
 	this.actions = {
 		login: new ConfluenceAction({
 			path: 'login.action'
@@ -23,7 +31,8 @@ function ConfluenceLogin() {
 	}
 
 	this.login = function (username, password) {
-		self.actions.login.open();
+		username = username || testUser().USERNAME;
+		password = password || testUser().PASSWORD;
 
 		this.currentUsername().then(function (currentUsername) {
 			if (username === currentUsername) {
@@ -35,8 +44,9 @@ function ConfluenceLogin() {
 				console.log('Logged in with wrong user (' + currentUsername + '). Switch to: ' + username);
 				// logout if logged in with wrong user
 				self.actions.logout.open();
-				self.actions.login.open();
 			}
+
+			self.actions.login.open();
 
 			element(by.name('os_username')).sendKeys(username);
 			element(by.name('os_password')).sendKeys(password);
@@ -62,22 +72,31 @@ function ConfluenceLogin() {
 		});
 	};
 
+	this.authenticate = function (password) {
+		password = password || testUser().PASSWORD;
+
+		// authenticate
+		self.actions.authenticate.open();
+
+		element(by.name('password')).sendKeys(password);
+		element(by.name('authenticate')).click();
+	};
+
 	this.loginAsAdmin = function () {
-		this.login(this.confluenceConfig().USERS.ADMIN.USERNAME, this.confluenceConfig().USERS.ADMIN.PASSWORD);
+		this.login(admin().USERNAME, admin().PASSWORD);
 	};
 
 	this.authenticateAsAdmin = function () {
 		this.loginAsAdmin();
 
-		// authenticate
-		self.actions.authenticate.open();
-
-		element(by.name('password')).sendKeys(this.confluenceConfig().USERS.ADMIN.PASSWORD);
-		element(by.name('authenticate')).click();
+		this.authenticate(admin().PASSWORD)
 	};
 
 	this.currentUsername = function () {
 		return browser.executeScript(function () {
+			if (!window.AJS || !window.AJS.params) {
+				return '';
+			}
 			return AJS.params.remoteUser;
 		});
 	};
