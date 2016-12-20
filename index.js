@@ -10,7 +10,8 @@ module.exports = {
 		UniversalPluginManager: require('./page-objects/UniversalPluginManager')
 	},
 	utils: {
-		pageObjectUtils: require('./utils/pageObjectUtils')
+		pageObjectUtils: require('./utils/pageObjectUtils'),
+		confluenceSpaceTestUtils: require('./utils/confluenceSpaceTestUtils')
 	},
 	jasmineReporters: {
 		screenshotReporter: require('./jasmineReporters/screenshotReporter')
