@@ -47,8 +47,44 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		}),
 		removeSpace: new ConfluenceAction({
 			path: 'spaces/removespace.action?key=' + spaceKey
-		})
-	}
+		}),
+		spaceOverview: new ConfluenceAction({
+			path: 'spaces/viewspacesummary.action?key=' + spaceKey
+		}),
+		spacePermissions: (function () {
+			function getPermission(tablePrefix, permission, additionalSelector) {
+				var tableSelector = 'table#' + tablePrefix + 'PermissionsTable ';
+				var permissionSelector = '[data-permission="' + permission + '"]';
+
+				additionalSelector = additionalSelector || '';
+				var selector = tableSelector + permissionSelector + additionalSelector;
+				return element(by.css(selector)).getAttribute('data-permission-set');
+			}
+
+			var tablePrefixes = {
+				ANONYMOUS: 'a',
+				GROUP: 'g',
+				USER: 'u'
+			};
+
+			return new ConfluenceAction({
+				path: 'spaces/spacepermissions.action?key=' + spaceKey,
+				getGroupPermission: function (permisson, group) {
+					pageObjectUtils.assertNotNull(group, 'getGroupPermission needs a group parameter');
+					var additionalSelector = '[data-permission-group="' + group+ '"]';
+					return getPermission(tablePrefixes.GROUP, permisson, additionalSelector);
+				},
+				getAnonymousPermission: function (permisson) {
+					return getPermission(tablePrefixes.ANONYMOUS, permisson);
+				},
+				getUserPermission: function (permisson, user) {
+					pageObjectUtils.assertNotNull(user, 'getUserPermisson needs a user parameter');
+					var additionalSelector = '[data-permission-user="' + user + '"]';
+					return getPermission(tablePrefixes.USER, permisson, additionalSelector);
+				}
+			});
+		})()
+	};
 
 	this.create = function () {
 		self.actions.spaceDirectory.open();
