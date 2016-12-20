@@ -33,12 +33,18 @@ function testPermissions(spacePageObject, permissionsSet, permissionMethod, addi
 		var permitted = permissionsSet[permissionName];
 		var permittedText = permitted ? '' : 'NO ';
 
-
 		if (index === 0) {
 			screenshotReporter.enable()
 		}
 
+		var confluenceVersion = spacePageObject.confluenceVersion();
+
 		it('has ' + permittedText + '"' + permissionName + '" permission', function () {
+			if (permissionName === 'removeowncontent' && confluenceVersion.lessThan('5.10')) {
+				console.log('Ignore "removeowncontent" because version is < 5.10. Version: ' + confluenceVersion);
+				return;
+			}
+
 			expect(spacePermissionsAction[permissionMethod](permissionName, additionalPermissionParam)).toBe('' + permitted);
 		});
 	});
