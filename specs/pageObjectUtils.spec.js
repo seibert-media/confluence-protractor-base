@@ -2,7 +2,12 @@
 var testUtils = require('../utils/testUtils');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 
+var screenshotReporter = require('../jasmineReporters/screenshotReporter');
+
 describe('pageObjectUtils', function() {
+
+	beforeEach(screenshotReporter.disable);
+	afterAll(screenshotReporter.enable);
 
 	// switch to empty page
 	beforeAll(function () {

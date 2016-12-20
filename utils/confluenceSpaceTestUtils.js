@@ -1,3 +1,5 @@
+var screenshotReporter = require('../jasmineReporters/screenshotReporter');
+
 var confluenceSpaceTestUtils = {
 	testAnonymousPermissions: function (spacePermissionsAction, permissionsSet) {
 		testPermissions(spacePermissionsAction, permissionsSet, permissionMethods.ANONYMOUS);
@@ -24,13 +26,21 @@ function testPermissions(spacePageObject, permissionsSet, permissionMethod, addi
 		spacePermissionsAction.open();
 	});
 
-	Object.keys(permissionsSet).forEach(function (permissionName) {
+	beforeEach(screenshotReporter.disable);
+	afterAll(screenshotReporter.enable);
+
+	Object.keys(permissionsSet).forEach(function (permissionName, index) {
 		var permitted = permissionsSet[permissionName];
 		var permittedText = permitted ? '' : 'NO ';
 
+
+		if (index === 0) {
+			screenshotReporter.enable()
+		}
+
 		it('has ' + permittedText + '"' + permissionName + '" permission', function () {
 			expect(spacePermissionsAction[permissionMethod](permissionName, additionalPermissionParam)).toBe('' + permitted);
-		})
+		});
 	});
 }
 
