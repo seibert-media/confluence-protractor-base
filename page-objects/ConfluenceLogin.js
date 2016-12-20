@@ -1,5 +1,7 @@
 var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
+var Version = require('../utils/Version');
+
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var openPage = pageObjectUtils.openPage;
@@ -7,6 +9,8 @@ var element = pageObjectUtils.asyncElement;
 
 function ConfluenceLogin() {
 	var self = this;
+
+	var confluenceVersion;
 
 	this.confluenceConfig = require("../loadConfluenceConfig");
 
@@ -93,13 +97,37 @@ function ConfluenceLogin() {
 	};
 
 	this.currentUsername = function () {
-		return browser.executeScript(function () {
-			if (!window.AJS || !window.AJS.params) {
-				return '';
-			}
-			return AJS.params.remoteUser;
+		return this.getParamFromAJS('remoteUser', '');
+	};
+
+	this.confluenceVersion = function () {
+		if (confluenceVersion) {
+			return Promise.resolve(confluenceVersion);
+		}
+
+		return this.getParamFromAJS('versionNumber').then(function(version) {
+			confluenceVersion = Version.parse(version);
+			return confluenceVersion;
 		});
 	};
+
+	this.confluenceVersionSync = function () {
+		if (!confluenceVersion) {
+			throw new Error('Param confluenceVersion not yet set. Can only be called after a async call caches the value.')
+		}
+		return confluenceVersion;
+	};
+
+	this.getParamFromAJS = function (paramName, defaultValue) {
+		return browser.executeScript(function () {
+			if (!window.AJS || !window.AJS.params) {
+				return {};
+			}
+			return AJS.params;
+		}).then(function (params) {
+			return params[paramName] || defaultValue;
+		});
+	}
 
 	this.logout = function () {
 		self.actions.logout.open();

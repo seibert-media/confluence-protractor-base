@@ -5,6 +5,10 @@ function Version(version, major, minor, patch) {
 	this.patch = patch;
 }
 
+Version.prototype.toString = function () {
+	return this.version;
+}
+
 function checkNumberStringAndDefault(versionPart) {
 	if (!versionPart) {
 		return undefined;

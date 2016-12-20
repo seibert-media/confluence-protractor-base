@@ -11,7 +11,8 @@ module.exports = {
 	},
 	utils: {
 		pageObjectUtils: require('./utils/pageObjectUtils'),
-		confluenceSpaceTestUtils: require('./utils/confluenceSpaceTestUtils')
+		confluenceSpaceTestUtils: require('./utils/confluenceSpaceTestUtils'),
+		Version: require('./utils/Version')
 	},
 	jasmineReporters: {
 		screenshotReporter: require('./jasmineReporters/screenshotReporter')
