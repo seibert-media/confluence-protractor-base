@@ -9,7 +9,7 @@ function ConfluenceAction(options) {
 	var path = options.path;
 
 	this.open = function () {
-		pageObjectUtils.openPage(path);
+		return pageObjectUtils.openPage(path);
 	};
 
 	Object.keys(options).forEach(function (key) {
