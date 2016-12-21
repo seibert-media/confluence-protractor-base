@@ -4,15 +4,12 @@ var pageObjectUtils = require('../utils/pageObjectUtils');
 
 // page object utils imports
 var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
-var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var element = pageObjectUtils.asyncElement;
 var findFirstDisplayed = pageObjectUtils.findFirstDisplayed;
-var openPage = pageObjectUtils.openPage;
 var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 
-var blankSpaceSelector = '[data-item-module-complete-key="com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blank-space-item"]';
-var extranetSpaceSelector = '[data-blueprint-module-complete-key="net.seibertmedia.extranet.core:extranet-space-blueprint"]';
+var blackSpaceTemplateKey = 'com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blank-space-item';
 
 function ConfluenceSpace(spaceKey, spaceName) {
 	var self = this;
@@ -86,33 +83,51 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		})()
 	};
 
+	var createButtonSelector = '.create-dialog-create-button';
+
+	this.spaceWizard = {
+		open: function () {
+			self.actions.spaceDirectory.open();
+
+			var createSpaceButton = element(by.id('addSpaceLink'));
+			createSpaceButton.click();
+
+			var createSpaceFirstTime = element(by.css('.start-creating-space'));
+			return pageObjectUtils.clickIfPresent(createSpaceFirstTime);
+		},
+		selectTemplate: function (itemModuleCompleteKey) {
+			var templateSelector = '[data-item-module-complete-key="' + itemModuleCompleteKey + '"]';
+			element(by.css(templateSelector)).click();
+			element(by.css(createButtonSelector)).click();
+		},
+		waitForCreateButton: function () {
+			return waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
+		},
+		clickCreateButton: function () {
+			var createButton = this.waitForCreateButton();
+			createButton.click();
+		},
+		fillSpaceForm: function () {
+			// set space name
+			element(by.name('name')).sendKeys(spaceName).sendKeys('\t');
+
+			// wait for create button before setting a space ckey
+			this.waitForCreateButton();
+			return element(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
+		}
+	};
+
 	this.create = function () {
-		self.actions.spaceDirectory.open();
-
-		var createSpaceButton = element(by.id('addSpaceLink'));
-		createSpaceButton.click();
-
-		var createSpaceFirstTime = element(by.css('.start-creating-space'));
-		pageObjectUtils.clickIfPresent(createSpaceFirstTime);
+		this.spaceWizard.open();
 
 		// select space template
-		element(by.css(blankSpaceSelector)).click();
+		this.spaceWizard.selectTemplate(blackSpaceTemplateKey);
 
-		// create button
-		element(by.css('.aui-popup .create-dialog-create-button')).click();
-
-		var createButtonSelector = '.create-dialog-create-button';
-
-		// set space name
-		element(by.name('name')).sendKeys(spaceName).sendKeys('\t');
-
-		// wait for create button before setting a space ckey
-		waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
-		element(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
+		// fill form
+		this.spaceWizard.fillSpaceForm();
 
 		// wait for create button again before click
-		var createButton = waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
-		browser.wait(createButton.click());
+		this.spaceWizard.clickCreateButton();
 
 		// wait for new space home to be loaded
 		browser.wait(EC.urlContains(self.actions.spaceHome.path), DEFAULT_LOADING_TIMEOUT);
