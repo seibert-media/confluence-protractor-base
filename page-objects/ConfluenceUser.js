@@ -43,6 +43,13 @@ function ConfluenceUser(username, fullName, email, password) {
 		this.actions.removeUser.open();
 		element(by.id('confirm')).click();
 	};
+
+	this.hasGroup = function (groupName) {
+		this.actions.userAdminView.open();
+
+		var selector = '[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]';
+		return element(by.css(selector)).isPresent();
+	}
 }
 
 ConfluenceUser.prototype = new ConfluenceBase();

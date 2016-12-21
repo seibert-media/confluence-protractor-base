@@ -22,6 +22,16 @@ describe('ConfluenceUser (page object)', function() {
 		})
 	});
 
+	describe('created user', function () {
+		it('is in the group "confluence-users"', function () {
+			expect(user.hasGroup('confluence-users')).toBe(true);
+		});
+
+		it('is NOT in the group "not-existing-group"', function () {
+			expect(user.hasGroup('not-existing-group')).toBe(false);
+		});
+	});
+
 	describe('remove()', function () {
 		it('removes the user', function () {
 			user.remove();
