@@ -4,6 +4,8 @@ var pageObjectUtils = require('../utils/pageObjectUtils');
 
 // page object utils imports
 var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
+
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var element = pageObjectUtils.asyncElement;
 var findFirstDisplayed = pageObjectUtils.findFirstDisplayed;
@@ -100,19 +102,17 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			element(by.css(templateSelector)).click();
 			element(by.css(createButtonSelector)).click();
 		},
-		waitForCreateButton: function () {
-			return waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
-		},
 		clickCreateButton: function () {
-			var createButton = this.waitForCreateButton();
+			var createButton = waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
 			createButton.click();
 		},
 		fillSpaceForm: function () {
 			// set space name
 			element(by.name('name')).sendKeys(spaceName).sendKeys('\t');
 
-			// wait for create button before setting a space ckey
-			this.waitForCreateButton();
+			// wait for create button before setting a space key
+			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
+
 			return element(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
 		}
 	};
