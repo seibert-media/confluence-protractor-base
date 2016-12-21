@@ -49,8 +49,8 @@ var assertUtils = {
 			message = message || assertUtils.defaultEqualsFailMessage(value, expectedValue);
 			throw new Error(assertUtils.ASSERTION_ERROR + message);
 		}
-	},
-}
+	}
+};
 
 var pageObjectUtils = {
 	DEFAULT_ELEMENT_TIMEOUT: DEFAULT_ELEMENT_TIMEOUT,
