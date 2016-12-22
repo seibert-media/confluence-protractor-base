@@ -1,14 +1,14 @@
 var screenshotReporter = require('../jasmineReporters/screenshotReporter');
 
 var confluenceSpaceTestUtils = {
-	testAnonymousPermissions: function (spacePermissionsAction, permissionsSet) {
-		testPermissions(spacePermissionsAction, permissionsSet, permissionMethods.ANONYMOUS);
+	testAnonymousPermissions: function (spacePageObject, permissionsSet) {
+		testPermissions(spacePageObject, permissionsSet, permissionMethods.ANONYMOUS);
 	},
-	testGroupPermissions: function (spacePermissionsAction, permissionsSet, group) {
-		testPermissions(spacePermissionsAction, permissionsSet, permissionMethods.GROUP, group);
+	testGroupPermissions: function (spacePageObject, permissionsSet, group) {
+		testPermissions(spacePageObject, permissionsSet, permissionMethods.GROUP, group);
 	},
-	testUserPermissions: function (spacePermissionsAction, permissionsSet, user) {
-		testPermissions(spacePermissionsAction, permissionsSet, permissionMethods.USER, user);
+	testUserPermissions: function (spacePageObject, permissionsSet, user) {
+		testPermissions(spacePageObject, permissionsSet, permissionMethods.USER, user);
 	}
 };
 
