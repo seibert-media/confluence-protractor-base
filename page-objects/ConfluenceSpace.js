@@ -113,7 +113,9 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			// wait for create button before setting a space key
 			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
 
-			return element(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
+			element(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
+
+			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
 		}
 	};
 
