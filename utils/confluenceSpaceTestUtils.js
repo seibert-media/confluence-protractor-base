@@ -1,14 +1,14 @@
 var screenshotReporter = require('../jasmineReporters/screenshotReporter');
 
 var confluenceSpaceTestUtils = {
-	testAnonymousPermissions: function (spacePageObject, permissionsSet) {
-		testPermissions(spacePageObject, permissionsSet, permissionMethods.ANONYMOUS);
+	testAnonymousPermissions: function (spacePageObject, permissions) {
+		testPermissions(spacePageObject, permissions, permissionMethods.ANONYMOUS);
 	},
-	testGroupPermissions: function (spacePageObject, permissionsSet, group) {
-		testPermissions(spacePageObject, permissionsSet, permissionMethods.GROUP, group);
+	testGroupPermissions: function (spacePageObject, permissions, group) {
+		testPermissions(spacePageObject, permissions, permissionMethods.GROUP, group);
 	},
-	testUserPermissions: function (spacePageObject, permissionsSet, user) {
-		testPermissions(spacePageObject, permissionsSet, permissionMethods.USER, user);
+	testUserPermissions: function (spacePageObject, permissions, user) {
+		testPermissions(spacePageObject, permissions, permissionMethods.USER, user);
 	}
 };
 
@@ -18,9 +18,41 @@ var permissionMethods = {
 	USER: 'getUserPermission'
 };
 
-function testPermissions(spacePageObject, permissionsSet, permissionMethod, additionalPermissionParam) {
+function createPermissionMapFromList(permissionList) {
+	var allPermissions = {
+		'viewspace': false,
+		'removeowncontent': false,
+		'editspace': false,
+		'removepage': false,
+		'editblog': false,
+		'removeblog': false,
+		'createattachment': false,
+		'removeattachment': false,
+		'comment': false,
+		'removecomment': false,
+		'setpagepermissions': false,
+		'removemail': false,
+		'exportspace': false,
+		'setspacepermissions': false
+	};
+
+	permissionList.forEach(function (permissionName) {
+		if (allPermissions[permissionName]) {
+			throw new Error('Unknown permission: ' + permissionName);
+		}
+
+		allPermissions[permissionName] = true;
+	});
+
+	return allPermissions;
+}
+
+function testPermissions(spacePageObject, permissions, permissionMethod, additionalPermissionParam) {
 	var spacePermissionsAction = spacePageObject.actions.spacePermissions;
 
+	if (Array.isArray(permissions)) {
+		permissions = createPermissionMapFromList(permissions);
+	}
 
 	beforeEach(function () {
 		spacePermissionsAction.open();
@@ -29,8 +61,8 @@ function testPermissions(spacePageObject, permissionsSet, permissionMethod, addi
 	beforeEach(screenshotReporter.disable);
 	afterAll(screenshotReporter.enable);
 
-	Object.keys(permissionsSet).forEach(function (permissionName, index) {
-		var permitted = permissionsSet[permissionName];
+	Object.keys(permissions).forEach(function (permissionName, index) {
+		var permitted = permissions[permissionName];
 		var permittedText = permitted ? '' : 'NO ';
 
 		if (index === 0) {

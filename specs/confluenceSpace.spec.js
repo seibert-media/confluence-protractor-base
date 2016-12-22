@@ -22,7 +22,7 @@ describe('ConfluenceSpace (page object)', function() {
 
 	describe('spacePermissions', function () {
 		describe('for "confluence-users" group', function () {
-			var confluenceUsersPermissions = {
+			var confluenceUsersPermissionsAsMap = {
 				'viewspace': true,
 				'removeowncontent': true,
 				'editspace': true,
@@ -40,51 +40,48 @@ describe('ConfluenceSpace (page object)', function() {
 			};
 
 			var group = 'confluence-users';
-			confluenceSpaceTestUtils.testGroupPermissions(demonstrationSpace, confluenceUsersPermissions, group);
+			confluenceSpaceTestUtils.testGroupPermissions(demonstrationSpace, confluenceUsersPermissionsAsMap, group);
 		});
 
 		describe('for "confluence-administrators" group', function () {
-			var confluenceAdministratorsPermissions = {
-				'viewspace': true,
-				'removeowncontent': true,
-				'editspace': true,
-				'removepage': true,
-				'editblog': true,
-				'removeblog': true,
-				'createattachment': true,
-				'removeattachment': true,
-				'comment': true,
-				'removecomment': true,
-				'setpagepermissions': true,
-				'removemail': true,
-				'exportspace': true,
-				'setspacepermissions': true
-			};
+			var confluenceAdministratorsPermissionsAsList = [
+				'viewspace',
+				'removeowncontent',
+				'editspace',
+				'removepage',
+				'editblog',
+				'removeblog',
+				'createattachment',
+				'removeattachment',
+				'comment',
+				'removecomment',
+				'setpagepermissions',
+				'removemail',
+				'exportspace',
+				'setspacepermissions'
+			];
 
 			var group = 'confluence-administrators';
-			confluenceSpaceTestUtils.testGroupPermissions(demonstrationSpace, confluenceAdministratorsPermissions, group);
+			confluenceSpaceTestUtils.testGroupPermissions(demonstrationSpace, confluenceAdministratorsPermissionsAsList, group);
 		});
 
 		describe('anonymous user', function () {
+			var anonymousPermissionsAsList = [
+				'viewspace',
+				'removeowncontent',
+				'editspace',
+				'removepage',
+				'editblog',
+				'removeblog',
+				'createattachment',
+				'removeattachment',
+				'comment',
+				'removecomment',
+				'removemail',
+				'exportspace'
+			];
 
-			var anonymousPermissions = {
-				'viewspace': true,
-				'removeowncontent': true,
-				'editspace': true,
-				'removepage': true,
-				'editblog': true,
-				'removeblog': true,
-				'createattachment': true,
-				'removeattachment': true,
-				'comment': true,
-				'removecomment': true,
-				'setpagepermissions': false,
-				'removemail': true,
-				'exportspace': true,
-				'setspacepermissions': false
-			};
-
-			confluenceSpaceTestUtils.testAnonymousPermissions(demonstrationSpace, anonymousPermissions);
+			confluenceSpaceTestUtils.testAnonymousPermissions(demonstrationSpace, anonymousPermissionsAsList);
 		});
 	});
 
@@ -103,70 +100,48 @@ describe('ConfluenceSpace (page object)', function() {
 
 		describe('spacePermissions', function () {
 			describe('for "confluence-users" group', function () {
-				var confluenceUsersPermissions = {
-					'viewspace': true,
-					'removeowncontent': true,
-					'editspace': true,
-					'removepage': false,
-					'editblog': true,
-					'removeblog': false,
-					'createattachment': true,
-					'removeattachment': false,
-					'comment': true,
-					'removecomment': false,
-					'setpagepermissions': false,
-					'removemail': false,
-					'exportspace': true,
-					'setspacepermissions': false
-				};
+				var confluenceUsersPermissionsAsList = [
+					'viewspace',
+					'removeowncontent',
+					'editspace',
+					'editblog',
+					'createattachment',
+					'comment',
+					'exportspace'
+				];
 
 				var group = 'confluence-users';
-				confluenceSpaceTestUtils.testGroupPermissions(adarasTestSpace, confluenceUsersPermissions, group);
+				confluenceSpaceTestUtils.testGroupPermissions(adarasTestSpace, confluenceUsersPermissionsAsList, group);
 			});
 
 			describe('creator user permissions (Adara.Moss)', function () {
 
-				var creatorUserPermissions = {
-					'viewspace': true,
-					'removeowncontent': true,
-					'editspace': true,
-					'removepage': true,
-					'editblog': true,
-					'removeblog': true,
-					'createattachment': true,
-					'removeattachment': true,
-					'comment': true,
-					'removecomment': true,
-					'setpagepermissions': true,
-					'removemail': true,
-					'exportspace': true,
-					'setspacepermissions': true
-				};
+				var creatorUserPermissionsAsList = [
+					'viewspace',
+					'removeowncontent',
+					'editspace',
+					'removepage',
+					'editblog',
+					'removeblog',
+					'createattachment',
+					'removeattachment',
+					'comment',
+					'removecomment',
+					'setpagepermissions',
+					'removemail',
+					'exportspace',
+					'setspacepermissions'
+				];
 
 				var username = 'Adara.Moss';
-				confluenceSpaceTestUtils.testUserPermissions(adarasTestSpace, creatorUserPermissions, username);
+				confluenceSpaceTestUtils.testUserPermissions(adarasTestSpace, creatorUserPermissionsAsList, username);
 			});
 
 			describe('anonymous user', function () {
 
-				var anonymousPermissions = {
-					'viewspace': false,
-					'removeowncontent': false,
-					'editspace': false,
-					'removepage': false,
-					'editblog': false,
-					'removeblog': false,
-					'createattachment': false,
-					'removeattachment': false,
-					'comment': false,
-					'removecomment': false,
-					'setpagepermissions': false,
-					'removemail': false,
-					'exportspace': false,
-					'setspacepermissions': false
-				};
+				var anonymousPermissionsAsList = [];
 
-				confluenceSpaceTestUtils.testAnonymousPermissions(adarasTestSpace, anonymousPermissions);
+				confluenceSpaceTestUtils.testAnonymousPermissions(adarasTestSpace, anonymousPermissionsAsList);
 			});
 		});
 
