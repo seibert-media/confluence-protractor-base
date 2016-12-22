@@ -50,13 +50,21 @@ function UniversalPluginManager() {
 	};
 
 	this.parseMavenVersionFromPom = function () {
-		var mavenVersionOutput = require('child_process').execSync('mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate  -Dexpression=project.version -B', {
+			var mavenVersionOutput = require('child_process').execSync('atlas-mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate  -Dexpression=project.version -B', {
 			encoding: 'utf-8',
 			stdio: [0]
 		});
 
-		var mavenVersion = mavenVersionOutput.replace(/^(\[|Java).*(\n|$)/gm, '').trim();
-		return mavenVersion;
+		var mavenVersionLine = mavenVersionOutput.split('\n').filter(function (outputLine) {
+			// expect version line to match number and dot "1."
+			return /^\d+\..*$/.test(outputLine.trim());
+		});
+
+		if (mavenVersionLine.length !== 1) {
+			throw new Error('Expected one line of maven output to be the version but found ' + mavenVersionLine.length)
+		}
+
+		return mavenVersionLine[0].trim();
 	};
 
 }
