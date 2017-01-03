@@ -8,7 +8,10 @@ describe('ConfluenceBase (page object)', function() {
 
 	var confluenceBase = new ConfluenceBase();
 	var confluenceConfig = confluenceBase.confluenceConfig();
-	pageObjectUtils.openPage();
+
+	beforeAll(function () {
+		pageObjectUtils.openPage();
+	});
 
 	beforeEach(screenshotReporter.disable);
 	afterAll(screenshotReporter.enable);
@@ -52,7 +55,7 @@ describe('ConfluenceBase (page object)', function() {
 		if (process.env.CONFLUENCE_VERSION) {
 			expect(confluenceBase.confluenceVersion()).toEqual(Version.parse(process.env.CONFLUENCE_VERSION));
 		} else {
-			console.log('No environment variable CONFLUENCE_VERSION set');
+			console.warn('No environment variable CONFLUENCE_VERSION set');
 		}
 	});
 
