@@ -24,7 +24,7 @@ describe('Version', function() {
 	describe('compare()', function () {
 
 		describe('equals cases', function () {
-			it('check that 6.0.2 is equals 6.0.2', function () {
+			it('check that 6.0.2 equals 6.0.2', function () {
 				expect(Version.compare('6.0.2', '6.0.2')).toBe(0);
 				expect(Version.parse('6.0.2').equals('6.0.2')).toBe(true);
 				expect(Version.parse('6.0.2').lessThanEquals('6.0.2')).toBe(true);
@@ -32,28 +32,28 @@ describe('Version', function() {
 
 			});
 
-			it('check that 6.0 is equals 6.0.2', function () {
+			it('check that 6.0 equals 6.0.2', function () {
 				expect(Version.compare('6.0', '6.0.2')).toBe(0);
 				expect(Version.parse('6.0').equals('6.0.2')).toBe(true);
 				expect(Version.parse('6.0').lessThanEquals('6.0.2')).toBe(true);
 				expect(Version.parse('6.0').greaterThanEquals('6.0.2')).toBe(true);
 			});
 
-			it('check that 6 is equals 6.0.2', function () {
+			it('check that 6 equals 6.0.2', function () {
 				expect(Version.compare('6', '6.0.2')).toBe(0);
 				expect(Version.parse('6').equals('6.0.2')).toBe(true);
 				expect(Version.parse('6').lessThanEquals('6.0.2')).toBe(true);
 				expect(Version.parse('6').greaterThanEquals('6.0.2')).toBe(true);
 			});
 
-			it('check that 5.10 is equals 5.10.1', function () {
+			it('check that 5.10 equals 5.10.1', function () {
 				expect(Version.compare('5.10', '5.10.1')).toBe(0);
 				expect(Version.parse('5.10').equals('5.10.1')).toBe(true);
 				expect(Version.parse('5.10').lessThanEquals('5.10.1')).toBe(true);
 				expect(Version.parse('5.10').greaterThanEquals('5.10.1')).toBe(true);
 			});
 
-			it('check that 5.7 is equals 5', function () {
+			it('check that 5.7 equals 5', function () {
 				expect(Version.compare('5.7', '5')).toBe(0);
 				expect(Version.parse('5.7').equals('5')).toBe(true);
 				expect(Version.parse('5.7').lessThanEquals('5')).toBe(true);
