@@ -134,7 +134,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		browser.wait(EC.urlContains(self.actions.spaceHome.path), DEFAULT_LOADING_TIMEOUT);
 
 		// wait some time until space is updated
-		browser.sleep(DEFAULT_LOADING_TIMEOUT / 2);
+		browser.sleep(DEFAULT_LOADING_TIMEOUT);
 	};
 
 	this.remove = function () {
