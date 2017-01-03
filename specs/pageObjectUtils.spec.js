@@ -24,7 +24,7 @@ describe('pageObjectUtils', function() {
 		it('fails on unexpected values', function () {
 			expect(function () {
 				pageObjectUtils.assertNotNull(null);
-			}).toThrow(new Error('AssertionError for PageObject: Expected non-null value, but was null.'))
+			}).toThrow(new Error('AssertionError for PageObject: Expected non-null value, but was null'))
 		});
 	});
 
@@ -40,13 +40,13 @@ describe('pageObjectUtils', function() {
 		it('fails on unexpected values', function () {
 			expect(function () {
 				pageObjectUtils.assertEquals('Val', 'Ex', 'Error message');
-			}).toThrow(new Error('AssertionError for PageObject: Error message'))
+			}).toThrow(new Error('AssertionError for PageObject: Error message (Expected "Ex", but was "Val")'));
 		});
 
 		it('fails on unexpected values with default message', function () {
 			expect(function () {
 				pageObjectUtils.assertEquals('Val', 'Ex');
-			}).toThrow(new Error('AssertionError for PageObject: Expected "Ex", but was "Val".'))
+			}).toThrow(new Error('AssertionError for PageObject: Expected "Ex", but was "Val"'));
 		});
 
 		describe('promise handling', function () {
@@ -64,13 +64,13 @@ describe('pageObjectUtils', function() {
 			it('fails on unexpected values', function (done) {
 				var promiseWithUnexpectedValue = Promise.resolve('Val');
 				var assertPromise = pageObjectUtils.assertEquals(promiseWithUnexpectedValue, 'Ex', 'Error message');
-				testUtils.expectPromiseFail(assertPromise, done, new Error('AssertionError for PageObject: Error message'));
+				testUtils.expectPromiseFail(assertPromise, done, new Error('AssertionError for PageObject: Error message (Expected "Ex", but was "Val")'));
 			});
 
 			it('fails on unexpected values with default message', function (done) {
 				var promiseWithUnexpectedValue = Promise.resolve('Val');
 				var assertPromise = pageObjectUtils.assertEquals(promiseWithUnexpectedValue, 'Ex');
-				testUtils.expectPromiseFail(assertPromise, done, new Error('AssertionError for PageObject: Expected "Ex", but was "Val".'));
+				testUtils.expectPromiseFail(assertPromise, done, new Error('AssertionError for PageObject: Expected "Ex", but was "Val"'));
 			});
 		})
 	});
@@ -122,7 +122,7 @@ describe('pageObjectUtils', function() {
 
 		it('not identical with element', function () {
 			expect(pageObjectUtils.asyncElement).not.toBe(element);
-		})
+		});
 
 		it('fails when element() is used instead', function () {
 			var id = 'headline-for-element';

@@ -35,18 +35,23 @@ function resolveAttributes(promise, attributeList) {
 
 var assertUtils = {
 	ASSERTION_ERROR: 'AssertionError for PageObject: ',
-	defaultEqualsFailMessage: function (value, expected) {
-		return 'Expected ' + JSON.stringify(expected) + ', but was ' + JSON.stringify(value) + '.';
+	expectComparisonMessage: function (value, expected) {
+		return 'Expected ' + JSON.stringify(expected) + ', but was ' + JSON.stringify(value);
 	},
 	assertNotNullSync: function (value, message) {
 		if (value == null) {
-			message = message || 'Expected non-null value, but was ' + JSON.stringify(value) + '.'
+			message = message || 'Expected non-null value, but was ' + JSON.stringify(value);
 			throw new Error(assertUtils.ASSERTION_ERROR + message);
 		}
 	},
 	assertEqualsSync: function (value, expectedValue, message) {
 		if (!jasmine.matchersUtil.equals(value, expectedValue)) {
-			message = message || assertUtils.defaultEqualsFailMessage(value, expectedValue);
+			var expectComparison =  assertUtils.expectComparisonMessage(value, expectedValue);
+			if (message) {
+				message = message + ' ('+ expectComparison + ')';
+			} else {
+				message = expectComparison;
+			}
 			throw new Error(assertUtils.ASSERTION_ERROR + message);
 		}
 	}
