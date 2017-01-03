@@ -107,7 +107,7 @@ function ConfluenceLogin() {
 		}).then(function (params) {
 			return params[paramName] || defaultValue;
 		});
-	}
+	};
 
 	this.logout = function () {
 		self.actions.logout.open();

@@ -23,7 +23,7 @@ describe('ConfluenceBase (page object)', function() {
 			expect(confluenceBase.getParamFromAJS).not.toHaveBeenCalled();
 		});
 
-		it('throws in error if confluenceVersionSync() is called without caching', function () {
+		it('throws an error if confluenceVersionSync() is called without caching', function () {
 			expect(function () {
 				confluenceBase.confluenceVersion();
 			}).toThrow(new Error('No confluenceVersion is loaded. Use loadConfluenceVersion in a setup function (onPrepare)'));
@@ -52,12 +52,12 @@ describe('ConfluenceBase (page object)', function() {
 		if (process.env.CONFLUENCE_VERSION) {
 			expect(confluenceBase.confluenceVersion()).toEqual(Version.parse(process.env.CONFLUENCE_VERSION));
 		} else {
-			console.log('No environment variable CONFLUENCE_VERSION set')
+			console.log('No environment variable CONFLUENCE_VERSION set');
 		}
 	});
 
 	describe('openAdminPage', function () {
-		beforeEach(screenshotReporter.enable)
+		beforeEach(screenshotReporter.enable);
 
 		afterAll(function () {
 			confluenceBase.logout();
