@@ -16,7 +16,7 @@ describe('ConfluenceBase (page object)', function() {
 	describe('confluence version caching for sync access', function () {
 		beforeEach(function () {
 			spyOn(confluenceBase, 'getParamFromAJS').and.callThrough();
-			confluenceBase.resetConflunceVersion();
+			confluenceBase.resetConfluenceVersion();
 		});
 
 		it('has not called getParamForAJS', function () {

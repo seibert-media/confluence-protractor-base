@@ -22,7 +22,7 @@ function ConfluenceBase() {
 		});
 	};
 
-	this.resetConflunceVersion = function () {
+	this.resetConfluenceVersion = function () {
 		confluenceVersion = undefined;
 	};
 
