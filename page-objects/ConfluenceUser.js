@@ -3,7 +3,7 @@ var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 
 // page object utils imports
-var element = pageObjectUtils.asyncElement;
+var asyncElement = pageObjectUtils.asyncElement;
 
 function ConfluenceUser(username, fullName, email, password) {
 
@@ -30,25 +30,25 @@ function ConfluenceUser(username, fullName, email, password) {
 	this.create = function () {
 		this.actions.createUser.open();
 
-		element(by.name('username')).sendKeys(username);
-		element(by.name('fullName')).sendKeys(fullName);
-		element(by.name('email')).sendKeys(email);
-		element(by.name('password')).sendKeys(password);
-		element(by.name('confirm')).sendKeys(password).sendKeys(protractor.Key.ENTER);
+		asyncElement(by.name('username')).sendKeys(username);
+		asyncElement(by.name('fullName')).sendKeys(fullName);
+		asyncElement(by.name('email')).sendKeys(email);
+		asyncElement(by.name('password')).sendKeys(password);
+		asyncElement(by.name('confirm')).sendKeys(password).sendKeys(protractor.Key.ENTER);
 
 		// element(by.name('confirm'))
 	};
 
 	this.remove = function () {
 		this.actions.removeUser.open();
-		element(by.id('confirm')).click();
+		asyncElement(by.id('confirm')).click();
 	};
 
 	this.hasGroup = function (groupName) {
 		this.actions.userAdminView.open();
 
 		var selector = '[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]';
-		return element(by.css(selector)).isPresent();
+		return asyncElement(by.css(selector)).isPresent();
 	}
 }
 

@@ -7,7 +7,7 @@ var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
 
 var clickIfPresent = pageObjectUtils.clickIfPresent;
-var element = pageObjectUtils.asyncElement;
+var asyncElement = pageObjectUtils.asyncElement;
 var findFirstDisplayed = pageObjectUtils.findFirstDisplayed;
 var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 
@@ -23,7 +23,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 
 	function spaceEntry() {
 		self.actions.spaceDirectory.open();
-		return element(by.css('[data-spacekey="' + spaceKey + '"]'));
+		return asyncElement(by.css('[data-spacekey="' + spaceKey + '"]'));
 	}
 
 	this.assertSpaceExists = function () {
@@ -35,7 +35,6 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		var currentSpaceEntry = spaceEntry();
 		pageObjectUtils.assert(currentSpaceEntry.isPresent(), false, 'Unexpected space in space directory. spaceKey: ' + spaceKey);
 	};
-
 
 	this.actions = {
 		spaceDirectory: new ConfluenceAction({
@@ -57,7 +56,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 
 				additionalSelector = additionalSelector || '';
 				var selector = tableSelector + permissionSelector + additionalSelector;
-				return element(by.css(selector)).getAttribute('data-permission-set');
+				return asyncElement(by.css(selector)).getAttribute('data-permission-set');
 			}
 
 			var tablePrefixes = {
@@ -91,16 +90,16 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		open: function () {
 			self.actions.spaceDirectory.open();
 
-			var createSpaceButton = element(by.id('addSpaceLink'));
+			var createSpaceButton = asyncElement(by.id('addSpaceLink'));
 			createSpaceButton.click();
 
-			var createSpaceFirstTime = element(by.css('.start-creating-space'));
+			var createSpaceFirstTime = asyncElement(by.css('.start-creating-space'));
 			return pageObjectUtils.clickIfPresent(createSpaceFirstTime);
 		},
 		selectTemplate: function (itemModuleCompleteKey) {
 			var templateSelector = '[data-item-module-complete-key="' + itemModuleCompleteKey + '"]';
-			element(by.css(templateSelector)).click();
-			element(by.css(createButtonSelector)).click();
+			asyncElement(by.css(templateSelector)).click();
+			asyncElement(by.css(createButtonSelector)).click();
 		},
 		clickCreateButton: function () {
 			var createButton = waitForElementToBeClickable(findFirstDisplayed(by.css(createButtonSelector)));
@@ -108,12 +107,12 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		},
 		fillSpaceForm: function () {
 			// set space name
-			element(by.name('name')).sendKeys(spaceName).sendKeys('\t');
+			asyncElement(by.name('name')).sendKeys(spaceName).sendKeys('\t');
 
 			// wait for create button before setting a space key
 			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
 
-			element(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
+			asyncElement(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
 
 			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
 		}
@@ -141,10 +140,10 @@ function ConfluenceSpace(spaceKey, spaceName) {
 	this.remove = function () {
 		this.actions.removeSpace.open();
 
-		clickIfPresent(element(by.id('confirm')));
+		clickIfPresent(asyncElement(by.id('confirm')));
 
 		// check and wait for plugin name
-		var percentComplete = element(by.id('percentComplete'));
+		var percentComplete = asyncElement(by.id('percentComplete'));
 		browser.wait(function() {
 			return percentComplete.getText().then(function (text) {
 				return text === '100';

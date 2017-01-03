@@ -5,7 +5,7 @@ var Version = require('../utils/Version');
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var openPage = pageObjectUtils.openPage;
-var element = pageObjectUtils.asyncElement;
+var asyncElement = pageObjectUtils.asyncElement;
 
 function ConfluenceLogin() {
 	var self = this;
@@ -29,8 +29,8 @@ function ConfluenceLogin() {
 		}),
 		authenticate: new ConfluenceAction({
 			path: 'authenticate.action'
-		}),
-	}
+		})
+	};
 
 	this.login = function (username, password) {
 		username = username || testUser().USERNAME;
@@ -50,13 +50,13 @@ function ConfluenceLogin() {
 
 			self.actions.login.open();
 
-			element(by.name('os_username')).sendKeys(username);
-			element(by.name('os_password')).sendKeys(password);
+			asyncElement(by.name('os_username')).sendKeys(username);
+			asyncElement(by.name('os_password')).sendKeys(password);
 
-			var loginButton = element(by.id('loginButton')); // pageObjectUtils.logPromise(loginButton.isPresent());
+			var loginButton = asyncElement(by.id('loginButton')); // pageObjectUtils.logPromise(loginButton.isPresent());
 			loginButton.click();
 
-			assert(element(by.css('#captcha-container')).isPresent(), false, 'Captcha required. Log in manually once.');
+			assert(asyncElement(by.css('#captcha-container')).isPresent(), false, 'Captcha required. Log in manually once.');
 
 			browser.getCurrentUrl().then(function (url) {
 				if (url.endsWith('plugins/termsofuse/agreement.action')) {
@@ -80,8 +80,8 @@ function ConfluenceLogin() {
 		// authenticate
 		self.actions.authenticate.open();
 
-		element(by.name('password')).sendKeys(password);
-		element(by.name('authenticate')).click();
+		asyncElement(by.name('password')).sendKeys(password);
+		asyncElement(by.name('authenticate')).click();
 	};
 
 	this.loginAsAdmin = function () {
@@ -115,24 +115,24 @@ function ConfluenceLogin() {
 
 	this.skipWelcomeProcedure = function () {
 		// skip welcome message
-		clickIfPresent(element(by.id('grow-intro-welcome-start')));
+		clickIfPresent(asyncElement(by.id('grow-intro-welcome-start')));
 
 		// skip video
-		clickIfPresent(element(by.id('grow-intro-video-skip-button')));
+		clickIfPresent(asyncElement(by.id('grow-intro-video-skip-button')));
 
 		// skip picture
-		clickIfPresent(element(by.css('[data-action="skip"]')));
+		clickIfPresent(asyncElement(by.css('[data-action="skip"]')));
 
 		// select space
-		clickIfPresent(element.all(by.css('.space-checkbox input.checkbox')).first());
-		clickIfPresent(element(by.css('.intro-find-spaces-button-continue')));
+		clickIfPresent(asyncElement.all(by.css('.space-checkbox input.checkbox')).first());
+		clickIfPresent(asyncElement(by.css('.intro-find-spaces-button-continue')));
 
 		// reload dashboard
 		openPage();
 	};
 
 	this.confirmTermsOfUse = function () {
-		clickIfPresent(element(by.css('form[action="/plugins/termsofuse/agreement.action"] input[type="submit"]')));
+		clickIfPresent(asyncElement(by.css('form[action="/plugins/termsofuse/agreement.action"] input[type="submit"]')));
 
 		// reload dashboard
 		openPage();

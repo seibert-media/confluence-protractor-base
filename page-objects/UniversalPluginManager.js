@@ -3,8 +3,7 @@ var ConfluenceBase = require('./ConfluenceBase');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
-var openPage = pageObjectUtils.openPage;
-var element = pageObjectUtils.asyncElement;
+var asyncElement = pageObjectUtils.asyncElement;
 
 function UniversalPluginManager() {
 	var self = this;
@@ -19,12 +18,12 @@ function UniversalPluginManager() {
 		browser.get('/plugins/servlet/upm');
 
 		// dismiss up to three notifications if they occur
-		clickIfPresent(element(by.css('.dismiss-notification')));
-		clickIfPresent(element(by.css('.dismiss-notification')));
-		clickIfPresent(element(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
 
 		// open upload dialog
-		var uploadButton = element(by.id('upm-upload'));
+		var uploadButton = asyncElement(by.id('upm-upload'));
 		browser.wait(protractor.ExpectedConditions.visibilityOf(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT));
 		uploadButton.click();
 
@@ -33,20 +32,20 @@ function UniversalPluginManager() {
 		// check if file exists
 		require('fs').accessSync(absolutePath);
 		console.log('Plugin path: ' + absolutePath);
-		element(by.id('upm-upload-file')).sendKeys(absolutePath);
+		asyncElement(by.id('upm-upload-file')).sendKeys(absolutePath);
 
 		// try upload buttons for different confluence versiions
-		clickIfPresent(element(by.css('button.confirm')));
-		clickIfPresent(element(by.css('button.upm-upload-plugin-submit')));
+		clickIfPresent(asyncElement(by.css('button.confirm')));
+		clickIfPresent(asyncElement(by.css('button.upm-upload-plugin-submit')));
 
 		// check and wait for plugin name
-		var $pluginName = element(by.css('.plugin-name'), timeout);
+		var $pluginName = asyncElement(by.css('.plugin-name'), timeout);
 
 		assert($pluginName.getText(), pluginName, 'Plugin name not found');
 
 		// try confirm buttons for different confluence versiions
-		clickIfPresent(element(by.css('button.confirm')));
-		clickIfPresent(element(by.css('button.button-panel-cancel-link')));
+		clickIfPresent(asyncElement(by.css('button.confirm')));
+		clickIfPresent(asyncElement(by.css('button.button-panel-cancel-link')));
 	};
 
 	this.parseMavenVersionFromPom = function () {

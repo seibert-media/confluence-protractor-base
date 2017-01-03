@@ -52,7 +52,8 @@ describe('pageObjectUtils', function() {
 		describe('promise handling', function () {
 			it('has assert as alias', function () {
 				expect(pageObjectUtils.assertEquals).toBe(pageObjectUtils.assert);
-			})
+			});
+
 			it('passes expected values', function (done) {
 				var promiseWithExpectedValue = Promise.resolve('Ex');
 				var assertPromise = pageObjectUtils.assertEquals(promiseWithExpectedValue, 'Ex', 'Error message');
