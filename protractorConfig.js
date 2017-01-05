@@ -1,15 +1,15 @@
 // conf.js
 exports.config = {
 	baseUrl: 'http://localhost:8090/',
-    capabilities: {
-        browserName: 'chrome',
-        chromeOptions: {
-            args: [ 'lang=en-EN' ],
-            prefs: {
-                intl: { accept_languages: "en-EN" }
-            }
-        }
-    },
+	capabilities: {
+		browserName: 'chrome',
+		chromeOptions: {
+			args: [ 'lang=en-EN', '--window-size=1280,960'],
+			prefs: {
+				intl: { accept_languages: "en-EN" }
+			}
+		}
+	},
 	params: {
 		confluenceConfig: 'default'
 	},
