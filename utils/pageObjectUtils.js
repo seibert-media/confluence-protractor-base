@@ -33,6 +33,8 @@ function resolveAttributes(promise, attributeList) {
 	});
 }
 
+var screenshotsAlreadyTaken = {};
+
 var assertUtils = {
 	ASSERTION_ERROR: 'AssertionError for PageObject: ',
 	expectComparisonMessage: function (value, expected) {
@@ -97,6 +99,13 @@ var pageObjectUtils = {
 		if (!fs.existsSync(screenshotPath)) {
 			fs.mkdirSync(screenshotPath);
 		}
+
+		if (screenshotsAlreadyTaken[imageName]) {
+			return Promise.resolve('Screenshot already taken');
+		}
+
+		screenshotsAlreadyTaken[imageName] = imageName;
+
 		return browser.takeScreenshot().then(function (base64Screenshot) {
 			return require("fs").writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function (error) {
 				if (error) {

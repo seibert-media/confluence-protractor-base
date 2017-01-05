@@ -199,5 +199,34 @@ describe('pageObjectUtils', function() {
 				expect(location.pathWithSearchAndHash).toBe('login.action?permissionViolation=true#someHash');
 			});
 		})
-	})
+	});
+
+	describe('takeScreenshot()', function () {
+		beforeEach(function () {
+			spyOn(browser, 'takeScreenshot').and.returnValue(Promise.resolve({}));
+		});
+
+		it('calls takeScreenshot with same parameter', function() {
+			pageObjectUtils.takeScreenshot('image_a.png');
+
+			expect(browser.takeScreenshot).toHaveBeenCalled();
+		});
+
+		it('calls takeScreenshot only once', function () {
+			pageObjectUtils.takeScreenshot('image_b.png');
+			pageObjectUtils.takeScreenshot('image_b.png');
+			pageObjectUtils.takeScreenshot('image_b.png');
+
+			expect(browser.takeScreenshot).toHaveBeenCalledTimes(1);
+		});
+
+		it('calls takeScreenshot twice for different image names', function () {
+			pageObjectUtils.takeScreenshot('image_c.png');
+			pageObjectUtils.takeScreenshot('image_d.png');
+
+			pageObjectUtils.takeScreenshot('image_c.png');
+
+			expect(browser.takeScreenshot).toHaveBeenCalledTimes(2);
+		});
+	});
 });
