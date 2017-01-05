@@ -203,7 +203,7 @@ describe('pageObjectUtils', function() {
 
 	describe('takeScreenshot()', function () {
 		beforeEach(function () {
-			spyOn(browser, 'takeScreenshot').and.returnValue(Promise.resolve({}));
+			spyOn(browser, 'takeScreenshot').and.returnValue({then: function () {}});
 		});
 
 		it('calls takeScreenshot with same parameter', function() {
