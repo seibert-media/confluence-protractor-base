@@ -17,6 +17,6 @@ module.exports = {
 			return;
 		}
 
-		pageObjectUtils.takeScreenshot(result.fullName + '.png');
+		pageObjectUtils.takeScreenshot(result.status + ' - ' + result.fullName + '.png');
 	}
 };
