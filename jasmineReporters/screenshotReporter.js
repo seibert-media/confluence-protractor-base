@@ -9,11 +9,7 @@ module.exports = {
 		enabled = false;
 	},
 	specDone: function(result) {
-		if (result.status === 'disabled') {
-			return;
-		}
-
-		if (!enabled) {
+		if (result.status === 'disabled' || !enabled) {
 			return;
 		}
 
