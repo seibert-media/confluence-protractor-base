@@ -9,8 +9,14 @@ module.exports = {
 		enabled = false;
 	},
 	specDone: function(result) {
-		if (enabled) {
-			pageObjectUtils.takeScreenshot(result.fullName + '.png');
+		if (result.status === 'disabled') {
+			return;
 		}
+
+		if (!enabled) {
+			return;
+		}
+
+		pageObjectUtils.takeScreenshot(result.fullName + '.png');
 	}
 };
