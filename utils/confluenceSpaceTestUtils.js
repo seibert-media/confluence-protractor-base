@@ -1,4 +1,5 @@
 var screenshotReporter = require('../jasmineReporters/screenshotReporter');
+var pageObjectUtils = require('../utils/pageObjectUtils');
 
 var confluenceSpaceTestUtils = {
 	testAnonymousPermissions: function (spacePageObject, permissions) {
@@ -55,19 +56,17 @@ function testPermissions(spacePageObject, permissions, permissionMethod, additio
 	}
 
 	beforeEach(function () {
+		screenshotReporter.disable();
 		spacePermissionsAction.open();
+
+		pageObjectUtils.takeScreenshot('permissions for space (' + spacePageObject.getSpaceKey() + ').png');
 	});
 
-	beforeEach(screenshotReporter.disable);
 	afterAll(screenshotReporter.enable);
 
 	Object.keys(permissions).forEach(function (permissionName, index) {
 		var permitted = permissions[permissionName];
 		var permittedText = permitted ? '' : 'NO ';
-
-		if (index === 0) {
-			screenshotReporter.enable()
-		}
 
 		var confluenceVersion = spacePageObject.confluenceVersion();
 

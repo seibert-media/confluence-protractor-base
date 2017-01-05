@@ -155,6 +155,10 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		pageObjectUtils.assert(browser.getTitle(), 'Page Not Found - Confluence', 'Expected page not found after remove');
 	};
 
+	this.getSpaceKey = function () {
+		return spaceKey;
+	};
+
 }
 
 ConfluenceSpace.prototype = new ConfluenceBase();
