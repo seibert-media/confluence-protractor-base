@@ -15,7 +15,7 @@ describe('ConfluenceSpace (page object)', function() {
 			demonstrationSpace.assertSpaceExists();
 		});
 
-		it('detects existing space', function () {
+		it('detects NOT existing space', function () {
 			notExistingSpace.assertSpaceExistsNot();
 		});
 	});
