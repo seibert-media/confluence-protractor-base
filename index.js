@@ -13,7 +13,11 @@ module.exports = {
 	utils: {
 		pageObjectUtils: require('./utils/pageObjectUtils'),
 		confluenceSpaceTestUtils: require('./utils/confluenceSpaceTestUtils'),
-		Version: require('./utils/Version')
+		Version: require('./utils/Version'),
+		elements: {
+			RadioOption: require('./utils/elements/RadioOption'),
+			CheckboxOption: require('./utils/elements/CheckboxOption')
+		}
 	},
 	jasmineReporters: {
 		screenshotReporter: require('./jasmineReporters/screenshotReporter')

@@ -1,11 +1,13 @@
 var ConfluenceBase = require('./ConfluenceBase');
 var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
+var CheckboxOption = require('../utils/elements/CheckboxOption');
 
 // page object utils imports
 var asyncElement = pageObjectUtils.asyncElement;
 
 function ConfluenceUser(username, fullName, email, password) {
+	pageObjectUtils.assertNotNull(username, 'options.username is required');
 
 	this.username = username;
 	this.fullName = fullName;
@@ -33,10 +35,18 @@ function ConfluenceUser(username, fullName, email, password) {
 		asyncElement(by.name('username')).sendKeys(username);
 		asyncElement(by.name('fullName')).sendKeys(fullName);
 		asyncElement(by.name('email')).sendKeys(email);
-		asyncElement(by.name('password')).sendKeys(password);
-		asyncElement(by.name('confirm')).sendKeys(password).sendKeys(protractor.Key.ENTER);
 
-		// element(by.name('confirm'))
+		var sendMailInput = new CheckboxOption(by.name('sendEmail'));
+		sendMailInput.element().isPresent().then(function (isMailServerConfigured) {
+			if (isMailServerConfigured) {
+				sendMailInput.unselect();
+			}
+		});
+
+		asyncElement(by.name('password')).sendKeys(password);
+		asyncElement(by.name('confirm')).sendKeys(password);
+
+		asyncElement(by.css('#create-user-form [type="submit"]')).click();
 	};
 
 	this.remove = function () {
