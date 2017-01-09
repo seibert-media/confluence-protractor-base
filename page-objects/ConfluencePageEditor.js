@@ -11,16 +11,10 @@ var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
 function ConfluencePageEditor() {
 	var self = this;
 
-	this.createNewPageWithTitle = function(pageTitle) {
-		openPage();
+	this.createNewPageWithTitle = function(pageTitle, spaceKey) {
+		spaceKey = spaceKey || 'ds';
 
-		element(by.id('create-page-button')).click();
-
-		asyncElement((by.css('.templates .template')));
-
-		element.all(by.css('.templates .template .template-name')).first().click();
-
-		element(by.css('button.create-dialog-create-button')).click();
+		openPage('pages/createpage.action?spaceKey=' + spaceKey);
 
 		element(by.id('content-title')).sendKeys(pageTitle);
 	};
