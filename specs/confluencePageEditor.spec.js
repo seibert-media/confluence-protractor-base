@@ -12,6 +12,10 @@ describe('ConfluencePageEditor (page object)', function() {
 	var uniquePageTitle = 'Test Page - ' + timestamp;
 	var uniqueCommentContent = 'Test Comment - ' + timestamp;
 
+	function expectEditorPresent(state) {
+		expect(pageEditor.getEditorFrame().isPresent()).toBe(state);
+	}
+
 	beforeAll(function () {
 		pageEditor.authenticateAsAdmin();
 	});
@@ -19,7 +23,9 @@ describe('ConfluencePageEditor (page object)', function() {
 	describe('createNewPageWithTitle()', function () {
 		beforeAll(function () {
 			pageEditor.createNewPageWithTitle(uniquePageTitle);
+			expectEditorPresent(true);
 			pageEditor.save();
+			expectEditorPresent(false);
 		});
 
 		afterAll(function () {
@@ -58,9 +64,28 @@ describe('ConfluencePageEditor (page object)', function() {
 		pageEditor.openComment();
 		pageEditor.addContent('@Adara');
 
+		expectEditorPresent(true);
+
 		var mentionSelector = asyncElement(by.css('.autocomplete-mentions [title="Adara Moss (Adara.Moss)"]'));
 		expect(mentionSelector.isPresent()).toBe(true);
 
-		pageEditor.cancel();
+		pageEditor.cancelAndSkripAlert();
+
+		expectEditorPresent(false);
+	});
+
+
+	it('cancels a comment', function () {
+		openPage('display/ds');
+
+		pageEditor.openComment();
+
+		expectEditorPresent(true);
+
+		pageEditor.addContent('Some content');
+
+		pageEditor.cancelAndClear();
+
+		expectEditorPresent(false);
 	});
 });

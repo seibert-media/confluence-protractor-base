@@ -25,15 +25,30 @@ function ConfluencePageEditor() {
 		element(by.id('content-title')).sendKeys(pageTitle);
 	};
 
-	this.addContent = function(content) {
-		browser.switchTo().frame(asyncElement(by.id('wysiwygTextarea_ifr')).getWebElement());
+	this.getEditorFrame = function () {
+		return asyncElement(by.id('wysiwygTextarea_ifr'));
+	};
 
-		asyncElement(by.id('tinymce')).sendKeys(content);
+
+	this.executeInEditorContext = function (fn) {
+		browser.switchTo().frame(this.getEditorFrame().getWebElement());
+
+		fn(asyncElement(by.id('tinymce')));
 
 		browser.switchTo().defaultContent();
 	};
 
+	this.addContent = function(content) {
+		this.executeInEditorContext(function (editorInput) {
+			editorInput.sendKeys(content);
+		});
+	};
 
+	this.clearContent = function() {
+		this.executeInEditorContext(function (editorInput) {
+			editorInput.clear();
+		});
+	};
 
 	this.save = function () {
 		asyncElement(by.id('rte-button-publish')).click();
@@ -41,8 +56,16 @@ function ConfluencePageEditor() {
 
 	this.cancel = function () {
 		asyncElement(by.id('rte-button-cancel')).click();
+	};
 
+	this.cancelAndSkripAlert = function () {
+		this.cancel();
 		skipAlertIfPresent();
+	};
+
+	this.cancelAndClear = function () {
+		this.clearContent();
+		this.cancel();
 	};
 
 	this.openComment = function () {
