@@ -4,7 +4,7 @@ var pageObjectUtils = require('../utils/pageObjectUtils');
 var openPage = pageObjectUtils.openPage;
 var asyncElement = pageObjectUtils.asyncElement;
 
-fdescribe('ConfluencePageEditor (page object)', function() {
+describe('ConfluencePageEditor (page object)', function() {
 
 	var pageEditor = new ConfluencePageEditor();
 
