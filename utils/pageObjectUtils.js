@@ -193,6 +193,17 @@ var pageObjectUtils = {
 		return pageObjectUtils.getLocation().then(function (location) {
 			return location.path;
 		});
+	},
+	skipAlertIfPresent: function () {
+		var alertIsPresentPromise = EC().alertIsPresent();
+
+		browser.wait(alertIsPresentPromise, DEFAULT_ELEMENT_TIMEOUT);
+
+		alertIsPresentPromise().then(function (alertIsPresent) {
+			if (alertIsPresent) {
+				browser.switchTo().alert().accept();
+			}
+		})
 	}
 };
 
