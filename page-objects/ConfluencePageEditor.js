@@ -33,9 +33,11 @@ function ConfluencePageEditor() {
 	this.executeInEditorContext = function (fn) {
 		browser.switchTo().frame(this.getEditorFrame().getWebElement());
 
-		fn(asyncElement(by.id('tinymce')));
+		var fnResult = fn(asyncElement(by.id('tinymce')));
 
 		browser.switchTo().defaultContent();
+
+		return fnResult;
 	};
 
 	this.addContent = function(content) {
