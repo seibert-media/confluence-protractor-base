@@ -204,6 +204,12 @@ var pageObjectUtils = {
 				browser.switchTo().alert().accept();
 			}
 		})
+	},
+	setDefaultElementTimeout: function (timeout) {
+		DEFAULT_ELEMENT_TIMEOUT = timeout;
+	},
+	setDefaultLoadingTimeout: function (timeout) {
+		DEFAULT_LOADING_TIMEOUT = timeout;
 	}
 };
 
@@ -215,6 +221,19 @@ Object.defineProperty(pageObjectUtils.asyncElement, 'all', {
 		return (element || {}).all
 	}
 });
+
+Object.defineProperty(pageObjectUtils, 'DEFAULT_ELEMENT_TIMEOUT', {
+	get: function () {
+		return DEFAULT_ELEMENT_TIMEOUT;
+	}
+});
+
+Object.defineProperty(pageObjectUtils, 'DEFAULT_LOADING_TIMEOUT', {
+	get: function () {
+		return DEFAULT_LOADING_TIMEOUT;
+	}
+});
+
 
 
 module.exports = pageObjectUtils;

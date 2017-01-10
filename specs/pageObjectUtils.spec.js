@@ -229,4 +229,29 @@ describe('pageObjectUtils', function() {
 			expect(browser.takeScreenshot).toHaveBeenCalledTimes(2);
 		});
 	});
+
+	describe('configure timeouts', function () {
+
+		describe('DEFAULT_ELEMENT_TIMEOUT', function () {
+			it('has a default of 2 seconds', function () {
+				expect(pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT).toBe(2000);
+			});
+
+			it('loads a configured value', function () {
+				pageObjectUtils.setDefaultElementTimeout(500);
+				expect(require('../utils/pageObjectUtils').DEFAULT_ELEMENT_TIMEOUT).toBe(500);
+			});
+		});
+
+		describe('DEFAULT_LOADING_TIMEOUT', function () {
+			it('has a default of 10 seconds', function () {
+				expect(pageObjectUtils.DEFAULT_LOADING_TIMEOUT).toBe(10000);
+			});
+
+			it('loads a configured value', function () {
+				pageObjectUtils.setDefaultLoadingTimeout(5000);
+				expect(require('../utils/pageObjectUtils').DEFAULT_LOADING_TIMEOUT).toBe(5000);
+			});
+		});
+	});
 });
