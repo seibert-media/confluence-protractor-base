@@ -1,11 +1,11 @@
 {
   "name": "confluence-protractor-base",
-  "version": "0.1.13",
+  "version": "0.4.0",
   "description": "Base project for protractor e2e tests with confluence",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/protractor protractorConfig.js",
-    "test-en": "node_modules/.bin/protractor protractorConfig.js --params.confluenceConfig default.en"
+    "test": "protractor protractorConfig.js",
+    "test-en": "protractor protractorConfig.js --params.confluenceConfig default.en"
   },
   "repository": {
     "type": "git",
