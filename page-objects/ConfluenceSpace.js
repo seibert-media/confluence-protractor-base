@@ -109,12 +109,14 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			// set space name
 			asyncElement(by.name('name')).sendKeys(spaceName).sendKeys('\t');
 
+			var spaceKeyInput = asyncElement(by.name('spaceKey'));
+
 			// wait for create button before setting a space key
-			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
+			spaceKeyInput.clear();
+			var buttonNotClickable = EC.not(EC.elementToBeClickable(findFirstDisplayed(by.css(createButtonSelector))));
+			browser.wait(buttonNotClickable, DEFAULT_LOADING_TIMEOUT);
 
-			asyncElement(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
-
-			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
+			spaceKeyInput.sendKeys(spaceKey).sendKeys('\t');
 		}
 	};
 
@@ -134,7 +136,10 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		browser.wait(EC.urlContains(self.actions.spaceHome.path), DEFAULT_LOADING_TIMEOUT);
 
 		// wait some time until space is updated
-		browser.sleep(DEFAULT_LOADING_TIMEOUT);
+		return browser.wait(function () {
+			browser.refresh();
+			return spaceEntry().isPresent()
+		}, DEFAULT_LOADING_TIMEOUT);
 	};
 
 	this.remove = function () {
