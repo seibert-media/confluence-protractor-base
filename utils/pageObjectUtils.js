@@ -210,6 +210,30 @@ var pageObjectUtils = {
 	},
 	setDefaultLoadingTimeout: function (timeout) {
 		DEFAULT_LOADING_TIMEOUT = timeout;
+	},
+	/**
+	 * Workaround for race condition
+	 *
+	 * Github Issue: https://github.com/angular/protractor/issues/3777
+	 * Reproduction test: https://github.com/tilmanpotthof/race-condition-in-expected-condition-visibility-of
+	 */
+	visibilityOf: function (element) {
+		return function () {
+			return element.isPresent().then(function (isPresent) {
+				if (!isPresent) {
+					return false;
+				}
+				return element.isDisplayed().then(function (isDisplayed) {
+					return isDisplayed;
+				}, function (error) {
+					if (error && error.name && error.name === 'NoSuchElementError') {
+						console.log('Detected race condition in visibilityOfSave for element', element.locator().value);
+						return false;
+					}
+					throw error;
+				});
+			});
+		}
 	}
 };
 

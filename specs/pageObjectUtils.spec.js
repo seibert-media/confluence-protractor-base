@@ -254,4 +254,55 @@ describe('pageObjectUtils', function() {
 			});
 		});
 	});
+
+	describe('visibilityOf', function () {
+
+		var RACE_CONDITION_ELEMENT_ID = 'race-condition-element';
+		var RACE_CONDITION_ELEMENT;
+
+		function createTestElement() {
+			RACE_CONDITION_ELEMENT = element(by.id(RACE_CONDITION_ELEMENT_ID));
+
+			testUtils.createDomElement('div', {
+				id: RACE_CONDITION_ELEMENT_ID,
+				content: RACE_CONDITION_ELEMENT_ID
+			});
+		}
+
+		function removeTestElement() {
+			testUtils.removeDomElement('#' + RACE_CONDITION_ELEMENT_ID)
+		}
+
+		beforeEach(createTestElement);
+		afterEach(removeTestElement);
+
+		function prepareInterceptorOnIsDisplayedToRemoveElementBeforeIsDisplayed() {
+			var originalIsDisplayedFn = RACE_CONDITION_ELEMENT.isDisplayed;
+
+			RACE_CONDITION_ELEMENT.isDisplayed = function () {
+				// Remove element between isPresent and isDisplayed call
+
+				removeTestElement();
+
+				expect(RACE_CONDITION_ELEMENT.isPresent()).toBe(false);
+
+				return originalIsDisplayedFn.call(this);
+			};
+		}
+
+		it('returns false when element is removed between isPresent and isDisplayed', function () {
+			prepareInterceptorOnIsDisplayedToRemoveElementBeforeIsDisplayed();
+
+			var visibilityOfRaceConditionElement = pageObjectUtils.visibilityOf(RACE_CONDITION_ELEMENT);
+
+			expect(visibilityOfRaceConditionElement()).toBe(false);
+		});
+
+		it('returns true when element is present', function () {
+			var visibilityOfRaceConditionElement = pageObjectUtils.visibilityOf(RACE_CONDITION_ELEMENT);
+
+			expect(visibilityOfRaceConditionElement()).toBe(true);
+		});
+	});
+
 });

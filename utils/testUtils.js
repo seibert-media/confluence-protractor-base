@@ -38,12 +38,20 @@ var testUtils = {
 
 			Object.keys(properties).forEach(function (key) {
 				element[key] = properties[key];
-			})
+			});
 
 			document.body.appendChild(element);
 
 			return element;
 		}, name, properties);
+	},
+	removeDomElement: function (cssSelector) {
+		return browser.executeScript(function (cssSelector) {
+			var e = document.querySelector(cssSelector);
+			if (e) {
+				e.remove();
+			}
+		}, cssSelector);
 	},
 	mockElement: function (options) {
 		var doneFn;
