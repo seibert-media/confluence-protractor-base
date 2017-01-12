@@ -21,11 +21,9 @@ function ConfluenceSpace(spaceKey, spaceName) {
 
 	pageObjectUtils.assertNotNull(spaceKey, 'First param "spaceKey" must be set');
 
-	var spaceEntryElement = element(by.css('[data-spacekey="' + spaceKey + '"]'));
-
 	function spaceEntry() {
 		self.actions.spaceDirectory.open();
-		return spaceEntryElement;
+		return asyncElement(by.css('[data-spacekey="' + spaceKey + '"]'));
 	}
 
 	this.assertSpaceExists = function () {
@@ -140,8 +138,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		// wait some time until space is updated
 		return browser.wait(function () {
 			browser.refresh();
-
-			return spaceEntry().isPresent();
+			return spaceEntry().isPresent()
 		}, DEFAULT_LOADING_TIMEOUT);
 	};
 
