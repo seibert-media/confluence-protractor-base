@@ -15,7 +15,7 @@ function EC() {
 }
 
 var DEFAULT_ELEMENT_TIMEOUT = 2000;
-var DEFAULT_LOADING_TIMEOUT = 10000;
+var DEFAULT_LOADING_TIMEOUT = 15000;
 
 function resolveAttribute(promise, attributeName) {
 	var attributPromise = promise.then(function (object) {

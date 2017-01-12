@@ -244,8 +244,8 @@ describe('pageObjectUtils', function() {
 		});
 
 		describe('DEFAULT_LOADING_TIMEOUT', function () {
-			it('has a default of 10 seconds', function () {
-				expect(pageObjectUtils.DEFAULT_LOADING_TIMEOUT).toBe(10000);
+			it('has a default of 15 seconds', function () {
+				expect(pageObjectUtils.DEFAULT_LOADING_TIMEOUT).toBe(15000);
 			});
 
 			it('loads a configured value', function () {
