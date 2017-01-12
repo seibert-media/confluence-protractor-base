@@ -136,7 +136,12 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		browser.wait(EC.urlContains(self.actions.spaceHome.path), DEFAULT_LOADING_TIMEOUT);
 
 		// wait some time until space is updated
-		return browser.wait(function () {
+		return this.waitForSpaceToAppearInSpaceDirectory();
+	};
+
+
+	this.waitForSpaceToAppearInSpaceDirectory = function () {
+		browser.wait(function () {
 			browser.refresh();
 			return spaceEntry().isPresent()
 		}, DEFAULT_LOADING_TIMEOUT);
