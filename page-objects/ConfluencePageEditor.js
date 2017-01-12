@@ -23,6 +23,9 @@ function ConfluencePageEditor() {
 		return asyncElement(by.id('wysiwygTextarea_ifr'));
 	};
 
+	this.hasEditor = function () {
+		return this.getEditorFrame().isPresent();
+	};
 
 	this.executeInEditorContext = function (fn) {
 		browser.switchTo().frame(this.getEditorFrame().getWebElement());
