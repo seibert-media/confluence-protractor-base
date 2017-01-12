@@ -197,8 +197,6 @@ var pageObjectUtils = {
 	skipAlertIfPresent: function () {
 		var alertIsPresentPromise = EC().alertIsPresent();
 
-		browser.wait(alertIsPresentPromise, DEFAULT_ELEMENT_TIMEOUT);
-
 		alertIsPresentPromise().then(function (alertIsPresent) {
 			if (alertIsPresent) {
 				browser.switchTo().alert().accept();
