@@ -255,7 +255,12 @@ describe('pageObjectUtils', function() {
 		});
 	});
 
-	describe('visibilityOf', function () {
+	describe('race condition workarounds', function () {
+		var EC;
+
+		beforeEach(function () {
+			EC = protractor.ExpectedConditions;
+		});
 
 		var RACE_CONDITION_ELEMENT_ID = 'race-condition-element';
 		var RACE_CONDITION_ELEMENT;
@@ -276,10 +281,10 @@ describe('pageObjectUtils', function() {
 		beforeEach(createTestElement);
 		afterEach(removeTestElement);
 
-		function prepareInterceptorOnIsDisplayedToRemoveElementBeforeIsDisplayed() {
-			var originalIsDisplayedFn = RACE_CONDITION_ELEMENT.isDisplayed;
+		function prepareInterceptorToRemoveElementBeforeCall(fn) {
+			var originalIsDisplayedFn = RACE_CONDITION_ELEMENT[fn];
 
-			RACE_CONDITION_ELEMENT.isDisplayed = function () {
+			RACE_CONDITION_ELEMENT[fn] = function () {
 				// Remove element between isPresent and isDisplayed call
 
 				removeTestElement();
@@ -290,18 +295,49 @@ describe('pageObjectUtils', function() {
 			};
 		}
 
-		it('returns false when element is removed between isPresent and isDisplayed', function () {
-			prepareInterceptorOnIsDisplayedToRemoveElementBeforeIsDisplayed();
+		describe('visibilityOf', function () {
 
-			var visibilityOfRaceConditionElement = pageObjectUtils.visibilityOf(RACE_CONDITION_ELEMENT);
+			beforeEach(function () {
+				EC.visibilityOf = pageObjectUtils.visibilityOf;
+			});
 
-			expect(visibilityOfRaceConditionElement()).toBe(false);
+			it('returns false when element is removed between isPresent and isDisplayed', function () {
+				prepareInterceptorToRemoveElementBeforeCall('isDisplayed');
+
+				var raceConditionElement = EC.visibilityOf(RACE_CONDITION_ELEMENT);
+
+				expect(raceConditionElement()).toBe(false);
+			});
+
+			it('returns true when element is present', function () {
+				var raceConditionElement = EC.visibilityOf(RACE_CONDITION_ELEMENT);
+
+				expect(raceConditionElement()).toBe(true);
+			});
 		});
 
-		it('returns true when element is present', function () {
-			var visibilityOfRaceConditionElement = pageObjectUtils.visibilityOf(RACE_CONDITION_ELEMENT);
+		describe('textToBePresentInElement', function () {
 
-			expect(visibilityOfRaceConditionElement()).toBe(true);
+			beforeEach(function () {
+				EC.textToBePresentInElement = pageObjectUtils.textToBePresentInElement;
+			});
+
+			it('returns false when element is removed between isPresent and getText', function () {
+				prepareInterceptorToRemoveElementBeforeCall('getText');
+
+				var raceConditionElement = EC.textToBePresentInElement(RACE_CONDITION_ELEMENT, RACE_CONDITION_ELEMENT_ID);
+				expect(raceConditionElement()).toBe(false);
+			});
+
+			it('returns true when text is present', function () {
+				var raceConditionElement = EC.textToBePresentInElement(RACE_CONDITION_ELEMENT, RACE_CONDITION_ELEMENT_ID);
+				expect(raceConditionElement()).toBe(true);
+			});
+
+			it('returns true when wrong text is present', function () {
+				var raceConditionElement = EC.textToBePresentInElement(RACE_CONDITION_ELEMENT, 'WRONG_TEXT');
+				expect(raceConditionElement()).toBe(false);
+			});
 		});
 	});
 

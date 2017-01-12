@@ -223,17 +223,34 @@ var pageObjectUtils = {
 				}
 				return element.isDisplayed().then(function (isDisplayed) {
 					return isDisplayed;
-				}, function (error) {
-					if (error && error.name && error.name === 'NoSuchElementError') {
-						console.log('Detected race condition in visibilityOfSave for element', element.locator().value);
-						return false;
-					}
-					throw error;
-				});
+				}, createExpectedConditionErrorHandler(element));
+			});
+		}
+	},
+	textToBePresentInElement: function (element, expectedText) {
+		function hasText(actualText) {
+			return actualText.replace(/\r?\n|\r/g, '').indexOf(expectedText) > -1;
+		}
+		return function () {
+			return element.isPresent().then(function (isPresent) {
+				if (!isPresent) {
+					return false;
+				}
+				return element.getText().then(hasText, createExpectedConditionErrorHandler(element));
 			});
 		}
 	}
 };
+
+function createExpectedConditionErrorHandler(element) {
+	return function (error) {
+		if (error && (error.name === 'NoSuchElementError' || error.name === 'StaleElementReferenceError')) {
+			console.log('Detected race condition in expected condition for element', element.locator().value);
+			return false;
+		}
+		throw error;
+	}
+}
 
 // alias
 pageObjectUtils.assert = pageObjectUtils.assertEquals;
@@ -255,7 +272,5 @@ Object.defineProperty(pageObjectUtils, 'DEFAULT_LOADING_TIMEOUT', {
 		return DEFAULT_LOADING_TIMEOUT;
 	}
 });
-
-
 
 module.exports = pageObjectUtils;
