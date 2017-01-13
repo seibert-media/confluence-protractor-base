@@ -134,7 +134,13 @@ var pageObjectUtils = {
 			return element.isDisplayed();
 		}).first();
 	},
-	openPage: function (path) {
+	openPage: function (path, options) {
+		options = options || {};
+
+		if (options.ignoreSearch === undefined) {
+			options.ignoreSearch = true;
+		}
+
 		path = path || '';
 		if (!browser.baseUrl.endsWith('/')) {
 			throw new Error('openPage need a baseUrl with a trailing / (baseUrl: ' + browser.baseUrl + ')');
@@ -146,13 +152,17 @@ var pageObjectUtils = {
 		var newLocation = pageObjectUtils.locationFromUrl(browser.baseUrl + path);
 
 		return pageObjectUtils.getLocation().then(function (currentLocation) {
-			if (newLocation.pathname === currentLocation.pathname) {
-
-				console.log('Page is already opened: ' + path);
-			} else {
+			if (options.refreshAlways) {
+				return browser.get(path);
+			}
+			if (newLocation.pathname !== currentLocation.pathname) {
+				return browser.get(path);
+			}
+			if (!options.ignoreSearch && newLocation.search !== currentLocation.search) {
 				return browser.get(path);
 			}
 
+			console.log('Page is already opened: ' + path);
 		});
 	},
 	getLocation: function () {

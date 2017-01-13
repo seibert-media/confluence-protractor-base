@@ -5,6 +5,7 @@ var CheckboxOption = require('../utils/elements/CheckboxOption');
 
 // page object utils imports
 var asyncElement = pageObjectUtils.asyncElement;
+var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 
 function ConfluenceUser(username, fullName, email, password) {
 	pageObjectUtils.assertNotNull(username, 'options.username is required');
@@ -26,6 +27,9 @@ function ConfluenceUser(username, fullName, email, password) {
 		}),
 		userAdminView: new ConfluenceAction({
 			path: 'admin/users/viewuser.action?username=' + username
+		}),
+		searchUser: new ConfluenceAction({
+			path: 'dosearchsite.action?queryString=' + fullName.replace(' ', '+')
 		})
 	};
 
@@ -59,7 +63,17 @@ function ConfluenceUser(username, fullName, email, password) {
 
 		var selector = '[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]';
 		return asyncElement(by.css(selector)).isPresent();
-	}
+	};
+
+	this.isInSearchIndex = function () {
+		this.actions.searchUser.open({refreshAlways: true});
+
+		return element(by.css('a.search-result-link[href="/' + this.actions.userProfile.path + '"]')).isPresent();
+	};
+
+	this.waitUntilUserInSearchIndex = function () {
+		return browser.wait(this.isInSearchIndex.bind(this), DEFAULT_LOADING_TIMEOUT);
+	};
 }
 
 ConfluenceUser.prototype = new ConfluenceBase();

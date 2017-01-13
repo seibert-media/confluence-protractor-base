@@ -22,7 +22,13 @@ describe('ConfluenceUser (page object)', function() {
 		})
 	});
 
+
 	describe('created user', function () {
+		it('is in search index', function () {
+			user.waitUntilUserInSearchIndex();
+			expect(user.isInSearchIndex()).toBe(true);
+		});
+
 		it('is in the group "confluence-users"', function () {
 			expect(user.hasGroup('confluence-users')).toBe(true);
 		});
