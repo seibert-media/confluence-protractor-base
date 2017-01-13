@@ -31,6 +31,16 @@ exports.config = {
 		var screenshotReporter = require('./jasmineReporters/screenshotReporter');
 		jasmineEnv.addReporter(screenshotReporter);
 
+		/**
+		 * Workaround for race condition
+		 *
+		 * Github Issue: https://github.com/angular/protractor/issues/3777
+		 * Reproduction test: https://github.com/tilmanpotthof/race-condition-in-expected-condition-visibility-of
+		 */
+		var saveExpectedConditions = require('protractor-save-expected-conditions');
+		protractor.ExpectedConditions.visibilityOf = saveExpectedConditions.saveVisibilityOf;
+		protractor.ExpectedConditions.textToBePresentInElement = saveExpectedConditions.saveTextToBePresentInElement;
+
 		// wait until confluence version is loaded
 		var ConfluenceBase = require('./page-objects/ConfluenceBase');
 		var confluenceBase = new ConfluenceBase();

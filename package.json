@@ -16,6 +16,7 @@
   "dependencies": {
     "jasmine-reporters": "^2.2.0",
     "lodash": "^4.15.0",
-    "protractor": "^4.0.4"
+    "protractor": "^4.0.4",
+    "protractor-save-expected-conditions": "^1.0.0"
   }
 }

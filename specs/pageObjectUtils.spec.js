@@ -255,12 +255,8 @@ describe('pageObjectUtils', function() {
 		});
 	});
 
-	describe('race condition workarounds', function () {
-		var EC;
-
-		beforeEach(function () {
-			EC = protractor.ExpectedConditions;
-		});
+	describe('race condition workarounds (imported)', function () {
+		var EC = protractor.ExpectedConditions;
 
 		var RACE_CONDITION_ELEMENT_ID = 'race-condition-element';
 		var RACE_CONDITION_ELEMENT;
@@ -297,10 +293,6 @@ describe('pageObjectUtils', function() {
 
 		describe('visibilityOf', function () {
 
-			beforeEach(function () {
-				EC.visibilityOf = pageObjectUtils.visibilityOf;
-			});
-
 			it('returns false when element is removed between isPresent and isDisplayed', function () {
 				prepareInterceptorToRemoveElementBeforeCall('isDisplayed');
 
@@ -317,10 +309,6 @@ describe('pageObjectUtils', function() {
 		});
 
 		describe('textToBePresentInElement', function () {
-
-			beforeEach(function () {
-				EC.textToBePresentInElement = pageObjectUtils.textToBePresentInElement;
-			});
 
 			it('returns false when element is removed between isPresent and getText', function () {
 				prepareInterceptorToRemoveElementBeforeCall('getText');
