@@ -68,7 +68,13 @@ function ConfluenceUser(username, fullName, email, password) {
 	this.isInSearchIndex = function () {
 		this.actions.searchUser.open({refreshAlways: true});
 
-		return element(by.css('a.search-result-link[href="/' + this.actions.userProfile.path + '"]')).isPresent();
+		var userProfileSearchPath = this.actions.userProfile.path;
+
+		if (this.confluenceVersion().lessThan('5.9')) {
+			userProfileSearchPath = userProfileSearchPath + '?src=search';
+		}
+
+		return element(by.css('a.search-result-link[href="/' + userProfileSearchPath + '"]')).isPresent();
 	};
 
 	this.waitUntilUserInSearchIndex = function () {
