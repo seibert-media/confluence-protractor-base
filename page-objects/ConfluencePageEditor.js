@@ -116,9 +116,12 @@ function ConfluencePageEditor() {
 	};
 
 	this.removeLatestComment = function () {
-		this.getLatestComment().element(by.css('.comment-action-remove')).click();
+		var latestComment = this.getLatestComment();
+		latestComment.element(by.css('.comment-action-remove')).click();
 
 		skipAlertIfPresent();
+
+		browser.wait(EC.stalenessOf(latestComment));
 	};
 
 }
