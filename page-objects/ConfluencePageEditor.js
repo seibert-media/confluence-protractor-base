@@ -6,9 +6,10 @@ var asyncElement = pageObjectUtils.asyncElement;
 var openPage = pageObjectUtils.openPage;
 var skipAlertIfPresent = pageObjectUtils.skipAlertIfPresent;
 
-var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
+var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 
 function ConfluencePageEditor() {
+	var EC = protractor.ExpectedConditions;
 	var self = this;
 
 	this.createNewPageWithTitle = function(pageTitle, spaceKey) {
@@ -27,6 +28,27 @@ function ConfluencePageEditor() {
 		return this.getEditorFrame().isPresent();
 	};
 
+	this.waitUntilEditorOpened = function () {
+		return browser.wait(this.hasEditor.bind(this), DEFAULT_LOADING_TIMEOUT);
+	};
+
+	this.waitUntilEditorClosed = function() {
+		return browser.wait(EC.not(this.hasEditor.bind(this)), DEFAULT_LOADING_TIMEOUT);
+	};
+
+	this.editor = {
+		clear: function () {
+			return self.executeInEditorContext(function (editorInput) {
+				return editorInput.clear();
+			});
+		},
+		sendKeys: function (keys) {
+			return self.executeInEditorContext(function (editorInput) {
+				return editorInput.sendKeys(keys);
+			});
+		}
+	};
+
 	this.executeInEditorContext = function (fn) {
 		browser.switchTo().frame(this.getEditorFrame().getWebElement());
 
@@ -35,18 +57,6 @@ function ConfluencePageEditor() {
 		browser.switchTo().defaultContent();
 
 		return fnResult;
-	};
-
-	this.addContent = function(content) {
-		this.executeInEditorContext(function (editorInput) {
-			editorInput.sendKeys(content);
-		});
-	};
-
-	this.clearContent = function() {
-		this.executeInEditorContext(function (editorInput) {
-			editorInput.clear();
-		});
 	};
 
 	this.save = function () {
@@ -63,20 +73,12 @@ function ConfluencePageEditor() {
 	};
 
 	this.cancelAndClear = function () {
-		this.clearContent();
+		this.editor.clear();
 		this.cancel();
 	};
 
 	this.openComment = function () {
 		element.all(by.css('.quick-comment-prompt')).first().click();
-	};
-
-	this.addComment = function (comment) {
-		this.openComment();
-		this.addContent(comment);
-		this.save();
-
-		browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
 	};
 
 	this.openActionMenu = function () {
@@ -95,8 +97,18 @@ function ConfluencePageEditor() {
 		return element(by.id('title-text')).getText();
 	};
 
+	this.getComments = function () {
+		return element.all(by.css('#page-comments .comment'));
+	};
+
+	this.hasComments = function () {
+		return this.getComments().count().then(function (count) {
+			return count > 0;
+		});
+	};
+
 	this.getLatestComment = function () {
-		return element.all(by.css('#page-comments .comment')).last();
+		return this.getComments().last();
 	};
 
 	this.getLatestCommentContent = function () {

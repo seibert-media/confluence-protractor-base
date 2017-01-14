@@ -12,10 +12,6 @@ describe('ConfluencePageEditor (page object)', function() {
 	var uniquePageTitle = 'Test Page - ' + timestamp;
 	var uniqueCommentContent = 'Test Comment - ' + timestamp;
 
-	function expectEditorPresent(state) {
-		expect(pageEditor.getEditorFrame().isPresent()).toBe(state);
-	}
-
 	beforeAll(function () {
 		pageEditor.authenticateAsAdmin();
 	});
@@ -23,9 +19,9 @@ describe('ConfluencePageEditor (page object)', function() {
 	describe('createNewPageWithTitle()', function () {
 		beforeAll(function () {
 			pageEditor.createNewPageWithTitle(uniquePageTitle);
-			expectEditorPresent(true);
+			expect(pageEditor.hasEditor()).toBe(true);
+
 			pageEditor.save();
-			expectEditorPresent(false);
 		});
 
 		afterAll(function () {
@@ -36,56 +32,73 @@ describe('ConfluencePageEditor (page object)', function() {
 			});
 		});
 
+		it('closes editor after save', function () {
+			pageEditor.waitUntilEditorClosed();
+
+			expect(pageEditor.hasEditor()).toBe(false);
+		});
+
 		it('can create a page', function () {
 			expect(pageEditor.getPageTitle()).toBe(uniquePageTitle);
 		});
 	});
 
 
-	it('adds a comment', function () {
-		openPage('display/ds');
+	describe('comments', function () {
+		it('are not present before tests', function () {
+			expect(pageEditor.hasEditor()).toBe(false);
+		});
 
-		pageEditor.addComment(uniqueCommentContent);
+		it('adds a comment', function () {
+			openPage('display/ds');
 
-		expect(pageEditor.getLatestCommentContent()).toBe(uniqueCommentContent);
-	});
+			pageEditor.openComment();
+			pageEditor.editor.sendKeys(uniqueCommentContent);
+			pageEditor.save();
 
-	it('removes the comment', function () {
-		openPage('display/ds');
+			pageEditor.waitUntilEditorClosed();
 
-		pageEditor.removeLatestComment();
+			expect(pageEditor.getLatestCommentContent()).toBe(uniqueCommentContent);
+			expect(pageEditor.hasComments()).toBe(true);
+		});
 
-		expect(pageEditor.getLatestCommentContent()).not.toBe(uniqueCommentContent);
-	});
+		it('removes the comment', function () {
+			openPage('display/ds');
 
-	it('adds a comment with a mention', function () {
-		openPage('display/ds');
+			pageEditor.removeLatestComment();
 
-		pageEditor.openComment();
-		pageEditor.addContent('@Adara');
+			expect(pageEditor.hasComments()).toBe(false);
+		});
 
-		expectEditorPresent(true);
+		it('adds a comment with a mention', function () {
+			openPage('display/ds');
 
-		var mentionSelector = asyncElement(by.css('.autocomplete-mentions [title="Adara Moss (Adara.Moss)"]'));
-		expect(mentionSelector.isPresent()).toBe(true);
+			pageEditor.openComment();
+			pageEditor.editor.sendKeys('@Adara');
 
-		pageEditor.cancelAndSkripAlert();
+			expect(pageEditor.hasEditor()).toBe(true);
 
-		expectEditorPresent(false);
-	});
+			var mentionSelector = asyncElement(by.css('.autocomplete-mentions [title="Adara Moss (Adara.Moss)"]'));
+			expect(mentionSelector.isPresent()).toBe(true);
+
+			pageEditor.cancelAndSkripAlert();
+
+			expect(pageEditor.hasEditor()).toBe(false);
+		});
 
 
-	it('cancels a comment', function () {
-		openPage('display/ds');
+		it('cancels a comment', function () {
+			openPage('display/ds');
 
-		pageEditor.openComment();
+			pageEditor.openComment();
 
-		expectEditorPresent(true);
+			expect(pageEditor.hasEditor()).toBe(true);
 
-		pageEditor.addContent('Some content');
+			pageEditor.editor.sendKeys('Some content');
 
-		pageEditor.cancelAndClear();
+			pageEditor.cancelAndClear();
 
-		expectEditorPresent(false);
-	});
+			expect(pageEditor.hasEditor()).toBe(false);
+		});
+	})
 });
