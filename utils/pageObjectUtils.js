@@ -115,9 +115,11 @@ var pageObjectUtils = {
 		});
 	},
 	cleanScreenshots: function () {
-		fs.readdirSync(screenshotPath).forEach(function (file) {
-			fs.unlinkSync(screenshotPath + file);
-		});
+		if (fs.existsSync(screenshotPath)) {
+			fs.readdirSync(screenshotPath).forEach(function (file) {
+				fs.unlinkSync(screenshotPath + file);
+			});
+		}
 	},
 	waitForElementToBeClickable: function (element, timeout) {
 		browser.wait(EC().elementToBeClickable(element), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
