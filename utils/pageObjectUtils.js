@@ -6,7 +6,7 @@ var generateScreenshotName = (function () {
 }());
 
 var fs = require('fs');
-var screenshotPath = 'screenshots/'
+var screenshotPath = 'screenshots/';
 
 var parseUrl = require('url').parse;
 
@@ -107,11 +107,16 @@ var pageObjectUtils = {
 		screenshotsAlreadyTaken[imageName] = imageName;
 
 		return browser.takeScreenshot().then(function (base64Screenshot) {
-			return require("fs").writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function (error) {
+			return fs.writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function (error) {
 				if (error) {
 					console.log(error);
 				}
 			})
+		});
+	},
+	cleanScreenshots: function () {
+		fs.readdirSync(screenshotPath).forEach(function (file) {
+			fs.unlinkSync(screenshotPath + file);
 		});
 	},
 	waitForElementToBeClickable: function (element, timeout) {
