@@ -35,15 +35,18 @@ function ConfluencePageEditor() {
 		return browser.wait(EC.not(this.hasEditor.bind(this)), DEFAULT_LOADING_TIMEOUT);
 	};
 
+	// fake input element methods to use page editor for Autocomplete components
 	this.editor = {
 		clear: function () {
 			return self.executeInEditorContext(function (editorInput) {
-				return editorInput.clear();
+				editorInput.clear();
+				return self.editor;
 			});
 		},
 		sendKeys: function (keys) {
 			return self.executeInEditorContext(function (editorInput) {
-				return editorInput.sendKeys(keys);
+				editorInput.sendKeys(keys);
+				return self.editor;
 			});
 		}
 	};
