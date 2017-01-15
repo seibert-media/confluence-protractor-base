@@ -37,16 +37,19 @@ function ConfluencePageEditor() {
 
 	// fake input element methods to use page editor for Autocomplete components
 	this.editor = {
+		extendResult: function (result) {
+			result.clear = this.clear;
+			result.sendKeys = this.sendKeys;
+			return result;
+		},
 		clear: function () {
 			return self.executeInEditorContext(function (editorInput) {
-				editorInput.clear();
-				return self.editor;
+				return self.editor.extendResult(editorInput.clear());
 			});
 		},
 		sendKeys: function (keys) {
 			return self.executeInEditorContext(function (editorInput) {
-				editorInput.sendKeys(keys);
-				return self.editor;
+				return self.editor.extendResult(editorInput.sendKeys(keys));
 			});
 		}
 	};
