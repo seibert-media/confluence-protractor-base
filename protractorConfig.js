@@ -41,6 +41,12 @@ exports.config = {
 		protractor.ExpectedConditions.visibilityOf = saveExpectedConditions.saveVisibilityOf;
 		protractor.ExpectedConditions.textToBePresentInElement = saveExpectedConditions.saveTextToBePresentInElement;
 
+		// log confligured timeouts and reset jasmine timeout
+		var pageObjectUtils = require('./utils/pageObjectUtils');
+		console.log('Initial DEFAULT_ELEMENT_TIMEOUT', pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT);
+		console.log('Initial DEFAULT_LOADING_TIMEOUT', pageObjectUtils.DEFAULT_LOADING_TIMEOUT);
+		pageObjectUtils.resetJasmineTimeoutForPageObjectTimeouts();
+
 		// wait until confluence version is loaded
 		var ConfluenceBase = require('./page-objects/ConfluenceBase');
 		var confluenceBase = new ConfluenceBase();

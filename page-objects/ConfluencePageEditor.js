@@ -6,9 +6,8 @@ var asyncElement = pageObjectUtils.asyncElement;
 var openPage = pageObjectUtils.openPage;
 var skipAlertIfPresent = pageObjectUtils.skipAlertIfPresent;
 
-var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
-
 function ConfluencePageEditor() {
+	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 	var EC = protractor.ExpectedConditions;
 	var self = this;
 

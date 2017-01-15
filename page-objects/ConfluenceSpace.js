@@ -2,10 +2,6 @@ var ConfluenceBase = require('./ConfluenceBase');
 var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 
-// page object utils imports
-var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
-var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
-
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var asyncElement = pageObjectUtils.asyncElement;
 var findFirstDisplayed = pageObjectUtils.findFirstDisplayed;
@@ -14,8 +10,9 @@ var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 var blackSpaceTemplateKey = 'com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blank-space-item';
 
 function ConfluenceSpace(spaceKey, spaceName) {
-	var self = this;
+	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 	var EC = protractor.ExpectedConditions;
+	var self = this;
 
 	spaceName = spaceName || spaceKey;
 

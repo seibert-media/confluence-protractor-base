@@ -14,8 +14,8 @@ function EC() {
 	return protractor.ExpectedConditions;
 }
 
-var DEFAULT_ELEMENT_TIMEOUT = 2000;
-var DEFAULT_LOADING_TIMEOUT = 15000;
+var DEFAULT_ELEMENT_TIMEOUT = 2 * 1000;
+var DEFAULT_LOADING_TIMEOUT = 15 * 1000;
 
 function resolveAttribute(promise, attributeName) {
 	var attributPromise = promise.then(function (object) {
@@ -225,6 +225,10 @@ var pageObjectUtils = {
 	},
 	setDefaultLoadingTimeout: function (timeout) {
 		DEFAULT_LOADING_TIMEOUT = timeout;
+	},
+	resetJasmineTimeoutForPageObjectTimeouts: function () {
+		jasmine.DEFAULT_TIMEOUT_INTERVAL = DEFAULT_ELEMENT_TIMEOUT + DEFAULT_LOADING_TIMEOUT;
+		console.log('Reset jasmine.DEFAULT_TIMEOUT_INTERVAL to ' + jasmine.DEFAULT_TIMEOUT_INTERVAL);
 	}
 };
 

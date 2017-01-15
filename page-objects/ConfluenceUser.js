@@ -5,9 +5,10 @@ var CheckboxOption = require('../utils/elements/CheckboxOption');
 
 // page object utils imports
 var asyncElement = pageObjectUtils.asyncElement;
-var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 
 function ConfluenceUser(username, fullName, email, password) {
+	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+
 	pageObjectUtils.assertNotNull(username, 'options.username is required');
 
 	this.username = username;
