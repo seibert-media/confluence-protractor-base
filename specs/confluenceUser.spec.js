@@ -1,6 +1,7 @@
 var ConfluenceUser = require('../page-objects/ConfluenceUser');
+var ConfluenceGroup = require('../page-objects/ConfluenceGroup');
 
-describe('ConfluenceUser (page object)', function() {
+describe('ConfluenceUser (page object)', function () {
 
 	var user = new ConfluenceUser('user', 'Test User', 'dev0@seibert-media.net', 'user');
 
@@ -21,7 +22,6 @@ describe('ConfluenceUser (page object)', function() {
 			expect(browser.getTitle()).toContain(user.fullName);
 		})
 	});
-
 
 	describe('created user', function () {
 		it('is in search index', function () {
@@ -45,5 +45,31 @@ describe('ConfluenceUser (page object)', function() {
 			user.actions.userProfile.open();
 			expect(browser.getTitle()).toContain('Page Not Found');
 		})
+	});
+
+	fdescribe('group membership', function () {
+		beforeAll(function () {
+			user.create();
+		});
+
+		afterAll(function () {
+			user.remove();
+		});
+
+		it('has NOT the group "department-technologies"', function () {
+			expect(user.hasGroup("confluence-administrators")).toBe(false);
+		});
+
+		it('adds user to group "department-technologies"', function () {
+			user.addGroup("confluence-administrators");
+
+			expect(user.hasGroup("confluence-administrators")).toBe(true);
+		});
+
+		it('removes user from group "department-technologies"', function () {
+			user.removeGroup("confluence-administrators");
+
+			expect(user.hasGroup("confluence-administrators")).toBe(false);
+		});
 	});
 });

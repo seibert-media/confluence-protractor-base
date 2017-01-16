@@ -31,6 +31,9 @@ function ConfluenceUser(username, fullName, email, password) {
 		}),
 		searchUser: new ConfluenceAction({
 			path: 'dosearchsite.action?queryString=' + fullName.replace(' ', '+')
+		}),
+		editUserGroups: new ConfluenceAction({
+			path: "admin/users/editusergroups-start.action?username=" + username
 		})
 	};
 
@@ -81,6 +84,23 @@ function ConfluenceUser(username, fullName, email, password) {
 	this.waitUntilUserInSearchIndex = function () {
 		return browser.wait(this.isInSearchIndex.bind(this), DEFAULT_LOADING_TIMEOUT);
 	};
+
+	this.addGroup = function (groupname) {
+		return changeGroup.call(this, groupname, 'select');
+	};
+
+	this.removeGroup = function (groupname) {
+		return changeGroup.call(this, groupname, 'unselect');
+	};
+
+	function changeGroup(groupname, operation) {
+		var form = "form#editusergroupsform";
+		var groupCheckbox = form + " input[name='newGroups']#" + groupname;
+		this.actions.editUserGroups.open();
+		var checkboxOption = new CheckboxOption(by.css(groupCheckbox));
+		checkboxOption[operation]();
+		return element(by.css(form + " input[type='submit']")).click();
+	}
 }
 
 ConfluenceUser.prototype = new ConfluenceBase();
