@@ -4,8 +4,7 @@
   "description": "Base project for protractor e2e tests with confluence",
   "main": "index.js",
   "scripts": {
-    "test": "protractor protractorConfig.js",
-    "test-en": "protractor protractorConfig.js --params.confluenceConfig default.en"
+    "test": "protractor protractorConfig.js --params.confluenceConfig default.en"
   },
   "repository": {
     "type": "git",
