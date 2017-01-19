@@ -1,3 +1,6 @@
+var SCREEN_WIDTH = 1280;
+var SCREEN_HEIGHT = 960;
+
 // conf.js
 exports.config = {
 	baseUrl: 'http://localhost:8090/',
@@ -46,11 +49,27 @@ exports.config = {
 		protractor.ExpectedConditions.visibilityOf = saveExpectedConditions.saveVisibilityOf;
 		protractor.ExpectedConditions.textToBePresentInElement = saveExpectedConditions.saveTextToBePresentInElement;
 
-		// log confligured timeouts and reset jasmine timeout
+		// log configured timeouts and reset jasmine timeout
 		var pageObjectUtils = require('./utils/pageObjectUtils');
 		console.log('Initial DEFAULT_ELEMENT_TIMEOUT', pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT);
 		console.log('Initial DEFAULT_LOADING_TIMEOUT', pageObjectUtils.DEFAULT_LOADING_TIMEOUT);
 		pageObjectUtils.resetJasmineTimeoutForPageObjectTimeouts();
+
+		// set screensize for screenshots and visibilities
+		browser.driver.manage().window().setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		// clean screenshot directory
+		pageObjectUtils.cleanScreenshots();
+
+		browser.getCapabilities().then(function (capabilities) {
+			// turn off alerts for phantomjs
+			var browserName = capabilities.get('browserName');
+
+			console.log('browserName: ' + browserName);
+			if (browserName === 'phantomjs') {
+				pageObjectUtils.setTurnOffAlerts(true);
+			}
+		});
 
 		// wait until confluence version is loaded
 		var ConfluenceBase = require('./page-objects/ConfluenceBase');

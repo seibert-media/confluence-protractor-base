@@ -149,9 +149,9 @@ describe('pageObjectUtils', function() {
 		var location;
 
 		beforeEach(function () {
-			pageObjectUtils.openPage(testUrl);
+			pageObjectUtils.openPage(testUrl, {refreshAlways: true});
 
-			location = pageObjectUtils.getLocation()
+			location = pageObjectUtils.getLocation();
 		});
 
 		it('extracts the "href "from url', function () {

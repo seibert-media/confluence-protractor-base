@@ -10,6 +10,8 @@ var screenshotPath = 'screenshots/';
 
 var parseUrl = require('url').parse;
 
+var turnOffAlerts = false;
+
 function EC() {
 	return protractor.ExpectedConditions;
 }
@@ -159,16 +161,22 @@ var pageObjectUtils = {
 		var newLocation = pageObjectUtils.locationFromUrl(browser.baseUrl + path);
 
 		return pageObjectUtils.getLocation().then(function (currentLocation) {
+			var promise;
+
 			if (options.refreshAlways) {
-				return browser.get(path);
-			}
-			if (newLocation.pathname !== currentLocation.pathname) {
-				return browser.get(path);
-			}
-			if (!options.ignoreSearch && newLocation.search !== currentLocation.search) {
-				return browser.get(path);
+				promise = browser.get(path);
+			} else if (newLocation.pathname !== currentLocation.pathname) {
+				promise = browser.get(path);
+			} else if (!options.ignoreSearch && newLocation.search !== currentLocation.search) {
+				promise = browser.get(path);
 			}
 
+			if (promise) {
+				if (turnOffAlerts) {
+					pageObjectUtils.turnOffAlerts();
+				}
+				return promise;
+			}
 			console.log('Page is already opened: ' + path);
 		});
 	},
@@ -200,7 +208,7 @@ var pageObjectUtils = {
 		var location = parseUrl(url);
 
 		// path without leading / to be consistent with openPage()
-		location.path = location.pathname.slice(1);
+		location.path = (location.pathname || "").slice(1);
 		location.pathWithSearch = location.path + location.search;
 		location.pathWithSearchAndHash = location.path + location.search + location.hash;
 
@@ -211,7 +219,25 @@ var pageObjectUtils = {
 			return location.path;
 		});
 	},
+	setTurnOffAlerts: function (turnOffAlertsValue) {
+		console.log('setTurnOffAlerts:' + turnOffAlertsValue);
+		turnOffAlerts = turnOffAlertsValue
+	},
+	turnOffAlerts: function () {
+		browser.executeScript(function () {
+			window.alert = function () {
+				return true;
+			};
+			window.confirm = function () {
+				return true;
+			};
+		});
+	},
 	skipAlertIfPresent: function () {
+		if (turnOffAlerts) {
+			return;
+		}
+
 		var alertIsPresentPromise = EC().alertIsPresent();
 
 		alertIsPresentPromise().then(function (alertIsPresent) {
