@@ -47,7 +47,7 @@ describe('ConfluenceUser (page object)', function () {
 		})
 	});
 
-	fdescribe('group membership', function () {
+	describe('group membership', function () {
 		beforeAll(function () {
 			user.create();
 		});
