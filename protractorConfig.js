@@ -2,13 +2,18 @@
 exports.config = {
 	baseUrl: 'http://localhost:8090/',
 	capabilities: {
-		browserName: 'chrome',
-		chromeOptions: {
-			args: [ 'lang=en-EN', '--window-size=1280,960'],
+		// default browser: chrome
+		'browserName': 'chrome',
+		// chrome options
+		'chromeOptions': {
+			args: [ 'lang=en-EN', '--window-size=' + SCREEN_WIDTH + ',' + SCREEN_HEIGHT],
 			prefs: {
 				intl: { accept_languages: "en-EN" }
 			}
-		}
+		},
+		// phantomjs options
+		'phantomjs.binary.path': require('phantomjs-prebuilt').path,
+		'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
 	},
 	params: {
 		confluenceConfig: 'default'
