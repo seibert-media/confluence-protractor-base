@@ -18,7 +18,8 @@ module.exports = {
 		Version: require('./utils/Version'),
 		elements: {
 			RadioOption: require('./utils/elements/RadioOption'),
-			CheckboxOption: require('./utils/elements/CheckboxOption')
+			CheckboxOption: require('./utils/elements/CheckboxOption'),
+			AutocompleteSearch: require('./utils/elements/AutocompleteSearch')
 		}
 	},
 	jasmineReporters: {

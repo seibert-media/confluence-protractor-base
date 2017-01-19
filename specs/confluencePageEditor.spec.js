@@ -70,23 +70,6 @@ describe('ConfluencePageEditor (page object)', function() {
 			expect(pageEditor.hasComments()).toBe(false);
 		});
 
-		it('adds a comment with a mention', function () {
-			openPage('display/ds');
-
-			pageEditor.openComment();
-			pageEditor.editor.sendKeys('@Adara');
-
-			expect(pageEditor.hasEditor()).toBe(true);
-
-			var mentionSelector = asyncElement(by.css('.autocomplete-mentions [title="Adara Moss (Adara.Moss)"]'));
-			expect(mentionSelector.isPresent()).toBe(true);
-
-			pageEditor.cancelAndSkripAlert();
-
-			expect(pageEditor.hasEditor()).toBe(false);
-		});
-
-
 		it('cancels a comment', function () {
 			openPage('display/ds');
 
