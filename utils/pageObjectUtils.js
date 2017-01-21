@@ -147,7 +147,7 @@ var pageObjectUtils = {
 		options = options || {};
 
 		if (options.ignoreSearch === undefined) {
-			options.ignoreSearch = true;
+			options.ignoreSearch = false;
 		}
 
 		path = path || '';

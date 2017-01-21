@@ -48,7 +48,7 @@ function ConfluenceLogin() {
 				self.actions.logout.open();
 			}
 
-			self.actions.login.open();
+			self.actions.login.open({ignoreSearch: true});
 
 			asyncElement(by.name('os_username')).sendKeys(username);
 			asyncElement(by.name('os_password')).sendKeys(password);
