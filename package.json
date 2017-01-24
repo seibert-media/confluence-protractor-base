@@ -4,9 +4,9 @@
   "description": "Base project for protractor e2e tests with confluence",
   "main": "index.js",
   "scripts": {
-    "test": "protractor protractorConfig.js --params.confluenceConfig default.en",
-    "test-phantom": "protractor protractorConfig.js --params.confluenceConfig default.en --browser phantomjs",
-    "webdriver-start": "webdriver-manager start",
+    "test": "protractor protractorConfig.js",
+    "test-local": "protractor protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
+    "webdriver-start": "webdriver-manager start --seleniumPort 4445",
     "webdriver-update": "webdriver-manager update"
   },
   "repository": {

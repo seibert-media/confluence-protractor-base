@@ -3,7 +3,7 @@ var SCREEN_HEIGHT = 960;
 
 // conf.js
 exports.config = {
-	baseUrl: 'http://localhost:8090/',
+	baseUrl: 'http://confluence:8090/',
 	capabilities: {
 		// default browser: chrome
 		'browserName': 'chrome',

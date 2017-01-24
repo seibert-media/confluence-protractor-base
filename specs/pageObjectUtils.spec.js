@@ -155,7 +155,7 @@ describe('pageObjectUtils', function() {
 		});
 
 		it('extracts the "href "from url', function () {
-			expect(location.href).toEqual('http://localhost:8090/login.action?permissionViolation=true#someHash');
+			expect(location.href).toEqual('http://confluence:8090/login.action?permissionViolation=true#someHash');
 		});
 
 		it('extracts the "protocol" from url', function () {
@@ -163,11 +163,11 @@ describe('pageObjectUtils', function() {
 		});
 
 		it('extracts the "host" from url', function () {
-			expect(location.host).toBe('localhost:8090');
+			expect(location.host).toBe('confluence:8090');
 		});
 
 		it('extracts the "hostname" from url', function () {
-			expect(location.hostname).toBe('localhost');
+			expect(location.hostname).toBe('confluence');
 		});
 
 		it('extracts the "port" from url', function () {

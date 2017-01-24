@@ -1,9 +1,12 @@
+var remote = require('selenium-webdriver/remote');
 var path = require('path');
 var ConfluenceBase = require('./ConfluenceBase');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var asyncElement = pageObjectUtils.asyncElement;
+
+browser.setFileDetector(new remote.FileDetector());
 
 function UniversalPluginManager() {
 	var self = this;
