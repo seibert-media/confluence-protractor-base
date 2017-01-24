@@ -16,8 +16,8 @@ function loadConfluenceConfig() {
 	var merge = require('lodash').merge;
 
 	var confluenceConfig = {
-		DASHBOARD_TITLE: 'Übersicht - Confluence',
-		ADMIN_TITLE: 'Administrationskonsole - Confluence',
+		DASHBOARD_TITLE: 'Dashboard - Confluence',
+		ADMIN_TITLE: 'Administration Console - Confluence',
 		USERS: {
 			ADMIN: {
 				USERNAME: 'admin',
