@@ -52,7 +52,8 @@ function UniversalPluginManager() {
 	};
 
 	this.parseMavenVersionFromPom = function () {
-			var mavenVersionOutput = require('child_process').execSync('atlas-mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate  -Dexpression=project.version -B', {
+		var mavenCommand = 'atlas-mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate  -Dexpression=project.version -B';
+		var mavenVersionOutput = require('child_process').execSync(mavenCommand, {
 			encoding: 'utf-8',
 			stdio: [0]
 		});
