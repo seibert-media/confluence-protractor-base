@@ -6,7 +6,7 @@ var generateScreenshotName = (function () {
 }());
 
 var fs = require('fs');
-var screenshotPath = 'screenshots/'
+var screenshotPath = 'screenshots/';
 
 var parseUrl = require('url').parse;
 

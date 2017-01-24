@@ -1,3 +1,4 @@
+var remote = require('selenium-webdriver/remote');
 var path = require('path');
 var ConfluenceBase = require('./ConfluenceBase');
 var pageObjectUtils = require('../utils/pageObjectUtils');
@@ -6,6 +7,8 @@ var clickIfPresent = pageObjectUtils.clickIfPresent;
 var asyncElement = pageObjectUtils.asyncElement;
 
 function UniversalPluginManager() {
+	browser.setFileDetector(new remote.FileDetector());
+
 	var self = this;
 	var DEFAULT_PLUGIN_UPLOAD_TIMEOUT = 60000;
 	var UPLOAD_BUTTON_VISIBILITY_TIMEOUT = 5000;
