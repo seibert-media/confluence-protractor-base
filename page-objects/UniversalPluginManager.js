@@ -6,9 +6,9 @@ var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var asyncElement = pageObjectUtils.asyncElement;
 
-browser.setFileDetector(new remote.FileDetector());
-
 function UniversalPluginManager() {
+	browser.setFileDetector(new remote.FileDetector());
+
 	var self = this;
 	var DEFAULT_PLUGIN_UPLOAD_TIMEOUT = 60000;
 	var UPLOAD_BUTTON_VISIBILITY_TIMEOUT = 5000;
