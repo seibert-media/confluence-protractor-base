@@ -8,6 +8,8 @@ var skipAlertIfPresent = pageObjectUtils.skipAlertIfPresent;
 
 function ConfluencePageEditor() {
 	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+	var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
+
 	var EC = protractor.ExpectedConditions;
 	var self = this;
 
@@ -20,7 +22,7 @@ function ConfluencePageEditor() {
 	};
 
 	this.getEditorFrame = function () {
-		return asyncElement(by.id('wysiwygTextarea_ifr'));
+		return element(by.id('wysiwygTextarea_ifr'));
 	};
 
 	this.hasEditor = function () {
@@ -55,6 +57,8 @@ function ConfluencePageEditor() {
 	};
 
 	this.executeInEditorContext = function (fn) {
+		this.waitUntilEditorOpened();
+
 		browser.switchTo().frame(this.getEditorFrame().getWebElement());
 
 		var fnResult = fn(asyncElement(by.id('tinymce')));
@@ -75,15 +79,18 @@ function ConfluencePageEditor() {
 	this.cancelAndSkripAlert = function () {
 		this.cancel();
 		skipAlertIfPresent();
+		this.waitUntilEditorClosed();
 	};
 
 	this.cancelAndClear = function () {
 		this.editor.clear();
 		this.cancel();
+		this.waitUntilEditorClosed();
 	};
 
 	this.openComment = function () {
 		element.all(by.css('.quick-comment-prompt')).first().click();
+		this.waitUntilEditorOpened();
 	};
 
 	this.openActionMenu = function () {
@@ -126,7 +133,7 @@ function ConfluencePageEditor() {
 
 		skipAlertIfPresent();
 
-		browser.wait(EC.stalenessOf(latestComment));
+		browser.wait(EC.stalenessOf(latestComment), DEFAULT_ELEMENT_TIMEOUT);
 	};
 
 }
