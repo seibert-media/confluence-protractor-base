@@ -6,6 +6,7 @@ module.exports = {
 		ConfluenceLogin: require('./page-objects/ConfluenceLogin'),
 		ConfluenceBase: require('./page-objects/ConfluenceBase'),
 		ConfluenceSpace: require('./page-objects/ConfluenceSpace'),
+		ConfluencePage: require('./page-objects/ConfluencePage'),
 		ConfluenceAction: require('./page-objects/ConfluenceAction'),
 		ConfluenceGroup: require('./page-objects/ConfluenceGroup'),
 		ConfluenceUser: require('./page-objects/ConfluenceUser'),
