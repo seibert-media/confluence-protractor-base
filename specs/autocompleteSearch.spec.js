@@ -32,7 +32,7 @@ describe('AutocompleteSearch (page object)', function() {
 
 		mentionAutocomplete.clearAndLeave();
 
-		pageEditor.cancelAndSkripAlert();
+		pageEditor.cancelAndSkipAlert();
 
 		expect(pageEditor.hasEditor()).toBe(false);
 	});

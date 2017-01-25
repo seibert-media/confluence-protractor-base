@@ -5,13 +5,14 @@ var ConfluencePageEditor = require('./ConfluencePageEditor');
 
 var asyncElement = pageObjectUtils.asyncElement;
 var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
-
+var skipAlertIfPresent = pageObjectUtils.skipAlertIfPresent;
 
 function ConfluencePage(pageName, spaceKey) {
 	var EC = protractor.ExpectedConditions;
 	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+	var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
 
-	var confluencePageEditor = new ConfluencePageEditor();
+	var pageEditor = new ConfluencePageEditor();
 
 	this.pageName = pageName;
 	this.spaceKey = spaceKey;
@@ -31,7 +32,7 @@ function ConfluencePage(pageName, spaceKey) {
 	this.create = function () {
 		this.actions.createPage.open();
 		element(by.id('content-title')).sendKeys(pageName);
-		confluencePageEditor.save();
+		pageEditor.save();
 		browser.wait(EC.visibilityOf(element(by.id('title-text'))), DEFAULT_LOADING_TIMEOUT);
 	};
 
@@ -63,6 +64,33 @@ function ConfluencePage(pageName, spaceKey) {
 		sendLabelToInput(label);
 		browser.wait(EC.visibilityOf(element(by.css('#labels-autocomplete-list .aui-dropdown ol.last'))), DEFAULT_LOADING_TIMEOUT);
 		return element.all(by.css('#labels-autocomplete-list .aui-dropdown ol.last li'));
+	};
+
+	this.getComments = function () {
+		return element.all(by.css('#page-comments .comment'));
+	};
+
+	this.hasComments = function () {
+		return this.getComments().count().then(function (count) {
+			return count > 0;
+		});
+	};
+
+	this.getLatestComment = function () {
+		return this.getComments().last();
+	};
+
+	this.getLatestCommentContent = function () {
+		return this.getLatestComment().element(by.css('.comment-content')).getText();
+	};
+
+	this.removeLatestComment = function () {
+		var latestComment = this.getLatestComment();
+		latestComment.element(by.css('.comment-action-remove')).click();
+
+		skipAlertIfPresent();
+
+		browser.wait(EC.stalenessOf(latestComment), DEFAULT_ELEMENT_TIMEOUT);
 	};
 
 	function sendLabelToInput(label) {
