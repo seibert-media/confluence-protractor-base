@@ -75,6 +75,10 @@ exports.config = {
 		var ConfluenceBase = require('./page-objects/ConfluenceBase');
 		var confluenceBase = new ConfluenceBase();
 		confluenceBase.actions.login.open();
+
+		// initial screenshot
+		pageObjectUtils.takeScreenshot('initial-screenshot.png');
+
 		return browser.wait(function () {
 			return confluenceBase.loadConfluenceVersion().then(function (confluenceVersion) {
 				console.log('Detected Confluence Version for UI-Tests: ', confluenceVersion);
