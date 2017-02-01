@@ -61,8 +61,15 @@ exports.config = {
 		// clean screenshot directory
 		pageObjectUtils.cleanScreenshots();
 
-		// turn off all alerts
-		pageObjectUtils.setTurnOffAlerts(true);
+		browser.getCapabilities().then(function (capabilities) {
+			// turn off alerts for phantomjs
+			var browserName = capabilities.get('browserName');
+
+			console.log('browserName: ' + browserName);
+			if (browserName === 'phantomjs') {
+				pageObjectUtils.setTurnOffAlerts(true);
+			}
+		});
 
 		// wait until confluence version is loaded
 		var ConfluenceBase = require('./page-objects/ConfluenceBase');
