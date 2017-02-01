@@ -96,6 +96,8 @@ var pageObjectUtils = {
 		});
 	},
 	takeScreenshot: function (imageName) {
+		pageObjectUtils.skipAlertIfPresent();
+
 		imageName = imageName || generateScreenshotName();
 
 		if (!fs.existsSync(screenshotPath)) {
