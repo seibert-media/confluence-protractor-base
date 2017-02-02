@@ -1,4 +1,4 @@
-var ConfluencePageEditor = require('../page-objects/ConfluencePageEditor');
+var ConfluenceEditor = require('../page-objects/ConfluenceEditor');
 var AutocompleteSearch = require('../utils/elements/AutocompleteSearch');
 
 var pageObjectUtils = require('../utils/pageObjectUtils');
@@ -6,7 +6,7 @@ var openPage = pageObjectUtils.openPage;
 
 describe('AutocompleteSearch (page object)', function() {
 
-	var pageEditor = new ConfluencePageEditor();
+	var pageEditor = new ConfluenceEditor();
 
 	beforeAll(function () {
 		pageEditor.authenticateAsAdmin();

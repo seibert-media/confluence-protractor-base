@@ -1,33 +1,32 @@
-var ConfluencePageEditor = require('../page-objects/ConfluencePageEditor');
+var ConfluencePage = require('../page-objects/ConfluencePage');
+var ConfluenceEditor = require('../page-objects/ConfluenceEditor');
 
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var openPage = pageObjectUtils.openPage;
-var asyncElement = pageObjectUtils.asyncElement;
 
-describe('ConfluencePageEditor (page object)', function() {
-
-	var pageEditor = new ConfluencePageEditor();
+describe('ConfluencePage und ConfluenceEditor (page object)', function() {
 
 	var timestamp = new Date().valueOf();
 	var uniquePageTitle = 'Test Page - ' + timestamp;
 	var uniqueCommentContent = 'Test Comment - ' + timestamp;
 
+	var page = new ConfluencePage(uniquePageTitle, 'ds');
+	var pageEditor = new ConfluenceEditor();
+
+
 	beforeAll(function () {
 		pageEditor.authenticateAsAdmin();
 	});
 
-	describe('createNewPageWithTitle()', function () {
+	describe('create()', function () {
 		beforeAll(function () {
-			pageEditor.createNewPageWithTitle(uniquePageTitle);
-			expect(pageEditor.hasEditor()).toBe(true);
-
-			pageEditor.save();
+			page.create();
 		});
 
 		afterAll(function () {
-			pageEditor.getPageTitle().then(function (pageTitle) {
-				if (pageTitle === uniquePageTitle) {
-					pageEditor.deletePage();
+			browser.getTitle().then(function (pageTitle) {
+				if (pageTitle.indexOf(uniquePageTitle) >= 0) {
+					page.remove();
 				}
 			});
 		});
@@ -39,7 +38,7 @@ describe('ConfluencePageEditor (page object)', function() {
 		});
 
 		it('can create a page', function () {
-			expect(pageEditor.getPageTitle()).toBe(uniquePageTitle);
+			expect(browser.getTitle()).toContain(uniquePageTitle);
 		});
 	});
 
@@ -58,16 +57,16 @@ describe('ConfluencePageEditor (page object)', function() {
 
 			pageEditor.waitUntilEditorClosed();
 
-			expect(pageEditor.getLatestCommentContent()).toBe(uniqueCommentContent);
-			expect(pageEditor.hasComments()).toBe(true);
+			expect(page.getLatestCommentContent()).toBe(uniqueCommentContent);
+			expect(page.hasComments()).toBe(true);
 		});
 
 		it('removes the comment', function () {
 			openPage('display/ds');
 
-			pageEditor.removeLatestComment();
+			page.removeLatestComment();
 
-			expect(pageEditor.hasComments()).toBe(false);
+			expect(page.hasComments()).toBe(false);
 		});
 
 		it('cancels a comment', function () {

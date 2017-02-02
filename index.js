@@ -10,7 +10,7 @@ module.exports = {
 		ConfluenceAction: require('./page-objects/ConfluenceAction'),
 		ConfluenceGroup: require('./page-objects/ConfluenceGroup'),
 		ConfluenceUser: require('./page-objects/ConfluenceUser'),
-		ConfluencePageEditor: require('./page-objects/ConfluencePageEditor'),
+		ConfluenceEditor: require('./page-objects/ConfluenceEditor'),
 		UniversalPluginManager: require('./page-objects/UniversalPluginManager')
 	},
 	utils: {

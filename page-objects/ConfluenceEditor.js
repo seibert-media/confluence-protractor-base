@@ -5,7 +5,7 @@ var pageObjectUtils = require('../utils/pageObjectUtils');
 var asyncElement = pageObjectUtils.asyncElement;
 var skipAlertIfPresent = pageObjectUtils.skipAlertIfPresent;
 
-function ConfluencePageEditor() {
+function ConfluenceEditor() {
 	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 
 	var EC = protractor.ExpectedConditions;
@@ -85,6 +85,6 @@ function ConfluencePageEditor() {
 
 }
 
-ConfluencePageEditor.prototype = new ConfluenceBase();
+ConfluenceEditor.prototype = new ConfluenceBase();
 
-module.exports = ConfluencePageEditor;
+module.exports = ConfluenceEditor;

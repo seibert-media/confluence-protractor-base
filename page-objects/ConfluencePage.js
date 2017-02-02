@@ -1,7 +1,7 @@
 var ConfluenceBase = require('./ConfluenceBase');
 var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
-var ConfluencePageEditor = require('./ConfluencePageEditor');
+var ConfluenceEditor = require('./ConfluenceEditor');
 
 var asyncElement = pageObjectUtils.asyncElement;
 var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
@@ -12,7 +12,7 @@ function ConfluencePage(pageName, spaceKey) {
 	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 	var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
 
-	var pageEditor = new ConfluencePageEditor();
+	var pageEditor = new ConfluenceEditor();
 
 	this.pageName = pageName;
 	this.spaceKey = spaceKey;
