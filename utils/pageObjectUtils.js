@@ -96,8 +96,6 @@ var pageObjectUtils = {
 		});
 	},
 	takeScreenshot: function (imageName) {
-		pageObjectUtils.skipAlertIfPresent();
-
 		imageName = imageName || generateScreenshotName();
 
 		if (!fs.existsSync(screenshotPath)) {
@@ -109,6 +107,8 @@ var pageObjectUtils = {
 		}
 
 		screenshotsAlreadyTaken[imageName] = imageName;
+
+		browser.wait(pageObjectUtils.skipAlertIfPresent());
 
 		return browser.takeScreenshot().then(function (base64Screenshot) {
 			return fs.writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function (error) {
@@ -236,16 +236,13 @@ var pageObjectUtils = {
 		});
 	},
 	skipAlertIfPresent: function () {
-		if (turnOffAlerts) {
-			return;
-		}
-
 		var alertIsPresentPromise = EC().alertIsPresent();
 
-		alertIsPresentPromise().then(function (alertIsPresent) {
+		return alertIsPresentPromise().then(function (alertIsPresent) {
 			if (alertIsPresent) {
-				browser.switchTo().alert().accept();
+				return browser.switchTo().alert().accept();
 			}
+			return alertIsPresent;
 		})
 	},
 	setDefaultElementTimeout: function (timeout) {
