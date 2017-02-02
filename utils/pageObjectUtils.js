@@ -108,14 +108,21 @@ var pageObjectUtils = {
 
 		screenshotsAlreadyTaken[imageName] = imageName;
 
-		browser.wait(pageObjectUtils.skipAlertIfPresent());
-
-		return browser.takeScreenshot().then(function (base64Screenshot) {
+		function saveSuccessfullScreenshot(base64Screenshot) {
 			return fs.writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function (error) {
 				if (error) {
 					console.log(error);
 				}
 			})
+		}
+
+		return browser.takeScreenshot().then(saveSuccessfullScreenshot, function (error) {
+			console.log(error);
+
+			// skip alerts and retry
+			browser.wait(pageObjectUtils.skipAlertIfPresent()).then(function () {
+				browser.takeScreenshot().then(saveSuccessfullScreenshot())
+			});
 		});
 	},
 	cleanScreenshots: function () {
