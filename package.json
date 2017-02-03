@@ -19,7 +19,6 @@
     "jasmine-reporters": "^2.2.0",
     "lodash": "^4.15.0",
     "phantomjs-prebuilt": "^2.1.14",
-    "protractor": "^4.0.4",
-    "protractor-save-expected-conditions": "^1.0.0"
+    "protractor": "^5.1.0"
   }
 }
