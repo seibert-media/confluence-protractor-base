@@ -10,12 +10,14 @@ var screenshotPath = 'screenshots/';
 
 var parseUrl = require('url').parse;
 
+var turnOffAlerts = false;
+
 function EC() {
 	return protractor.ExpectedConditions;
 }
 
-var DEFAULT_ELEMENT_TIMEOUT = 2000;
-var DEFAULT_LOADING_TIMEOUT = 10000;
+var DEFAULT_ELEMENT_TIMEOUT = 2 * 1000;
+var DEFAULT_LOADING_TIMEOUT = 15 * 1000;
 
 function resolveAttribute(promise, attributeName) {
 	var attributPromise = promise.then(function (object) {
@@ -106,13 +108,29 @@ var pageObjectUtils = {
 
 		screenshotsAlreadyTaken[imageName] = imageName;
 
-		return browser.takeScreenshot().then(function (base64Screenshot) {
-			return require("fs").writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function (error) {
+		function saveSuccessfullScreenshot(base64Screenshot) {
+			return fs.writeFile(screenshotPath + imageName, base64Screenshot, 'base64', function (error) {
 				if (error) {
 					console.log(error);
 				}
 			})
+		}
+
+		return browser.takeScreenshot().then(saveSuccessfullScreenshot, function (error) {
+			console.log(error);
+
+			// skip alerts and retry
+			browser.wait(pageObjectUtils.skipAlertIfPresent()).then(function () {
+				browser.takeScreenshot().then(saveSuccessfullScreenshot())
+			});
 		});
+	},
+	cleanScreenshots: function () {
+		if (fs.existsSync(screenshotPath)) {
+			fs.readdirSync(screenshotPath).forEach(function (file) {
+				fs.unlinkSync(screenshotPath + file);
+			});
+		}
 	},
 	waitForElementToBeClickable: function (element, timeout) {
 		browser.wait(EC().elementToBeClickable(element), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
@@ -134,7 +152,13 @@ var pageObjectUtils = {
 			return element.isDisplayed();
 		}).first();
 	},
-	openPage: function (path) {
+	openPage: function (path, options) {
+		options = options || {};
+
+		if (options.ignoreSearch === undefined) {
+			options.ignoreSearch = false;
+		}
+
 		path = path || '';
 		if (!browser.baseUrl.endsWith('/')) {
 			throw new Error('openPage need a baseUrl with a trailing / (baseUrl: ' + browser.baseUrl + ')');
@@ -146,13 +170,23 @@ var pageObjectUtils = {
 		var newLocation = pageObjectUtils.locationFromUrl(browser.baseUrl + path);
 
 		return pageObjectUtils.getLocation().then(function (currentLocation) {
-			if (newLocation.pathname === currentLocation.pathname) {
+			var promise;
 
-				console.log('Page is already opened: ' + path);
-			} else {
-				return browser.get(path);
+			if (options.refreshAlways) {
+				promise = browser.get(path);
+			} else if (newLocation.pathname !== currentLocation.pathname) {
+				promise = browser.get(path);
+			} else if (!options.ignoreSearch && newLocation.search !== currentLocation.search) {
+				promise = browser.get(path);
 			}
 
+			if (promise) {
+				if (turnOffAlerts) {
+					pageObjectUtils.turnOffAlerts();
+				}
+				return promise;
+			}
+			console.log('Page is already opened: ' + path);
 		});
 	},
 	getLocation: function () {
@@ -183,7 +217,7 @@ var pageObjectUtils = {
 		var location = parseUrl(url);
 
 		// path without leading / to be consistent with openPage()
-		location.path = location.pathname.slice(1);
+		location.path = (location.pathname || "").slice(1);
 		location.pathWithSearch = location.path + location.search;
 		location.pathWithSearchAndHash = location.path + location.search + location.hash;
 
@@ -193,6 +227,40 @@ var pageObjectUtils = {
 		return pageObjectUtils.getLocation().then(function (location) {
 			return location.path;
 		});
+	},
+	setTurnOffAlerts: function (turnOffAlertsValue) {
+		console.log('setTurnOffAlerts:' + turnOffAlertsValue);
+		turnOffAlerts = turnOffAlertsValue
+	},
+	turnOffAlerts: function () {
+		browser.executeScript(function () {
+			window.alert = function () {
+				return true;
+			};
+			window.confirm = function () {
+				return true;
+			};
+		});
+	},
+	skipAlertIfPresent: function () {
+		var alertIsPresentPromise = EC().alertIsPresent();
+
+		return alertIsPresentPromise().then(function (alertIsPresent) {
+			if (alertIsPresent) {
+				return browser.switchTo().alert().accept();
+			}
+			return alertIsPresent;
+		})
+	},
+	setDefaultElementTimeout: function (timeout) {
+		DEFAULT_ELEMENT_TIMEOUT = timeout;
+	},
+	setDefaultLoadingTimeout: function (timeout) {
+		DEFAULT_LOADING_TIMEOUT = timeout;
+	},
+	resetJasmineTimeoutForPageObjectTimeouts: function () {
+		jasmine.DEFAULT_TIMEOUT_INTERVAL = DEFAULT_ELEMENT_TIMEOUT + DEFAULT_LOADING_TIMEOUT;
+		console.log('Reset jasmine.DEFAULT_TIMEOUT_INTERVAL to ' + jasmine.DEFAULT_TIMEOUT_INTERVAL);
 	}
 };
 
@@ -205,5 +273,16 @@ Object.defineProperty(pageObjectUtils.asyncElement, 'all', {
 	}
 });
 
+Object.defineProperty(pageObjectUtils, 'DEFAULT_ELEMENT_TIMEOUT', {
+	get: function () {
+		return DEFAULT_ELEMENT_TIMEOUT;
+	}
+});
+
+Object.defineProperty(pageObjectUtils, 'DEFAULT_LOADING_TIMEOUT', {
+	get: function () {
+		return DEFAULT_LOADING_TIMEOUT;
+	}
+});
 
 module.exports = pageObjectUtils;

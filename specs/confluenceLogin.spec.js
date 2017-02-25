@@ -4,6 +4,10 @@ var pageObjectUtils = require('../utils/pageObjectUtils');
 
 describe('ConfluenceLogin (page object)', function() {
 
+	beforeAll(function () {
+		confluenceLogin.logout();
+	});
+
 	var confluenceLogin = new ConfluenceLogin();
 	var confluenceConfig = confluenceLogin.confluenceConfig();
 

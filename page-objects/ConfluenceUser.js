@@ -7,6 +7,8 @@ var CheckboxOption = require('../utils/elements/CheckboxOption');
 var asyncElement = pageObjectUtils.asyncElement;
 
 function ConfluenceUser(username, fullName, email, password) {
+	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+
 	pageObjectUtils.assertNotNull(username, 'options.username is required');
 
 	this.username = username;
@@ -26,6 +28,12 @@ function ConfluenceUser(username, fullName, email, password) {
 		}),
 		userAdminView: new ConfluenceAction({
 			path: 'admin/users/viewuser.action?username=' + username
+		}),
+		searchUser: new ConfluenceAction({
+			path: 'dosearchsite.action?queryString=' + fullName.replace(' ', '+')
+		}),
+		editUserGroups: new ConfluenceAction({
+			path: "admin/users/editusergroups-start.action?username=" + username
 		})
 	};
 
@@ -59,6 +67,39 @@ function ConfluenceUser(username, fullName, email, password) {
 
 		var selector = '[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]';
 		return asyncElement(by.css(selector)).isPresent();
+	};
+
+	this.isInSearchIndex = function () {
+		this.actions.searchUser.open({refreshAlways: true});
+
+		var userProfileSearchPath = this.actions.userProfile.path;
+
+		if (this.confluenceVersion().lessThan('5.9')) {
+			userProfileSearchPath = userProfileSearchPath + '?src=search';
+		}
+
+		return element(by.css('a.search-result-link[href="/' + userProfileSearchPath + '"]')).isPresent();
+	};
+
+	this.waitUntilUserInSearchIndex = function () {
+		return browser.wait(this.isInSearchIndex.bind(this), DEFAULT_LOADING_TIMEOUT);
+	};
+
+	this.addGroup = function (groupname) {
+		return changeGroup.call(this, groupname, 'select');
+	};
+
+	this.removeGroup = function (groupname) {
+		return changeGroup.call(this, groupname, 'unselect');
+	};
+
+	function changeGroup(groupname, operation) {
+		var form = "form#editusergroupsform";
+		var groupCheckbox = form + " input[name='newGroups']#" + groupname;
+		this.actions.editUserGroups.open();
+		var checkboxOption = new CheckboxOption(by.css(groupCheckbox));
+		checkboxOption[operation]();
+		return element(by.css(form + " input[type='submit']")).click();
 	}
 }
 

@@ -6,8 +6,11 @@ module.exports = {
 		ConfluenceLogin: require('./page-objects/ConfluenceLogin'),
 		ConfluenceBase: require('./page-objects/ConfluenceBase'),
 		ConfluenceSpace: require('./page-objects/ConfluenceSpace'),
+		ConfluencePage: require('./page-objects/ConfluencePage'),
 		ConfluenceAction: require('./page-objects/ConfluenceAction'),
+		ConfluenceGroup: require('./page-objects/ConfluenceGroup'),
 		ConfluenceUser: require('./page-objects/ConfluenceUser'),
+		ConfluenceEditor: require('./page-objects/ConfluenceEditor'),
 		UniversalPluginManager: require('./page-objects/UniversalPluginManager')
 	},
 	utils: {
@@ -16,7 +19,8 @@ module.exports = {
 		Version: require('./utils/Version'),
 		elements: {
 			RadioOption: require('./utils/elements/RadioOption'),
-			CheckboxOption: require('./utils/elements/CheckboxOption')
+			CheckboxOption: require('./utils/elements/CheckboxOption'),
+			AutocompleteSearch: require('./utils/elements/AutocompleteSearch')
 		}
 	},
 	jasmineReporters: {
