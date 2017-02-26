@@ -90,7 +90,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			var createSpaceButton = asyncElement(by.id('addSpaceLink'));
 			createSpaceButton.click();
 
-			var createSpaceFirstTime = asyncElement(by.css('.start-creating-space'));
+			var createSpaceFirstTime = asyncElement(by.css('.start-creating-space'), 5000);
 			return pageObjectUtils.clickIfPresent(createSpaceFirstTime);
 		},
 		selectTemplate: function (itemModuleCompleteKey) {

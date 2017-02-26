@@ -9,7 +9,7 @@ describe('UniversalPluginManager (page object)', function() {
 
 	describe('uploadPlugin()', function () {
 
-		var PLUGIN_UPLOAD_TIMEOUT = 120000;
+		var PLUGIN_UPLOAD_TIMEOUT = 3 * 60 * 1000;
 
 		it('installs the plugin', function () {
 			universalPluginManager.uploadPlugin('tutorial-confluence-macro-demo', testPluginPath, PLUGIN_UPLOAD_TIMEOUT);
