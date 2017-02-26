@@ -4,6 +4,7 @@ var ConfluenceBase = require('./ConfluenceBase');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
+var clickIfClickable = pageObjectUtils.clickIfClickable;
 var asyncElement = pageObjectUtils.asyncElement;
 
 function UniversalPluginManager() {
@@ -21,13 +22,13 @@ function UniversalPluginManager() {
 		browser.get('/plugins/servlet/upm');
 
 		// dismiss up to three notifications if they occur
-		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
-		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
-		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
 
 		// open upload dialog
 		var uploadButton = asyncElement(by.id('upm-upload'));
-		browser.wait(protractor.ExpectedConditions.visibilityOf(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT));
+		browser.wait(protractor.ExpectedConditions.visibilityOf(uploadButton), UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
 		uploadButton.click();
 
 		// get path and upload plugin

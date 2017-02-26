@@ -95,6 +95,13 @@ var pageObjectUtils = {
 			}
 		});
 	},
+	clickIfClickable: function (element) {
+		return EC().elementToBeClickable(element)().then(function (isClickable) {
+			if (isClickable) {
+				return element.click();
+			}
+		});
+	},
 	takeScreenshot: function (imageName) {
 		imageName = imageName || generateScreenshotName();
 
