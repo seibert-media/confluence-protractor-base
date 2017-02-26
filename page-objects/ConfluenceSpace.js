@@ -93,13 +93,15 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			var welcomeDialogVisibility = EC.visibilityOf(element(by.id('space-welcome-dialog')));
 			var createSpaceDialogVisibility = EC.visibilityOf(element(by.id('create-dialog')));
 
-			browser.wait(EC.or(welcomeDialogVisibility, createSpaceDialogVisibility), DEFAULT_LOADING_TIMEOUT);
-
-			return welcomeDialogVisibility().then(function (welcomeDialogVisible) {
-				if (welcomeDialogVisible) {
-					asyncElement(by.css('.start-creating-space')).click();
-				}
-			});
+			return browser.wait(EC.or(welcomeDialogVisibility, createSpaceDialogVisibility), DEFAULT_LOADING_TIMEOUT)
+				.then(function () {
+					return welcomeDialogVisibility().then(function (welcomeDialogVisible) {
+						console.log("welcomeDialogVisible: " + welcomeDialogVisible);
+						if (welcomeDialogVisible) {
+							return asyncElement(by.css('.start-creating-space')).click();
+						}
+					});
+				});
 		},
 		selectTemplate: function (itemModuleCompleteKey) {
 			var templateSelector = '[data-item-module-complete-key="' + itemModuleCompleteKey + '"]';
