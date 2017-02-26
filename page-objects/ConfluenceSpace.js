@@ -90,15 +90,15 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			var createSpaceButton = asyncElement(by.id('addSpaceLink'));
 			createSpaceButton.click();
 
-			var welcomeDialogVisibility = EC.visibilityOf(element(by.id('space-welcome-dialog')));
-			var createSpaceDialogVisibility = EC.visibilityOf(element(by.id('create-dialog')));
+			var skipButtonSelector = by.css('.start-creating-space');
+			var skipButtonVisibility = EC.presenceOf(element(skipButtonSelector));
+			var templateContainerVisibility = EC.presenceOf(element(by.css('.template-select-container-body .templates')));
 
-			return browser.wait(EC.or(welcomeDialogVisibility, createSpaceDialogVisibility), DEFAULT_LOADING_TIMEOUT)
+			return browser.wait(EC.or(skipButtonVisibility, templateContainerVisibility), DEFAULT_LOADING_TIMEOUT)
 				.then(function () {
-					return welcomeDialogVisibility().then(function (welcomeDialogVisible) {
-						console.log("welcomeDialogVisible: " + welcomeDialogVisible);
-						if (welcomeDialogVisible) {
-							return asyncElement(by.css('.start-creating-space')).click();
+					skipButtonVisibility().then(function (skipButtonVisible) {
+						if (skipButtonVisible) {
+							element(skipButtonSelector).click();
 						}
 					});
 				});
