@@ -233,8 +233,8 @@ describe('pageObjectUtils', function() {
 	describe('configure timeouts', function () {
 
 		describe('DEFAULT_ELEMENT_TIMEOUT', function () {
-			it('has a default of 2 seconds', function () {
-				expect(pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT).toBe(2000);
+			it('has a default of 3 seconds', function () {
+				expect(pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT).toBe(3000);
 			});
 
 			it('loads a configured value', function () {
@@ -244,8 +244,8 @@ describe('pageObjectUtils', function() {
 		});
 
 		describe('DEFAULT_LOADING_TIMEOUT', function () {
-			it('has a default of 15 seconds', function () {
-				expect(pageObjectUtils.DEFAULT_LOADING_TIMEOUT).toBe(15000);
+			it('has a default of 30 seconds', function () {
+				expect(pageObjectUtils.DEFAULT_LOADING_TIMEOUT).toBe(20000);
 			});
 
 			it('loads a configured value', function () {
