@@ -13,7 +13,7 @@ function UniversalPluginManager() {
 	var self = this;
 	var EC = protractor.ExpectedConditions;
 	var DEFAULT_PLUGIN_UPLOAD_TIMEOUT = 60 * 1000;
-	var DEFAULT_UPM_LOADING_TIME = 15 * 1000;
+	var DEFAULT_UPM_LOADING_TIME = 20 * 1000;
 	var UPLOAD_BUTTON_VISIBILITY_TIMEOUT = 5000;
 	var DEFAULT_MAX_ATTEMPTS = 2;
 
@@ -74,12 +74,16 @@ function UniversalPluginManager() {
 		return '.upm-plugin[data-key="' + pluginKey + '"]';
 	}
 
-	this.pluginInstalled = function (pluginKey) {
+	this.pluginInstalled = function (pluginName) {
 		self.actions.upm.open({refreshAlways: true});
+
+		element(by.id('upm-manage-filter-box')).sendKeys(pluginName);
 
 		browser.wait(EC.visibilityOf(element(by.css('.upm-plugin-list-container'))), DEFAULT_UPM_LOADING_TIME);
 
-		return element(by.css(pluginEntrySelector(pluginKey))).isPresent();
+		var pluginNameElement = pageObjectUtils.findFirstDisplayed(by.css('.upm-plugin-name'));
+
+		return EC.textToBePresentInElement(pluginNameElement, pluginName)();
 	};
 
 	this.uploadPlugin = function (pluginName, fileToUpload, timeout, maxAttempts) {
@@ -89,13 +93,17 @@ function UniversalPluginManager() {
 	this.uninstallPlugin = function (pluginKey) {
 		this.pluginInstalled(pluginKey).then(function (isPluginInstalled) {
 			if (isPluginInstalled) {
-				var selector = pluginEntrySelector(pluginKey);
+				pageObjectUtils.findFirstDisplayed(by.css('.upm-plugin')).click();
 
-				asyncElement(by.css(selector)).click();
-				asyncElement(by.css(selector + ' [data-action="UNINSTALL"]')).click();
-
-				clickIfPresent(asyncElement(by.css('button.confirm')));
-
+				if (self.confluenceVersion().greaterThan('5.8')) {
+					asyncElement(by.css('[data-action="UNINSTALL"]')).click();
+					clickIfPresent(asyncElement(by.css('button.confirm')));
+				} else {
+					var uninstallButton = element(by.css('.upm-uninstall'));
+					browser.wait(EC.visibilityOf(uninstallButton));
+					uninstallButton.click();
+					clickIfPresent(asyncElement(by.css('#upm-confirm-dialog .button-panel-button')));
+				}
 			}
 		});
 	};
