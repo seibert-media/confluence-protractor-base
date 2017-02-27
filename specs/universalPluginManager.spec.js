@@ -37,7 +37,7 @@ describe('UniversalPluginManager (page object)', function() {
 
 	describe('uploadPlugin() error handling', function () {
 
-		var TIMEOUT_RETRY_FACTOR = 1.2;
+		var TIMEOUT_RETRY_FACTOR = 1.5;
 
 		beforeEach(function () {
 			universalPluginManager.uninstallPlugin(pluginName);
