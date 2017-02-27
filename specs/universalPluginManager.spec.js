@@ -13,7 +13,7 @@ describe('UniversalPluginManager (page object)', function() {
 
 	var pluginName = 'tutorial-confluence-macro-demo';
 
-	var PLUGIN_UPLOAD_TIMEOUT = 3 * 60 * 1000;
+	var PLUGIN_UPLOAD_TIMEOUT = 2 * 60 * 1000;
 
 	beforeAll(function () {
 		universalPluginManager.authenticateAsAdmin();
@@ -37,7 +37,7 @@ describe('UniversalPluginManager (page object)', function() {
 
 	describe('uploadPlugin() error handling', function () {
 
-		var TIMEOUT_RETRY_FACTOR = 2;
+		var TIMEOUT_RETRY_FACTOR = 1.2;
 
 		beforeEach(function () {
 			universalPluginManager.uninstallPlugin(pluginName);
