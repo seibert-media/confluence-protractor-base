@@ -39,6 +39,9 @@ exports.config = {
 		var screenshotReporter = require('./jasmineReporters/screenshotReporter');
 		jasmineEnv.addReporter(screenshotReporter);
 
+		var failFastReporter = require('./jasmineReporters/failFastReporter');
+		jasmineEnv.addReporter(failFastReporter);
+
 		/**
 		 * Workaround for race condition
 		 *

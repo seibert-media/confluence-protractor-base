@@ -1,4 +1,5 @@
 var UniversalPluginManager = require('../page-objects/UniversalPluginManager');
+var failFastReporter = require('../jasmineReporters/failFastReporter');
 
 describe('UniversalPluginManager (page object)', function() {
 
@@ -20,6 +21,8 @@ describe('UniversalPluginManager (page object)', function() {
 	});
 
 	describe('uploadPlugin()', function () {
+		beforeAll(failFastReporter.enable);
+		afterAll(failFastReporter.disable);
 
 		it('installs the plugin', function () {
 			universalPluginManager.uploadPlugin(pluginName, testPluginPath, PLUGIN_UPLOAD_TIMEOUT);
