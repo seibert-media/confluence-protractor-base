@@ -1,54 +1,111 @@
 var remote = require('selenium-webdriver/remote');
 var path = require('path');
 var ConfluenceBase = require('./ConfluenceBase');
+var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
-var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
+var clickIfClickable = pageObjectUtils.clickIfClickable;
 var asyncElement = pageObjectUtils.asyncElement;
 
 function UniversalPluginManager() {
 	browser.setFileDetector(new remote.FileDetector());
 
 	var self = this;
-	var DEFAULT_PLUGIN_UPLOAD_TIMEOUT = 60000;
+	var EC = protractor.ExpectedConditions;
+	var DEFAULT_PLUGIN_UPLOAD_TIMEOUT = 60 * 1000;
+	var DEFAULT_UPM_LOADING_TIME = 20 * 1000;
 	var UPLOAD_BUTTON_VISIBILITY_TIMEOUT = 5000;
+	var DEFAULT_MAX_ATTEMPTS = 2;
 
-	this.uploadPlugin = function (pluginName, fileToUpload, timeout) {
+	this.actions.upm = new ConfluenceAction({
+		path: 'plugins/servlet/upm'
+	});
+
+	function uploadPluginInternal(pluginName, fileToUpload, timeout, maxAttempts, attemptCount) {
 		timeout = timeout || DEFAULT_PLUGIN_UPLOAD_TIMEOUT;
 
-		self.authenticateAsAdmin();
+		maxAttempts = maxAttempts || 1;
+		attemptCount = attemptCount || 0;
 
-		browser.get('/plugins/servlet/upm');
+		self.actions.upm.open({refreshAlways: true});
 
 		// dismiss up to three notifications if they occur
-		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
-		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
-		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
 
 		// open upload dialog
 		var uploadButton = asyncElement(by.id('upm-upload'));
-		browser.wait(protractor.ExpectedConditions.visibilityOf(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT));
+		browser.wait(protractor.ExpectedConditions.elementToBeClickable(uploadButton), UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
 		uploadButton.click();
 
 		// get path and upload plugin
 		var absolutePath = path.resolve(process.cwd(), fileToUpload);
 		// check if file exists
 		require('fs').accessSync(absolutePath);
-		console.log('Plugin path: ' + absolutePath);
+
 		asyncElement(by.id('upm-upload-file')).sendKeys(absolutePath);
 
 		// try upload buttons for different confluence versiions
 		clickIfPresent(asyncElement(by.css('button.confirm')));
 		clickIfPresent(asyncElement(by.css('button.upm-upload-plugin-submit')));
 
-		// check and wait for plugin name
-		var $pluginName = asyncElement(by.css('.plugin-name'), timeout);
 
-		assert($pluginName.getText(), pluginName, 'Plugin name not found');
+		var pluginNameElement = element(by.css('.plugin-name'));
+		var pluginInstalledCondition = EC.visibilityOf(pluginNameElement);
+		var pluginInstallFailCondition = EC.visibilityOf(element(by.css('.aui-message.error')));
 
-		// try confirm buttons for different confluence versiions
-		clickIfPresent(asyncElement(by.css('button.confirm')));
-		clickIfPresent(asyncElement(by.css('button.button-panel-cancel-link')));
+		browser.wait(EC.or(pluginInstalledCondition, pluginInstallFailCondition)).then(function () {
+			if (attemptCount < maxAttempts) {
+				pluginInstallFailCondition().then(function (installFailed) {
+					if (installFailed) {
+						uploadPluginInternal(pluginName, fileToUpload, timeout, maxAttempts, attemptCount + 1);
+					}
+				});
+			}
+
+			// try confirm buttons for different confluence versiions
+			clickIfPresent(asyncElement(by.css('button.confirm')));
+			clickIfPresent(asyncElement(by.css('button.button-panel-cancel-link')));
+		});
+	}
+
+	function pluginEntrySelector(pluginKey) {
+		return '.upm-plugin[data-key="' + pluginKey + '"]';
+	}
+
+	this.pluginInstalled = function (pluginName) {
+		self.actions.upm.open({refreshAlways: true});
+
+		element(by.id('upm-manage-filter-box')).sendKeys(pluginName);
+
+		browser.wait(EC.visibilityOf(element(by.css('.upm-plugin-list-container'))), DEFAULT_UPM_LOADING_TIME);
+
+		var pluginNameElement = pageObjectUtils.findFirstDisplayed(by.css('.upm-plugin-name'));
+
+		return EC.textToBePresentInElement(pluginNameElement, pluginName)();
+	};
+
+	this.uploadPlugin = function (pluginName, fileToUpload, timeout, maxAttempts) {
+		uploadPluginInternal(pluginName, fileToUpload, timeout, maxAttempts || DEFAULT_MAX_ATTEMPTS, 1);
+	};
+
+	this.uninstallPlugin = function (pluginKey) {
+		this.pluginInstalled(pluginKey).then(function (isPluginInstalled) {
+			if (isPluginInstalled) {
+				pageObjectUtils.findFirstDisplayed(by.css('.upm-plugin')).click();
+
+				if (self.confluenceVersion().greaterThan('5.8')) {
+					asyncElement(by.css('[data-action="UNINSTALL"]')).click();
+					clickIfPresent(asyncElement(by.css('button.confirm')));
+				} else {
+					var uninstallButton = element(by.css('.upm-uninstall'));
+					browser.wait(EC.visibilityOf(uninstallButton));
+					uninstallButton.click();
+					clickIfPresent(asyncElement(by.css('#upm-confirm-dialog .button-panel-button')));
+				}
+			}
+		});
 	};
 
 	this.parseMavenVersionFromPom = function () {

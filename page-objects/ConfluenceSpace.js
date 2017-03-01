@@ -90,8 +90,18 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			var createSpaceButton = asyncElement(by.id('addSpaceLink'));
 			createSpaceButton.click();
 
-			var createSpaceFirstTime = asyncElement(by.css('.start-creating-space'));
-			return pageObjectUtils.clickIfPresent(createSpaceFirstTime);
+			var skipButtonSelector = by.css('.start-creating-space');
+			var skipButtonVisibility = EC.presenceOf(element(skipButtonSelector));
+			var templateContainerVisibility = EC.presenceOf(element(by.css('.template-select-container-body .templates')));
+
+			return browser.wait(EC.or(skipButtonVisibility, templateContainerVisibility), DEFAULT_LOADING_TIMEOUT)
+				.then(function () {
+					skipButtonVisibility().then(function (skipButtonVisible) {
+						if (skipButtonVisible) {
+							element(skipButtonSelector).click();
+						}
+					});
+				});
 		},
 		selectTemplate: function (itemModuleCompleteKey) {
 			var templateSelector = '[data-item-module-complete-key="' + itemModuleCompleteKey + '"]';
