@@ -24,6 +24,7 @@ module.exports = {
 		}
 	},
 	jasmineReporters: {
-		screenshotReporter: require('./jasmineReporters/screenshotReporter')
+		screenshotReporter: require('./jasmineReporters/screenshotReporter'),
+		failFastReporter: require('./jasmineReporters/failFastReporter')
 	}
 };
