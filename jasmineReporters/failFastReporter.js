@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-var enabled = true;
+var enabled = false;
 
 var refs;
 
