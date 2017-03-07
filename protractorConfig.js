@@ -39,6 +39,10 @@ exports.config = {
 		var screenshotReporter = require('./jasmineReporters/screenshotReporter');
 		jasmineEnv.addReporter(screenshotReporter);
 
+		var failFastReporter = require('./jasmineReporters/failFastReporter');
+		failFastReporter.init();
+		jasmineEnv.addReporter(failFastReporter);
+
 		// log configured timeouts and reset jasmine timeout
 		var pageObjectUtils = require('./utils/pageObjectUtils');
 		console.log('Initial DEFAULT_ELEMENT_TIMEOUT', pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT);

@@ -28,8 +28,14 @@ function AutocompleteSearch(options) {
 	}
 
 	this.search = function (options) {
-		var searchPrefix = (options || {}).searchPrefix || '';
-		inputElement.clear().sendKeys(searchPrefix + searchTerm);
+		options = options || {};
+		var searchPrefix = options.searchPrefix || '';
+
+		if (!options.skipClear) {
+			inputElement.clear();
+		}
+
+		inputElement.sendKeys(searchPrefix + searchTerm);
 		return this;
 	};
 

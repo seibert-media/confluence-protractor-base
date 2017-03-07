@@ -8,6 +8,8 @@ describe('AutocompleteSearch (page object)', function() {
 
 	var pageEditor = new ConfluenceEditor();
 
+	var AUTOCOMPLETE_TIMEOUT = 45 * 1000;
+
 	beforeAll(function () {
 		pageEditor.authenticateAsAdmin();
 	});
@@ -17,6 +19,8 @@ describe('AutocompleteSearch (page object)', function() {
 
 		pageEditor.openComment();
 
+		expect(pageEditor.hasEditor()).toBe(true);
+
 		var mentionAutocomplete = new AutocompleteSearch({
 			searchTerm: 'Adara',
 			inputElement: pageEditor.editor,
@@ -24,8 +28,6 @@ describe('AutocompleteSearch (page object)', function() {
 		});
 
 		mentionAutocomplete.search({searchPrefix: '@'});
-
-		expect(pageEditor.hasEditor()).toBe(true);
 
 		mentionAutocomplete.waitForResult();
 		expect(mentionAutocomplete.foundExpectedResult()).toBe(true);
@@ -35,6 +37,6 @@ describe('AutocompleteSearch (page object)', function() {
 		pageEditor.cancelAndSkipAlert();
 
 		expect(pageEditor.hasEditor()).toBe(false);
-	});
+	}, AUTOCOMPLETE_TIMEOUT);
 
 });
