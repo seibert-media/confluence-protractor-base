@@ -11,6 +11,7 @@ module.exports = {
 		ConfluenceGroup: require('./page-objects/ConfluenceGroup'),
 		ConfluenceUser: require('./page-objects/ConfluenceUser'),
 		ConfluenceEditor: require('./page-objects/ConfluenceEditor'),
+		ConfluenceMacroBrowser: require('./page-objects/ConfluenceMacroBrowser'),
 		UniversalPluginManager: require('./page-objects/UniversalPluginManager')
 	},
 	utils: {
