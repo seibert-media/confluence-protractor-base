@@ -36,6 +36,22 @@ function ConfluencePage(pageName, spaceKey) {
 		browser.wait(EC.visibilityOf(element(by.id('title-text'))), DEFAULT_LOADING_TIMEOUT);
 	};
 
+	this.open = function () {
+		this.actions.displayPage.open();
+	};
+
+	this.edit = function () {
+		var self = this;
+		this.open();
+		self.pageEditor.hasEditor().then(function (hasEditor) {
+			if (!hasEditor) {
+				asyncElement(by.id('editPageLink')).click();
+				self.pageEditor.waitUntilEditorOpened();
+				self.discardDraftIfPresent();
+			}
+		});
+	};
+
 	this.remove = function () {
 		this.openActionMenu();
 
@@ -45,6 +61,15 @@ function ConfluencePage(pageName, spaceKey) {
 			confirmSelector = 'delete-dialog-next';
 		}
 		asyncElement(by.id(confirmSelector)).click();
+	};
+
+	this.discardDraftIfPresent = function () {
+		var draftMessage = element(by.id('draft-messages'));
+		draftMessage.isPresent().then(function (presence) {
+			if (presence) {
+				draftMessage.element(by.className("discard-draft")).click();
+			}
+		});
 	};
 
 	this.openActionMenu = function () {
