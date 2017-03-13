@@ -39,7 +39,7 @@ function checkNumberStringAndDefault(versionPart) {
 		return undefined;
 	}
 	if (!/^\d+$/.test(versionPart)) {
-		throw new Error('Version must only contain numbers or allowed suffixes (-rc, -beta), bus found: ' + versionPart);
+		throw new Error('Version must only contain numbers or allowed suffixes (-rc, -beta), but found: ' + versionPart);
 	}
 	return parseInt(versionPart, 10);
 }
