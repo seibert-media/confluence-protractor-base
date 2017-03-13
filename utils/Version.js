@@ -5,6 +5,11 @@ function Version(version, major, minor, patch) {
 	this.patch = patch;
 }
 
+var ALLOWED_SUFFIXES = [
+	/-rc\d+$/,
+	/-beta\d+$/
+];
+
 Version.prototype.toString = function () {
 	return this.version;
 };
@@ -34,7 +39,7 @@ function checkNumberStringAndDefault(versionPart) {
 		return undefined;
 	}
 	if (!/^\d+$/.test(versionPart)) {
-		throw new Error('Version must only contain numbers, bus found: ' + versionPart);
+		throw new Error('Version must only contain numbers or allowed suffixes (-rc, -beta), bus found: ' + versionPart);
 	}
 	return parseInt(versionPart, 10);
 }
@@ -66,6 +71,11 @@ Version.parse = function (version) {
 	if (!version) {
 		throw new Error('Parameter version in Version.parse must be defined');
 	}
+
+	version = ALLOWED_SUFFIXES.reduce(function (versionString, allowedSuffexRegex) {
+		return versionString.replace(allowedSuffexRegex, "");
+	}, version);
+
 	var versionSplit = version.split('.');
 	var major = checkNumberStringAndDefault(versionSplit[0]);
 	var minor = checkNumberStringAndDefault(versionSplit[1]);
