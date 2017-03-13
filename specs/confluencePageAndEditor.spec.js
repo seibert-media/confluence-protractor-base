@@ -42,6 +42,43 @@ describe('ConfluencePage und ConfluenceEditor (page object)', function() {
 		});
 	});
 
+	describe('edit()', function () {
+		beforeAll(function () {
+			page.create();
+			pageEditor.waitUntilEditorClosed();
+		});
+
+		afterAll(function () {
+			browser.getTitle().then(function (pageTitle) {
+				if (pageTitle.indexOf(uniquePageTitle) >= 0) {
+					page.remove();
+				}
+			});
+		});
+
+		it('opens the editor', function () {
+			page.edit();
+			expect(pageEditor.hasEditor()).toBe(true);
+			page.getEditor().cancel();
+			pageEditor.waitUntilEditorClosed();
+			expect(pageEditor.hasEditor()).toBe(false);
+		});
+
+		it('discards the draft message', function () {
+			page.edit();
+			pageEditor.editor.sendKeys("Some Content");
+			pageEditor.cancel();
+			pageEditor.waitUntilEditorClosed();
+			pageObjectUtils.asyncElement(by.id('editPageLink')).click();
+			pageEditor.waitUntilEditorOpened();
+			expect(element(by.id('draft-messages')).isPresent()).toBe(true);
+			pageEditor.discardDraftIfPresent();
+			expect(element(by.id('draft-messages')).isPresent()).toBe(false);
+			pageEditor.cancel();
+			pageEditor.waitUntilEditorClosed();
+		});
+	});
+
 
 	describe('comments', function () {
 		it('are not present before tests', function () {

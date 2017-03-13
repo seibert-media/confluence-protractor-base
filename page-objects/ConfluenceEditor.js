@@ -46,6 +46,15 @@ function ConfluenceEditor() {
 		}
 	};
 
+	this.discardDraftIfPresent = function () {
+		var draftMessage = element(by.id('draft-messages'));
+		draftMessage.isPresent().then(function (presence) {
+			if (presence) {
+				draftMessage.element(by.className("discard-draft")).click();
+			}
+		});
+	};
+
 	this.executeInEditorContext = function (fn) {
 		this.waitUntilEditorOpened();
 

@@ -41,15 +41,18 @@ function ConfluencePage(pageName, spaceKey) {
 	};
 
 	this.edit = function () {
-		var self = this;
 		this.open();
 		pageEditor.hasEditor().then(function (hasEditor) {
 			if (!hasEditor) {
 				asyncElement(by.id('editPageLink')).click();
 				pageEditor.waitUntilEditorOpened();
-				self.discardDraftIfPresent();
+				pageEditor.discardDraftIfPresent();
 			}
 		});
+	};
+
+	this.getEditor = function () {
+		return pageEditor;
 	};
 
 	this.remove = function () {
@@ -61,15 +64,6 @@ function ConfluencePage(pageName, spaceKey) {
 			confirmSelector = 'delete-dialog-next';
 		}
 		asyncElement(by.id(confirmSelector)).click();
-	};
-
-	this.discardDraftIfPresent = function () {
-		var draftMessage = element(by.id('draft-messages'));
-		draftMessage.isPresent().then(function (presence) {
-			if (presence) {
-				draftMessage.element(by.className("discard-draft")).click();
-			}
-		});
 	};
 
 	this.openActionMenu = function () {
