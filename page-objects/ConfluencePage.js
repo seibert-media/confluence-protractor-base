@@ -43,10 +43,10 @@ function ConfluencePage(pageName, spaceKey) {
 	this.edit = function () {
 		var self = this;
 		this.open();
-		self.pageEditor.hasEditor().then(function (hasEditor) {
+		pageEditor.hasEditor().then(function (hasEditor) {
 			if (!hasEditor) {
 				asyncElement(by.id('editPageLink')).click();
-				self.pageEditor.waitUntilEditorOpened();
+				pageEditor.waitUntilEditorOpened();
 				self.discardDraftIfPresent();
 			}
 		});
