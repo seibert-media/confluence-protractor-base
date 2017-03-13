@@ -19,6 +19,10 @@ describe('Version', function() {
 		it('creates Version object for 6.0.1', function () {
 			expect(Version.parse('5.6')).toEqual(new Version('5.6', 5, 6));
 		});
+
+		it('ignores "-rc" suffixes', function () {
+			expect(Version.parse('6.1.0-rc1')).toEqual(new Version('6.1.0', 6, 1, 0));
+		})
 	});
 
 	describe('compare()', function () {
@@ -111,6 +115,5 @@ describe('Version', function() {
 		});
 
 	});
-
 
 });
