@@ -64,18 +64,30 @@ describe('ConfluencePage und ConfluenceEditor (page object)', function() {
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
 
-		it('discards the draft message', function () {
-			page.edit();
-			pageEditor.editor.sendKeys("Some Content");
-			pageEditor.cancel();
-			pageEditor.waitUntilEditorClosed();
-			pageObjectUtils.asyncElement(by.id('editPageLink')).click();
-			pageEditor.waitUntilEditorOpened();
-			expect(element(by.id('draft-messages')).isPresent()).toBe(true);
-			pageEditor.discardDraftIfPresent();
-			expect(element(by.id('draft-messages')).isPresent()).toBe(false);
-			pageEditor.cancel();
-			pageEditor.waitUntilEditorClosed();
+		describe('discardDraftIfPresent()', function () {
+			beforeAll(function () {
+				page.edit();
+				pageEditor.editor.sendKeys("Some Content");
+				pageEditor.cancel();
+				pageEditor.waitUntilEditorClosed();
+				pageObjectUtils.asyncElement(by.id('editPageLink')).click();
+			});
+
+			afterAll(function () {
+				pageEditor.cancel();
+				pageEditor.waitUntilEditorClosed();
+			});
+
+			it('has a draft message', function () {
+				pageEditor.waitUntilEditorOpened();
+				expect(element(by.id('draft-messages')).isPresent()).toBe(true);
+			});
+
+			it('should not has a draft message', function () {
+				pageEditor.waitUntilEditorOpened();
+				pageEditor.discardDraftIfPresent();
+				expect(element(by.id('draft-messages')).isPresent()).toBe(false);
+			});
 		});
 	});
 
