@@ -34,6 +34,12 @@ function ConfluenceUser(username, fullName, email, password) {
 		}),
 		editUserGroups: new ConfluenceAction({
 			path: "admin/users/editusergroups-start.action?username=" + username
+		}),
+		viewPersonalSpace: new ConfluenceAction({
+			path: 'spaces/viewspace.action?key=~' + username
+		}),
+		createPersonalSpace: new ConfluenceAction({
+			path: 'spaces/createpersonalspace.action'
 		})
 	};
 
@@ -91,6 +97,20 @@ function ConfluenceUser(username, fullName, email, password) {
 
 	this.removeGroup = function (groupname) {
 		return changeGroup.call(this, groupname, 'unselect');
+	};
+
+	this.viewPersonalSpace = function() {
+		this.actions.viewPersonalSpace.open();
+	};
+
+	this.createPersonalSpace = function() {
+		this.actions.createPersonalSpace.open();
+		return element(by.css(".create-dialog-create-button")).click();
+	};
+
+	this.removePersonalSpace = function() {
+		// TODO
+		return;
 	};
 
 	function changeGroup(groupname, operation) {
