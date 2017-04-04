@@ -19,18 +19,16 @@ function ConfluenceSpace(spaceKey, spaceName) {
 	pageObjectUtils.assertNotNull(spaceKey, 'First param "spaceKey" must be set');
 
 	function spaceEntry() {
-		self.actions.spaceDirectory.open();
+		element(by.css('[data-tab-name="all"]')).click();
 		return asyncElement(by.css('[data-spacekey="' + spaceKey + '"]'));
 	}
 
 	this.assertSpaceExists = function () {
-		var currentSpaceEntry = spaceEntry();
-		pageObjectUtils.assert(currentSpaceEntry.isPresent(), true, 'Space NOT in space directory. spaceKey: ' + spaceKey);
+		pageObjectUtils.assert(this.isInSpaceDirectory(), true, 'Space NOT in space directory. spaceKey: ' + spaceKey);
 	};
 
 	this.assertSpaceExistsNot = function () {
-		var currentSpaceEntry = spaceEntry();
-		pageObjectUtils.assert(currentSpaceEntry.isPresent(), false, 'Unexpected space in space directory. spaceKey: ' + spaceKey);
+		pageObjectUtils.assert(this.isInSpaceDirectory(), false, 'Unexpected space in space directory. spaceKey: ' + spaceKey);
 	};
 
 	this.actions = {
@@ -146,19 +144,22 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		return this.waitForSpaceToAppearInSpaceDirectory();
 	};
 
+	this.isInSpaceDirectory = function () {
+		this.actions.spaceDirectory.open({refreshAlways: true});
+		return spaceEntry().isPresent();
+	};
 
 	this.waitForSpaceToAppearInSpaceDirectory = function () {
-		browser.wait(function () {
-			browser.refresh();
-			return spaceEntry().isPresent()
-		}, DEFAULT_LOADING_TIMEOUT);
+		browser.wait(this.isInSpaceDirectory.bind(this), DEFAULT_LOADING_TIMEOUT);
+	};
+
+	this.waitForSpaceToDisappearFromSpaceDirectory = function () {
+		browser.wait(EC.not(this.isInSpaceDirectory.bind(this)), DEFAULT_LOADING_TIMEOUT);
 	};
 
 	this.remove = function () {
 		this.actions.removeSpace.open();
-
 		clickIfPresent(asyncElement(by.id('confirm')));
-
 		// check and wait for plugin name
 		var percentComplete = asyncElement(by.id('percentComplete'));
 		browser.wait(function() {
@@ -167,9 +168,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			});
 		}, DEFAULT_LOADING_TIMEOUT);
 
-		self.actions.spaceHome.open();
-
-		pageObjectUtils.assert(browser.getTitle(), 'Page Not Found - Confluence', 'Expected page not found after remove');
+		this.waitForSpaceToDisappearFromSpaceDirectory();
 	};
 
 	this.getSpaceKey = function () {
