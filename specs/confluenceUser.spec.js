@@ -74,7 +74,7 @@ describe('ConfluenceUser (page object)', function () {
 			});
 		});
 
-		fdescribe('personal space', function () {
+		describe('personal space', function () {
 			beforeAll(function () {
 				user.login();
 			});
