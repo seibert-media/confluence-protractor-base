@@ -46,7 +46,7 @@ function ConfluenceUser(username, fullName, email, password) {
 			path: "admin/users/editusergroups-start.action?username=" + encodeURIComponent(username)
 		}),
 		viewPersonalSpace: new ConfluenceAction({
-			path: 'spaces/viewspace.action?key=' + personalSpaceKey
+			path: 'spaces/viewspace.action?key=~' + encodeURIComponent(username)
 		}),
 		createPersonalSpace: new ConfluenceAction({
 			path: 'spaces/createpersonalspace.action'

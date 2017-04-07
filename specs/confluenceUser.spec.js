@@ -20,7 +20,7 @@ describe('ConfluenceUser (page object)', function () {
 
 			user.actions.userProfile.open();
 			expect(browser.getTitle()).toContain(user.fullName);
-		})
+		});
 	});
 
 	describe('created user', function () {
@@ -90,6 +90,11 @@ describe('ConfluenceUser (page object)', function () {
 
 			it('opens personal space', function () {
 				user.viewPersonalSpace();
+				expect(browser.getTitle()).toContain(user.fullName);
+			});
+
+			it('opens personal space over id', function () {
+				user.personalSpace.alternativeSpaceHome();
 				expect(browser.getTitle()).toContain(user.fullName);
 			});
 
