@@ -75,7 +75,7 @@ function ConfluenceUser(username, fullName, email, password) {
 		var userProfileSearchPath = this.actions.userProfile.path;
 
 		if (this.confluenceVersion().lessThan('5.9')) {
-			userProfileSearchPath = userProfileSearchPath + '?src=search';
+			userProfileSearchPath = 'display/~' + username + '?src=search';
 		}
 
 		return element(by.css('a.search-result-link[href="/' + userProfileSearchPath + '"]')).isPresent();
