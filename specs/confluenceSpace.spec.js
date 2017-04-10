@@ -1,7 +1,7 @@
 var ConfluenceSpace = require('../page-objects/ConfluenceSpace');
 var confluenceSpaceTestUtils = require('../utils/confluenceSpaceTestUtils');
 
-fdescribe('ConfluenceSpace (page object)', function() {
+describe('ConfluenceSpace (page object)', function() {
 
 	var demonstrationSpace = new ConfluenceSpace('ds', 'Demonstration Space');
 	beforeAll(function () {
