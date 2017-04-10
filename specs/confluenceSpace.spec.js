@@ -151,7 +151,8 @@ describe('ConfluenceSpace (page object)', function() {
 		});
 
 		it('has no ADARA space anymore', function () {
-			adarasTestSpace.waitForSpaceToDisappearFromSpaceDirectory();
+			adarasTestSpace.actions.spaceHome.open();
+			expect(browser.getTitle()).toBe('Page Not Found - Confluence', 'Expected page not found after remove');
 		});
 	});
 });
