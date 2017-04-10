@@ -167,8 +167,6 @@ function ConfluenceSpace(spaceKey, spaceName) {
 				return text === '100';
 			});
 		}, DEFAULT_LOADING_TIMEOUT);
-
-		this.waitForSpaceToDisappearFromSpaceDirectory();
 	};
 
 	this.getSpaceKey = function () {

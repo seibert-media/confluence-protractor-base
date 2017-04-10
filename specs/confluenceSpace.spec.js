@@ -148,7 +148,10 @@ describe('ConfluenceSpace (page object)', function() {
 		it('removes a space', function () {
 			adarasTestSpace.authenticate();
 			adarasTestSpace.remove();
-			adarasTestSpace.assertSpaceExistsNot();
+		});
+
+		it('has no ADARA space anymore', function () {
+			adarasTestSpace.waitForSpaceToDisappearFromSpaceDirectory();
 		});
 	});
 });
