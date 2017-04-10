@@ -97,6 +97,10 @@ fdescribe('ConfluenceSpace (page object)', function() {
 			adarasTestSpace.create();
 		});
 
+		it('has ADARA space', function () {
+			adarasTestSpace.waitForSpaceToAppearInSpaceDirectory();
+		});
+
 		describe('spacePermissions', function () {
 			describe('for "confluence-users" group', function () {
 				var confluenceUsersPermissionsAsList = [

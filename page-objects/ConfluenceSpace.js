@@ -139,9 +139,6 @@ function ConfluenceSpace(spaceKey, spaceName) {
 
 		// wait for new space home to be loaded
 		browser.wait(EC.urlContains(self.actions.spaceHome.path), DEFAULT_LOADING_TIMEOUT);
-
-		// wait some time until space is updated
-		return this.waitForSpaceToAppearInSpaceDirectory();
 	};
 
 	this.isInSpaceDirectory = function () {
