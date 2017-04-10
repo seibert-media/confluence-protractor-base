@@ -16,7 +16,7 @@ function EC() {
 	return protractor.ExpectedConditions;
 }
 
-var DEFAULT_ELEMENT_TIMEOUT = 5 * 1000;
+var DEFAULT_ELEMENT_TIMEOUT = 6 * 1000;
 var DEFAULT_LOADING_TIMEOUT = 30 * 1000;
 
 function resolveAttribute(promise, attributeName) {
