@@ -11,7 +11,11 @@ exports.config = {
 		'chromeOptions': {
 			args: [ 'lang=en-EN', '--window-size=' + SCREEN_WIDTH + ',' + SCREEN_HEIGHT],
 			prefs: {
-				intl: { accept_languages: "en-EN" }
+				intl: { accept_languages: "en-EN" },
+				'credentials_enable_service': false,
+				'profile': {
+					'password_manager_enabled': false
+				}
 			}
 		},
 		// phantomjs options

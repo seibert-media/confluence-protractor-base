@@ -21,19 +21,19 @@ function ConfluenceUser(username, fullName, email, password) {
 			path: 'admin/users/createuser.action'
 		}),
 		removeUser: new ConfluenceAction({
-			path: 'admin/users/removeuser.action?username=' + username
+			path: 'admin/users/removeuser.action?username=' + encodeURIComponent(username)
 		}),
 		userProfile: new ConfluenceAction({
-			path: 'display/~' + username
+			path: 'display/~' + encodeURIComponent(username)
 		}),
 		userAdminView: new ConfluenceAction({
-			path: 'admin/users/viewuser.action?username=' + username
+			path: 'admin/users/viewuser.action?username=' + encodeURIComponent(username)
 		}),
 		searchUser: new ConfluenceAction({
 			path: 'dosearchsite.action?queryString=' + fullName.replace(' ', '+')
 		}),
 		editUserGroups: new ConfluenceAction({
-			path: "admin/users/editusergroups-start.action?username=" + username
+			path: "admin/users/editusergroups-start.action?username=" + encodeURIComponent(username)
 		})
 	};
 
@@ -75,7 +75,7 @@ function ConfluenceUser(username, fullName, email, password) {
 		var userProfileSearchPath = this.actions.userProfile.path;
 
 		if (this.confluenceVersion().lessThan('5.9')) {
-			userProfileSearchPath = userProfileSearchPath + '?src=search';
+			userProfileSearchPath = 'display/~' + username + '?src=search';
 		}
 
 		return element(by.css('a.search-result-link[href="/' + userProfileSearchPath + '"]')).isPresent();
