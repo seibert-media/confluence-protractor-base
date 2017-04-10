@@ -6,7 +6,6 @@
   "scripts": {
     "test": "protractor protractorConfig.js",
     "test-e2e": "protractor protractorConfig.js",
-    // Deprecated
     "test-local": "protractor protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
     "test-local-e2e": "protractor protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
     "webdriver-start": "webdriver-manager start --seleniumPort 4445",
