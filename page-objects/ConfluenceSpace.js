@@ -166,10 +166,6 @@ function ConfluenceSpace(spaceKey, spaceName) {
 				return text === '100';
 			});
 		}, DEFAULT_LOADING_TIMEOUT);
-
-		self.actions.spaceHome.open();
-
-		pageObjectUtils.assert(browser.getTitle(), 'Page Not Found - Confluence', 'Expected page not found after remove');
 	};
 
 	this.getSpaceKey = function () {
