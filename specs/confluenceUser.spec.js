@@ -93,8 +93,8 @@ describe('ConfluenceUser (page object)', function () {
 				expect(browser.getTitle()).toContain(user.fullName);
 			});
 
-			it('opens personal space over id', function () {
-				user.personalSpace.alternativeSpaceHome();
+			it('opens personal space by page id', function () {
+				user.personalSpace.spaceHomeByPageId();
 				expect(browser.getTitle()).toContain(user.fullName);
 			});
 

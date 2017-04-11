@@ -170,7 +170,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		return spaceKey;
 	};
 
-	this.alternativeSpaceHome = function () {
+	this.spaceHomeByPageId = function () {
 		this.actions.spaceDirectory.open({refreshAlways: true});
 		this.waitForSpaceToAppearInSpaceDirectory();
 		asyncElement(by.css('[data-spacekey="' + spaceKey + '"] .space-name a')).click();
