@@ -22,7 +22,11 @@ describe('Version', function() {
 
 		it('ignores "-rc" suffixes', function () {
 			expect(Version.parse('6.1.0-rc1')).toEqual(new Version('6.1.0', 6, 1, 0));
-		})
+		});
+
+		it('ignores "-m" suffixes', function () {
+			expect(Version.parse('6.3.0-m04')).toEqual(new Version('6.3.0', 6, 3, 0));
+		});
 	});
 
 	describe('compare()', function () {
