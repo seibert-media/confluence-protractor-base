@@ -40,7 +40,11 @@ function ConfluencePage(pageName, spaceKey) {
 		this.openActionMenu();
 
 		asyncElement(by.id('action-remove-content-link')).click();
-		asyncElement(by.id('confirm')).click();
+		var confirmSelector = 'confirm';
+		if (this.confluenceVersion().greaterThan('5.10')) {
+			confirmSelector = 'delete-dialog-next';
+		}
+		asyncElement(by.id(confirmSelector)).click();
 	};
 
 	this.openActionMenu = function () {
