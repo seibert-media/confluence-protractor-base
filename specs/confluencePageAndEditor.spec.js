@@ -24,11 +24,7 @@ describe('ConfluencePage und ConfluenceEditor (page object)', function() {
 		});
 
 		afterAll(function () {
-			browser.getTitle().then(function (pageTitle) {
-				if (pageTitle.indexOf(uniquePageTitle) >= 0) {
-					page.remove();
-				}
-			});
+			page.remove();
 		});
 
 		it('closes editor after save', function () {
@@ -49,11 +45,7 @@ describe('ConfluencePage und ConfluenceEditor (page object)', function() {
 		});
 
 		afterAll(function () {
-			browser.getTitle().then(function (pageTitle) {
-				if (pageTitle.indexOf(uniquePageTitle) >= 0) {
-					page.remove();
-				}
-			});
+			page.remove();
 		});
 
 		it('opens the editor', function () {
