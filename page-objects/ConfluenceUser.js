@@ -10,6 +10,7 @@ var asyncElement = pageObjectUtils.asyncElement;
 function ConfluenceUser(username, fullName, email, password) {
 	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 	var EC = protractor.ExpectedConditions;
+	var self = this;
 
 	pageObjectUtils.assertNotNull(username, 'options.username is required');
 
@@ -74,6 +75,14 @@ function ConfluenceUser(username, fullName, email, password) {
 		asyncElement(by.css('#create-user-form [type="submit"]')).click();
 	};
 
+	this.createIfNotExists = function() {
+		this.isInSearchIndex().then(function (isInSearchIndex) {
+			if (!isInSearchIndex) {
+				self.create();
+			}
+		});
+	};
+
 	this.remove = function () {
 		this.actions.removeUser.open();
 		asyncElement(by.id('confirm')).click();
@@ -130,7 +139,7 @@ function ConfluenceUser(username, fullName, email, password) {
 	function changeGroup(groupname, operation) {
 		var form = "form#editusergroupsform";
 		var groupCheckbox = form + " input[name='newGroups']#" + groupname;
-		this.actions.editUserGroups.open();
+		self.actions.editUserGroups.open();
 		var checkboxOption = new CheckboxOption(by.css(groupCheckbox));
 		checkboxOption[operation]();
 		return element(by.css(form + " input[type='submit']")).click();

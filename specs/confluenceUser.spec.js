@@ -1,7 +1,7 @@
 var ConfluenceUser = require('../page-objects/ConfluenceUser');
 var ConfluenceGroup = require('../page-objects/ConfluenceGroup');
 
-fdescribe('ConfluenceUser (page object)', function () {
+describe('ConfluenceUser (page object)', function () {
 
 	var user = new ConfluenceUser('testuser_björn_müller', 'Björn Müller', 'dev0@seibert-media.net', 'pass123456');
 
@@ -52,11 +52,10 @@ fdescribe('ConfluenceUser (page object)', function () {
 			user.create();
 		});
 
-		afterAll(function () {
-			user.remove();
-			var pageObjectUtils = require('../utils/pageObjectUtils');
-			pageObjectUtils.takeScreenshot("test.jpg");
-		});
+		// TODO fails in 6.1 as user-login creates a mysteric daft, which makes the user un-deletable
+		// afterAll(function () {
+		// 	user.remove();
+		// });
 
 		describe('group membership', function () {
 			var groupName = "confluence-administrators";
