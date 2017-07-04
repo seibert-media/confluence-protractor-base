@@ -53,7 +53,8 @@ describe("ConfluenceUser (page object)", () => {
 		});
 
 		afterAll(() => {
-			user.remove();
+			// TODO fails in 6.1 as user-login creates a mysteric daft, which makes the user un-deletable
+			// user.remove();
 		});
 
 		describe("group membership", () => {

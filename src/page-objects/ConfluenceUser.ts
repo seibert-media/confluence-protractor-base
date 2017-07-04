@@ -88,6 +88,14 @@ export class ConfluenceUser extends ConfluenceBase {
 		asyncElement(by.css('#create-user-form [type="submit"]')).click();
 	}
 
+	public createIfNotExists() {
+		this.isInSearchIndex().then(function (isInSearchIndex) {
+			if (!isInSearchIndex) {
+				this.create();
+			}
+		});
+	}
+
 	public remove() {
 		this.userActions.removeUser.open();
 		asyncElement(by.id("confirm")).click();
