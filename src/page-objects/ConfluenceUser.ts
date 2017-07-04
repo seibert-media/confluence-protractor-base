@@ -1,6 +1,7 @@
-import {browser, by, element} from "protractor";
+import {browser, by, element, ExpectedConditions} from "protractor";
 import {promise} from "selenium-webdriver";
 import {CheckboxOption} from "../utils/elements/CheckboxOption";
+import {Locator} from "protractor/built/locators";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceAction} from "./ConfluenceAction";
 import {ConfluenceBase} from "./ConfluenceBase";
@@ -92,11 +93,24 @@ export class ConfluenceUser extends ConfluenceBase {
 		asyncElement(by.id("confirm")).click();
 	}
 
+	public isInGroup(groupName) {
+		this.userActions.userAdminView.open({refreshAlways: true});
+		return element(this.groupSelector(groupName)).isPresent();
+	}
+
+	public waitUntilUserAppearsInGroup(groupName) {
+		return browser.wait(this.isInGroup.bind(this, groupName), DEFAULT_LOADING_TIMEOUT);
+	}
+
+	public waitUntilUserDisappearsFromGroup(groupName) {
+		browser.wait(ExpectedConditions.not(this.isInGroup.bind(this, groupName)), DEFAULT_LOADING_TIMEOUT);
+	}
+
 	public hasGroup(groupName): promise.Promise<boolean> {
 		this.userActions.userAdminView.open();
 
 		const selector = '[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]';
-		return asyncElement(by.css(selector)).isPresent();
+		return asyncElement(this.groupSelector(groupName)).isPresent();
 	}
 
 	public isInSearchIndex() {
@@ -134,6 +148,10 @@ export class ConfluenceUser extends ConfluenceBase {
 
 	public removePersonalSpace() {
 		this.personalSpace.remove();
+	}
+
+	private groupSelector(groupName: string): Locator {
+		return by.css('[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]');
 	}
 
 	private changeGroup(groupname, operation) {

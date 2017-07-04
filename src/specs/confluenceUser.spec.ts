@@ -57,20 +57,24 @@ describe("ConfluenceUser (page object)", () => {
 		});
 
 		describe("group membership", () => {
-			it('has NOT the group "department-technologies"', () => {
-				expect(user.hasGroup("confluence-administrators")).toBe(false);
+			const groupName = "confluence-administrators";
+
+			it('has NOT the group "' + groupName + '"', () => {
+				expect(user.hasGroup(groupName)).toBe(false);
 			});
 
-			it('adds user to group "department-technologies"', () => {
-				user.addGroup("confluence-administrators");
+			it('adds user to group "' + groupName + '"', () => {
+				user.addGroup(groupName);
+				user.waitUntilUserAppearsInGroup(groupName);
 
-				expect(user.hasGroup("confluence-administrators")).toBe(true);
+				expect(user.hasGroup(groupName)).toBe(true);
 			});
 
-			it('removes user from group "department-technologies"', () => {
-				user.removeGroup("confluence-administrators");
+			it('removes user from group "' + groupName + '"', () => {
+				user.removeGroup(groupName);
+				user.waitUntilUserDisappearsFromGroup(groupName);
 
-				expect(user.hasGroup("confluence-administrators")).toBe(false);
+				expect(user.hasGroup(groupName)).toBe(false);
 			});
 		});
 
