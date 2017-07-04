@@ -9,6 +9,7 @@ var asyncElement = pageObjectUtils.asyncElement;
 
 function ConfluenceUser(username, fullName, email, password) {
 	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+	var EC = protractor.ExpectedConditions;
 
 	pageObjectUtils.assertNotNull(username, 'options.username is required');
 
@@ -78,11 +79,28 @@ function ConfluenceUser(username, fullName, email, password) {
 		asyncElement(by.id('confirm')).click();
 	};
 
+	function groupSelector(groupName) {
+		return by.css('[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]');
+	}
+
+	this.isInGroup = function (groupName) {
+		this.actions.userAdminView.open({refreshAlways: true});
+
+		return element(groupSelector(groupName)).isPresent();
+	};
+
+	this.waitUntilUserAppearsInGroup = function (groupName) {
+		return browser.wait(this.isInGroup.bind(this, groupName), DEFAULT_LOADING_TIMEOUT);
+	};
+
+	this.waitUntilUserDisappearsFromGroup = function (groupName) {
+		browser.wait(EC.not(this.isInGroup.bind(this, groupName)), DEFAULT_LOADING_TIMEOUT);
+	};
+
 	this.hasGroup = function (groupName) {
 		this.actions.userAdminView.open();
 
-		var selector = '[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]';
-		return asyncElement(by.css(selector)).isPresent();
+		return asyncElement(groupSelector(groupName)).isPresent();
 	};
 
 	this.isInSearchIndex = function () {

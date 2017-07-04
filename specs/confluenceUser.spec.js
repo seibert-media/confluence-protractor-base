@@ -1,7 +1,7 @@
 var ConfluenceUser = require('../page-objects/ConfluenceUser');
 var ConfluenceGroup = require('../page-objects/ConfluenceGroup');
 
-describe('ConfluenceUser (page object)', function () {
+fdescribe('ConfluenceUser (page object)', function () {
 
 	var user = new ConfluenceUser('testuser_björn_müller', 'Björn Müller', 'dev0@seibert-media.net', 'pass123456');
 
@@ -54,23 +54,31 @@ describe('ConfluenceUser (page object)', function () {
 
 		afterAll(function () {
 			user.remove();
+			var pageObjectUtils = require('../utils/pageObjectUtils');
+			pageObjectUtils.takeScreenshot("test.jpg");
 		});
 
 		describe('group membership', function () {
-			it('has NOT the group "department-technologies"', function () {
-				expect(user.hasGroup("confluence-administrators")).toBe(false);
+			var groupName = "confluence-administrators";
+
+			it('has NOT the group "' + groupName + '"', function () {
+				expect(user.hasGroup(groupName)).toBe(false);
 			});
 
-			it('adds user to group "department-technologies"', function () {
-				user.addGroup("confluence-administrators");
+			it('adds user to group "' + groupName + '"', function () {
+				user.addGroup(groupName);
 
-				expect(user.hasGroup("confluence-administrators")).toBe(true);
+				user.waitUntilUserAppearsInGroup(groupName);
+
+				expect(user.hasGroup(groupName)).toBe(true);
 			});
 
-			it('removes user from group "department-technologies"', function () {
-				user.removeGroup("confluence-administrators");
+			it('removes user from group "' + groupName + '"', function () {
+				user.removeGroup(groupName);
 
-				expect(user.hasGroup("confluence-administrators")).toBe(false);
+				user.waitUntilUserDisappearsFromGroup(groupName);
+
+				expect(user.hasGroup(groupName)).toBe(false);
 			});
 		});
 
