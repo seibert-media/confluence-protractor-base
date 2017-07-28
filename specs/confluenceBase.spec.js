@@ -1,6 +1,7 @@
 
 var confluenceConfig = require("../confluenceConfig");
 var ConfluenceBase = require('../page-objects/ConfluenceBase');
+var pageObjectUtils = require('../utils/pageObjectUtils');
 
 describe('ConfluenceBase (page object)', function() {
 
