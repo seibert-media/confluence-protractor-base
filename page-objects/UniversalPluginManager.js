@@ -6,9 +6,11 @@ var clickIfPresent = pageObjectUtils.clickIfPresent;
 
 function UniversalPluginManager() {
 	var self = this;
+	var DEFAULT_PLUGIN_UPLOAD_TIMEOUT = 60000;
+	var UPLOAD_BUTTON_VISIBILITY_TIMEOUT = 5000;
 
 	this.uploadPlugin = function (pluginName, fileToUpload, timeout) {
-		timeout = timeout || 60000;
+		timeout = timeout || DEFAULT_PLUGIN_UPLOAD_TIMEOUT;
 
 		self.authenticateAsAdmin();
 
@@ -20,7 +22,9 @@ function UniversalPluginManager() {
 		clickIfPresent(element(by.css('.dismiss-notification')));
 
 		// open upload dialog
-		element(by.id('upm-upload')).click();
+		var uploadButton = element(by.id('upm-upload'));
+		browser.wait(protractor.ExpectedConditions.visibilityOf(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT));
+		uploadButton.click();
 
 		// get path and upload plugin
 		var absolutePath = path.resolve(process.cwd(), fileToUpload);

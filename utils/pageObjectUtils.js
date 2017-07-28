@@ -1,3 +1,9 @@
+var generateScreenshotName = (function () {
+	var screenshotCounter = 0;
+	return function () {
+		return "screenshot-" + (++screenshotCounter) + ".png";
+	};
+}());
 
 var pageObjectUtils = {
 	assert: function (promise, expectedValue, message) {
@@ -17,6 +23,15 @@ var pageObjectUtils = {
 			if (isPresent) {
 				elementPromise.click();
 			}
+		});
+	},
+	takeScreenshot: function (imageName) {
+		imageName = imageName || generateScreenshotName();
+
+		browser.takeScreenshot().then(function (base64Screenshot) {
+			require("fs").writeFile(imageName, base64Screenshot, 'base64', function(err) {
+				console.log(err);
+			})
 		});
 	}
 };

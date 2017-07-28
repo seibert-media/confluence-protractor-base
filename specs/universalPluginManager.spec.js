@@ -1,17 +1,22 @@
 var UniversalPluginManager = require('../page-objects/UniversalPluginManager');
+var pageObjectUtils = require('../utils/pageObjectUtils');
 
-fdescribe('UniversalPluginManager (page object)', function() {
+describe('UniversalPluginManager (page object)', function() {
 
 	var universalPluginManager = new UniversalPluginManager();
+
+	var relativePluginPath = '/../test-data/tutorial-confluence-macro-demo-1.0.0-SNAPSHOT.jar';
+	var testPluginPath = __dirname + relativePluginPath;
 
 	describe('uploadPlugin()', function () {
 
 		var PLUGIN_UPLOAD_TIMEOUT = 120000;
 
 		it('installs the plugin', function () {
-			universalPluginManager.uploadPlugin('tutorial-confluence-macro-demo', './test-data/tutorial-confluence-macro-demo-1.0.0-SNAPSHOT.jar', PLUGIN_UPLOAD_TIMEOUT);
+			universalPluginManager.uploadPlugin('tutorial-confluence-macro-demo', testPluginPath, PLUGIN_UPLOAD_TIMEOUT);
 		}, PLUGIN_UPLOAD_TIMEOUT);
 
 	});
 
+	afterEach(pageObjectUtils.takeScreenshot);
 });
