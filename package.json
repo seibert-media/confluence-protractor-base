@@ -1,0 +1,19 @@
+{
+  "name": "confluence-protractor-base",
+  "version": "0.1.0",
+  "description": "Base project for protractor e2e tests with confluence",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/protractor protractorConfig.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@stash.lf.seibert-media.net:7999/cdt/confluence-protractor-base.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.15.0",
+    "protractor": "^4.0.4"
+  }
+}
