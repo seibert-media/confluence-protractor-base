@@ -1,5 +1,6 @@
 var ConfluenceBase = require('./ConfluenceBase');
 var ConfluenceAction = require('./ConfluenceAction');
+var ConfluenceSpace = require('./ConfluenceSpace');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var CheckboxOption = require('../utils/elements/CheckboxOption');
 
@@ -15,6 +16,15 @@ function ConfluenceUser(username, fullName, email, password) {
 	this.fullName = fullName;
 	this.email = email;
 	this.password = password;
+	var personalSpaceKey = "~" + username;
+	this.personalSpace = new ConfluenceSpace(personalSpaceKey);
+
+	// steal function from ConfluenceLogin
+	this.baseLogin = this.login;
+
+	this.login = function (loginUsername, loginPassword) {
+		this.baseLogin(loginUsername || this.username, loginPassword || this.password);
+	};
 
 	this.actions = {
 		createUser: new ConfluenceAction({
@@ -34,6 +44,12 @@ function ConfluenceUser(username, fullName, email, password) {
 		}),
 		editUserGroups: new ConfluenceAction({
 			path: "admin/users/editusergroups-start.action?username=" + encodeURIComponent(username)
+		}),
+		viewPersonalSpace: new ConfluenceAction({
+			path: 'spaces/viewspace.action?key=~' + encodeURIComponent(username)
+		}),
+		createPersonalSpace: new ConfluenceAction({
+			path: 'spaces/createpersonalspace.action'
 		})
 	};
 
@@ -101,6 +117,19 @@ function ConfluenceUser(username, fullName, email, password) {
 		checkboxOption[operation]();
 		return element(by.css(form + " input[type='submit']")).click();
 	}
+
+	this.viewPersonalSpace = function() {
+		this.actions.viewPersonalSpace.open();
+	};
+
+	this.createPersonalSpace = function() {
+		this.actions.createPersonalSpace.open();
+		return element(by.css('input[value="Create"]')).click();
+	};
+
+	this.removePersonalSpace = function() {
+		this.personalSpace.remove();
+	};
 }
 
 ConfluenceUser.prototype = new ConfluenceBase();

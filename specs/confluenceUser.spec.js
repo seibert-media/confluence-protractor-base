@@ -20,7 +20,7 @@ describe('ConfluenceUser (page object)', function () {
 
 			user.actions.userProfile.open();
 			expect(browser.getTitle()).toContain(user.fullName);
-		})
+		});
 	});
 
 	describe('created user', function () {
@@ -47,7 +47,7 @@ describe('ConfluenceUser (page object)', function () {
 		})
 	});
 
-	describe('group membership', function () {
+	describe('with existing user ', function () {
 		beforeAll(function () {
 			user.create();
 		});
@@ -56,20 +56,53 @@ describe('ConfluenceUser (page object)', function () {
 			user.remove();
 		});
 
-		it('has NOT the group "department-technologies"', function () {
-			expect(user.hasGroup("confluence-administrators")).toBe(false);
+		describe('group membership', function () {
+			it('has NOT the group "department-technologies"', function () {
+				expect(user.hasGroup("confluence-administrators")).toBe(false);
+			});
+
+			it('adds user to group "department-technologies"', function () {
+				user.addGroup("confluence-administrators");
+
+				expect(user.hasGroup("confluence-administrators")).toBe(true);
+			});
+
+			it('removes user from group "department-technologies"', function () {
+				user.removeGroup("confluence-administrators");
+
+				expect(user.hasGroup("confluence-administrators")).toBe(false);
+			});
 		});
 
-		it('adds user to group "department-technologies"', function () {
-			user.addGroup("confluence-administrators");
+		describe('personal space', function () {
+			beforeAll(function () {
+				user.login();
+			});
 
-			expect(user.hasGroup("confluence-administrators")).toBe(true);
-		});
+			it('has no personal space before test', function () {
+				user.personalSpace.assertSpaceExistsNot();
+			});
 
-		it('removes user from group "department-technologies"', function () {
-			user.removeGroup("confluence-administrators");
+			it('creates a personal space', function () {
+				user.createPersonalSpace();
+				user.personalSpace.waitForSpaceToAppearInSpaceDirectory();
+			});
 
-			expect(user.hasGroup("confluence-administrators")).toBe(false);
+			it('opens personal space', function () {
+				user.viewPersonalSpace();
+				expect(browser.getTitle()).toContain(user.fullName);
+			});
+
+			it('opens personal space by page id', function () {
+				user.personalSpace.spaceHomeByPageId();
+				expect(browser.getTitle()).toContain(user.fullName);
+			});
+
+			it('removes a personal space', function () {
+				user.authenticateAsAdmin();
+				user.removePersonalSpace();
+				user.personalSpace.waitForSpaceToDisappearFromSpaceDirectory();
+			});
 		});
 	});
 });
