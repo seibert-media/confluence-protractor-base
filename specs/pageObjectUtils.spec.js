@@ -149,9 +149,9 @@ describe('pageObjectUtils', function() {
 		var location;
 
 		beforeEach(function () {
-			pageObjectUtils.openPage(testUrl);
+			pageObjectUtils.openPage(testUrl, {refreshAlways: true});
 
-			location = pageObjectUtils.getLocation()
+			location = pageObjectUtils.getLocation();
 		});
 
 		it('extracts the "href "from url', function () {
@@ -229,4 +229,104 @@ describe('pageObjectUtils', function() {
 			expect(browser.takeScreenshot).toHaveBeenCalledTimes(2);
 		});
 	});
+
+	describe('configure timeouts', function () {
+
+		describe('DEFAULT_ELEMENT_TIMEOUT', function () {
+			it('has a default of 2 seconds', function () {
+				expect(pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT).toBe(2000);
+			});
+
+			it('loads a configured value', function () {
+				pageObjectUtils.setDefaultElementTimeout(500);
+				expect(require('../utils/pageObjectUtils').DEFAULT_ELEMENT_TIMEOUT).toBe(500);
+			});
+		});
+
+		describe('DEFAULT_LOADING_TIMEOUT', function () {
+			it('has a default of 15 seconds', function () {
+				expect(pageObjectUtils.DEFAULT_LOADING_TIMEOUT).toBe(15000);
+			});
+
+			it('loads a configured value', function () {
+				pageObjectUtils.setDefaultLoadingTimeout(5000);
+				expect(require('../utils/pageObjectUtils').DEFAULT_LOADING_TIMEOUT).toBe(5000);
+			});
+		});
+	});
+
+	describe('race condition workarounds (imported)', function () {
+		var EC = protractor.ExpectedConditions;
+
+		var RACE_CONDITION_ELEMENT_ID = 'race-condition-element';
+		var RACE_CONDITION_ELEMENT;
+
+		function createTestElement() {
+			RACE_CONDITION_ELEMENT = element(by.id(RACE_CONDITION_ELEMENT_ID));
+
+			testUtils.createDomElement('div', {
+				id: RACE_CONDITION_ELEMENT_ID,
+				content: RACE_CONDITION_ELEMENT_ID
+			});
+		}
+
+		function removeTestElement() {
+			testUtils.removeDomElement('#' + RACE_CONDITION_ELEMENT_ID)
+		}
+
+		beforeEach(createTestElement);
+		afterEach(removeTestElement);
+
+		function prepareInterceptorToRemoveElementBeforeCall(fn) {
+			var originalIsDisplayedFn = RACE_CONDITION_ELEMENT[fn];
+
+			RACE_CONDITION_ELEMENT[fn] = function () {
+				// Remove element between isPresent and isDisplayed call
+
+				removeTestElement();
+
+				expect(RACE_CONDITION_ELEMENT.isPresent()).toBe(false);
+
+				return originalIsDisplayedFn.call(this);
+			};
+		}
+
+		describe('visibilityOf', function () {
+
+			it('returns false when element is removed between isPresent and isDisplayed', function () {
+				prepareInterceptorToRemoveElementBeforeCall('isDisplayed');
+
+				var raceConditionElement = EC.visibilityOf(RACE_CONDITION_ELEMENT);
+
+				expect(raceConditionElement()).toBe(false);
+			});
+
+			it('returns true when element is present', function () {
+				var raceConditionElement = EC.visibilityOf(RACE_CONDITION_ELEMENT);
+
+				expect(raceConditionElement()).toBe(true);
+			});
+		});
+
+		describe('textToBePresentInElement', function () {
+
+			it('returns false when element is removed between isPresent and getText', function () {
+				prepareInterceptorToRemoveElementBeforeCall('getText');
+
+				var raceConditionElement = EC.textToBePresentInElement(RACE_CONDITION_ELEMENT, RACE_CONDITION_ELEMENT_ID);
+				expect(raceConditionElement()).toBe(false);
+			});
+
+			it('returns true when text is present', function () {
+				var raceConditionElement = EC.textToBePresentInElement(RACE_CONDITION_ELEMENT, RACE_CONDITION_ELEMENT_ID);
+				expect(raceConditionElement()).toBe(true);
+			});
+
+			it('returns true when wrong text is present', function () {
+				var raceConditionElement = EC.textToBePresentInElement(RACE_CONDITION_ELEMENT, 'WRONG_TEXT');
+				expect(raceConditionElement()).toBe(false);
+			});
+		});
+	});
+
 });

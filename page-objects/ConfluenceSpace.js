@@ -2,10 +2,6 @@ var ConfluenceBase = require('./ConfluenceBase');
 var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 
-// page object utils imports
-var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
-var DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
-
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var asyncElement = pageObjectUtils.asyncElement;
 var findFirstDisplayed = pageObjectUtils.findFirstDisplayed;
@@ -14,8 +10,9 @@ var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 var blackSpaceTemplateKey = 'com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blank-space-item';
 
 function ConfluenceSpace(spaceKey, spaceName) {
-	var self = this;
+	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 	var EC = protractor.ExpectedConditions;
+	var self = this;
 
 	spaceName = spaceName || spaceKey;
 
@@ -109,12 +106,14 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			// set space name
 			asyncElement(by.name('name')).sendKeys(spaceName).sendKeys('\t');
 
+			var spaceKeyInput = asyncElement(by.name('spaceKey'));
+
 			// wait for create button before setting a space key
-			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
+			spaceKeyInput.clear();
+			var buttonNotClickable = EC.not(EC.elementToBeClickable(findFirstDisplayed(by.css(createButtonSelector))));
+			browser.wait(buttonNotClickable, DEFAULT_LOADING_TIMEOUT);
 
-			asyncElement(by.name('spaceKey')).clear().sendKeys(spaceKey).sendKeys('\t');
-
-			browser.sleep(DEFAULT_ELEMENT_TIMEOUT);
+			spaceKeyInput.sendKeys(spaceKey).sendKeys('\t');
 		}
 	};
 
@@ -134,7 +133,15 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		browser.wait(EC.urlContains(self.actions.spaceHome.path), DEFAULT_LOADING_TIMEOUT);
 
 		// wait some time until space is updated
-		browser.sleep(DEFAULT_LOADING_TIMEOUT);
+		return this.waitForSpaceToAppearInSpaceDirectory();
+	};
+
+
+	this.waitForSpaceToAppearInSpaceDirectory = function () {
+		browser.wait(function () {
+			browser.refresh();
+			return spaceEntry().isPresent()
+		}, DEFAULT_LOADING_TIMEOUT);
 	};
 
 	this.remove = function () {

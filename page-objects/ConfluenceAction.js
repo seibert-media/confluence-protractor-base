@@ -8,8 +8,8 @@ function ConfluenceAction(options) {
 
 	var path = options.path;
 
-	this.open = function () {
-		return pageObjectUtils.openPage(path);
+	this.open = function (options) {
+		return pageObjectUtils.openPage(path, options);
 	};
 
 	Object.keys(options).forEach(function (key) {

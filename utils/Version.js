@@ -63,6 +63,9 @@ Version.parse = function (version) {
 	if (version instanceof Version) {
 		return new Version(version.version, version.major, version.minor, version.patch);
 	}
+	if (!version) {
+		throw new Error('Parameter version in Version.parse must be defined');
+	}
 	var versionSplit = version.split('.');
 	var major = checkNumberStringAndDefault(versionSplit[0]);
 	var minor = checkNumberStringAndDefault(versionSplit[1]);
