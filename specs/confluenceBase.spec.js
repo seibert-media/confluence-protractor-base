@@ -1,11 +1,11 @@
 
-var confluenceConfig = require("../confluenceConfig");
 var ConfluenceBase = require('../page-objects/ConfluenceBase');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 
 describe('ConfluenceBase (page object)', function() {
 
 	var confluenceBase = new ConfluenceBase();
+	var confluenceConfig = confluenceBase.confluenceConfig();
 
 	describe('openAdminPage', function () {
 		it('opens admin page', function() {
@@ -19,7 +19,4 @@ describe('ConfluenceBase (page object)', function() {
 		});
 	});
 
-	afterEach(function () {
-		pageObjectUtils.takeScreenshot()
-	});
 });

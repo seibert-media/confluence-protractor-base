@@ -18,7 +18,4 @@ describe('UniversalPluginManager (page object)', function() {
 
 	});
 
-	afterEach(function () {
-		pageObjectUtils.takeScreenshot()
-	});
 });

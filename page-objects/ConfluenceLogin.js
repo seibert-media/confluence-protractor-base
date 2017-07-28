@@ -1,10 +1,9 @@
-var confluenceConfig = require("../confluenceConfig");
-
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 
 function ConfluenceLogin() {
+	this.confluenceConfig = require("../loadConfluenceConfig");
 
 	var self = this;
 
@@ -50,7 +49,7 @@ function ConfluenceLogin() {
 	};
 
 	this.loginAsAdmin = function () {
-		this.login(confluenceConfig.USERS.ADMIN.USERNAME, confluenceConfig.USERS.ADMIN.PASSWORD);
+		this.login(this.confluenceConfig().USERS.ADMIN.USERNAME, this.confluenceConfig().USERS.ADMIN.PASSWORD);
 	};
 
 	this.authenticateAsAdmin = function () {
@@ -59,7 +58,7 @@ function ConfluenceLogin() {
 		// authenticate
 		browser.get('/authenticate.action');
 
-		element(by.name('password')).sendKeys(confluenceConfig.USERS.ADMIN.PASSWORD);
+		element(by.name('password')).sendKeys(this.confluenceConfig().USERS.ADMIN.PASSWORD);
 		element(by.name('authenticate')).click();
 
 		browser.get('/admin');

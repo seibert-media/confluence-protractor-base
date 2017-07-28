@@ -1,6 +1,7 @@
 
 module.exports = {
-	confluenceConfig: require('./confluenceConfig'),
+	loadConfluenceConfig: require('./loadConfluenceConfig'),
+	protractorConfig: require('./protractorConfig'),
 	pageObjects: {
 		ConfluenceLogin: require('./page-objects/ConfluenceLogin'),
 		ConfluenceBase: require('./page-objects/ConfluenceBase'),
@@ -8,5 +9,8 @@ module.exports = {
 	},
 	utils: {
 		pageObjectUtils: require('./utils/pageObjectUtils')
+	},
+	jasmineReporters: {
+		screenshotReporter: require('./jasmineReporters/screenshotReporter')
 	}
 };

@@ -1,11 +1,11 @@
 
-var confluenceConfig = require("../confluenceConfig");
 var ConfluenceLogin = require('../page-objects/ConfluenceLogin');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 
 describe('ConfluenceLogin (page object)', function() {
 
 	var confluenceLogin = new ConfluenceLogin();
+	var confluenceConfig = confluenceLogin.confluenceConfig();
 
 	describe('loginAsAdmin', function () {
 		beforeEach(function () {
@@ -51,7 +51,4 @@ describe('ConfluenceLogin (page object)', function() {
 		})
 	});
 
-	afterEach(function () {
-		pageObjectUtils.takeScreenshot()
-	});
 });
