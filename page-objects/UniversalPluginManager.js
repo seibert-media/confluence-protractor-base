@@ -47,9 +47,9 @@ function UniversalPluginManager() {
 		// try confirm buttons for different confluence versiions
 		clickIfPresent(element(by.css('button.confirm')));
 		clickIfPresent(element(by.css('button.button-panel-cancel-link')));
-	}
+	};
 
-	this.parseMavenVersionFromPom: function () {
+	this.parseMavenVersionFromPom = function () {
 		var mavenVersionOutput = require('child_process').execSync('mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate  -Dexpression=project.version -B', {
 			encoding: 'utf-8',
 			stdio: [0]
@@ -57,7 +57,7 @@ function UniversalPluginManager() {
 
 		var mavenVersion = mavenVersionOutput.replace(/^(\[|Java).*(\n|$)/gm, '').trim();
 		return mavenVersion;
-	}
+	};
 
 }
 
