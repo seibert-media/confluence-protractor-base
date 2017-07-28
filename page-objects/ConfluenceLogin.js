@@ -94,15 +94,15 @@ function ConfluenceLogin() {
 		clickIfPresent(element.all(by.css('.space-checkbox input.checkbox')).first());
 		clickIfPresent(element(by.css('.intro-find-spaces-button-continue')));
 
-		// load dashboard again
-		browser.refresh();
+		// reload dashboard
+		browser.get('/');
 	};
 
 	this.confirmTermsOfUse = function () {
 		clickIfPresent(element(by.css('form[action="/plugins/termsofuse/agreement.action"] input[type="submit"]')));
 
-		// load dashboard again
-		browser.refresh();
+		// reload dashboard
+		browser.get('/');
 	}
 
 }

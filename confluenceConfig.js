@@ -31,14 +31,18 @@ else if (typeof confluenceConfigParam === 'string') {
 	var confluenceConfigModule = './config/' + confluenceConfigParam;
 	extendedConfluenceConfig = require(confluenceConfigModule);
 }
-else if (typeof confluenceConfigParam === 'object') {
-	extendedConfluenceConfig = confluenceConfigParam;
-}
 else {
 	throw new Error('No valid confluenceConfig parameter in protractor config: ', confluenceConfigParam);
 }
 
-merge(confluenceConfig, extendedConfluenceConfig);
+var configOverwriteParam = browser.params.configOverwrite;
+
+if (configOverwriteParam === undefined || typeof configOverwriteParam !== 'object') {
+	configOverwriteParam = {};
+}
+
+
+merge(confluenceConfig, extendedConfluenceConfig, configOverwriteParam);
 
 console.log('confluenceConfig: ', confluenceConfig);
 
