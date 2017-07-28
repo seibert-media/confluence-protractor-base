@@ -7,7 +7,8 @@ function Version(version, major, minor, patch) {
 
 var ALLOWED_SUFFIXES = [
 	/-rc\d+$/,
-	/-beta\d+$/
+	/-beta\d+$/,
+	/-m\d+$/,
 ];
 
 Version.prototype.toString = function () {
