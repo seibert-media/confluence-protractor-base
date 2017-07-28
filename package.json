@@ -1,6 +1,6 @@
 {
   "name": "confluence-protractor-base",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Base project for protractor e2e tests with confluence",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jasmine-reporters": "^2.2.0",
     "lodash": "^4.15.0",
     "protractor": "^4.0.4"
   }
