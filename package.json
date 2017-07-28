@@ -1,11 +1,13 @@
 {
   "name": "confluence-protractor-base",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Base project for protractor e2e tests with confluence",
   "main": "index.js",
   "scripts": {
     "test": "protractor protractorConfig.js",
+    "test-e2e": "protractor protractorConfig.js",
     "test-local": "protractor protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
+    "test-local-e2e": "protractor protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
     "webdriver-start": "webdriver-manager start --seleniumPort 4445",
     "webdriver-update": "webdriver-manager update"
   },
