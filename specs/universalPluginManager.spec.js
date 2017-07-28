@@ -1,5 +1,4 @@
 var UniversalPluginManager = require('../page-objects/UniversalPluginManager');
-var pageObjectUtils = require('../utils/pageObjectUtils');
 
 describe('UniversalPluginManager (page object)', function() {
 
