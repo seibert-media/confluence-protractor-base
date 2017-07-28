@@ -11,6 +11,13 @@ var pageObjectUtils = {
 		promise.then(function (value) {
 			console.log(value);
 		});
+	},
+	clickIfPresent: function (elementPromise) {
+		elementPromise.isPresent().then(function (isPresent) {
+			if (isPresent) {
+				elementPromise.click();
+			}
+		});
 	}
 };
 
