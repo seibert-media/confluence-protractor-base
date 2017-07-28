@@ -1,26 +1,45 @@
 {
   "name": "confluence-protractor-base",
-  "version": "0.6.10",
+  "version": "0.7.0-12",
   "description": "Base project for protractor e2e tests with confluence",
-  "main": "index.js",
+  "main": "./built/index.js",
+  "types": "./built/index.d.ts",
   "scripts": {
-    "test": "protractor protractorConfig.js",
-    "test-e2e": "protractor protractorConfig.js",
-    "test-local": "protractor protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
-    "test-local-e2e": "protractor protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
+    "version": "npm run tslint; npm run build",
+    "build": "rm -rf built; tsc",
+    "docs": "typedoc --module commonjs --excludeExternals src/specs/*.spec.ts --out docs src/",
+    "pretest": "rm -rf built",
+    "test": "tsc; protractor built/protractorConfig.js",
+    "test-e2e": "tsc; protractor built/protractorConfig.js",
+    "test-local": "tsc; protractor built/protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
+    "test-local-e2e": "tsc; protractor built/protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
     "webdriver-start": "webdriver-manager start --seleniumPort 4445",
-    "webdriver-update": "webdriver-manager update"
+    "webdriver-update": "webdriver-manager update",
+    "tslint": "tslint -c tslint.json 'src/**/*.ts'",
+    "tslint-fix": "tslint -c tslint.json 'src/**/*.ts' --fix "
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:seibert-media/confluence-protractor-base.git"
+    "url": "ssh://git@bitbucket.apps.seibert-media.net:7999/cdt/confluence-protractor-base.git"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/jasmine": "^2.5.53",
+    "@types/jasminewd2": "^2.0.2",
     "jasmine-reporters": "^2.2.0",
     "lodash": "^4.15.0",
     "phantomjs-prebuilt": "^2.1.14",
-    "protractor": "^5.1.0"
+    "protractor": "^5.1.0",
+    "@types/lodash": "^4.14.68",
+    "@types/node": "^8.0.17",
+    "tslint": "^5.4.3",
+    "typescript": "^2.4.1"
+  },
+  "publishConfig": {
+    "registry": "https://nexus3.apps.seibert-media.net/nexus/repository/npmtest/"
+  },
+  "devDependencies": {
+    "typedoc": "^0.8.0"
   }
 }
