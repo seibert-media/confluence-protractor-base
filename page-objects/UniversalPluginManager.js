@@ -49,6 +49,16 @@ function UniversalPluginManager() {
 		clickIfPresent(element(by.css('button.button-panel-cancel-link')));
 	}
 
+	this.parseMavenVersionFromPom: function () {
+		var mavenVersionOutput = require('child_process').execSync('mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate  -Dexpression=project.version -B', {
+			encoding: 'utf-8',
+			stdio: [0]
+		});
+
+		var mavenVersion = mavenVersionOutput.replace(/^(\[|Java).*(\n|$)/gm, '').trim();
+		return mavenVersion;
+	}
+
 }
 
 UniversalPluginManager.prototype = new ConfluenceBase();
