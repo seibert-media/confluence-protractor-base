@@ -1,36 +1,62 @@
+var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
+var Version = require('../utils/Version');
+
 var assert = pageObjectUtils.assert;
 var clickIfPresent = pageObjectUtils.clickIfPresent;
+var openPage = pageObjectUtils.openPage;
+var asyncElement = pageObjectUtils.asyncElement;
 
 function ConfluenceLogin() {
-	this.confluenceConfig = require("../loadConfluenceConfig");
-
 	var self = this;
 
+	this.confluenceConfig = require("../loadConfluenceConfig");
+
+	function testUser() {
+		return self.confluenceConfig().USERS.TEST_USER;
+	}
+
+	function admin() {
+		return self.confluenceConfig().USERS.ADMIN;
+	}
+
+	this.actions = {
+		login: new ConfluenceAction({
+			path: 'login.action'
+		}),
+		logout: new ConfluenceAction({
+			path: 'logout.action'
+		}),
+		authenticate: new ConfluenceAction({
+			path: 'authenticate.action'
+		})
+	};
+
 	this.login = function (username, password) {
-		browser.get('/login.action');
+		username = username || testUser().USERNAME;
+		password = password || testUser().PASSWORD;
 
 		this.currentUsername().then(function (currentUsername) {
 			if (username === currentUsername) {
 				// user is already logged in: redirect to dashboard
-				browser.get('/');
 				return;
 			}
 
 			if (currentUsername !== '') {
 				console.log('Logged in with wrong user (' + currentUsername + '). Switch to: ' + username);
 				// logout if logged in with wrong user
-				self.logout();
-				browser.get('/login.action');
+				self.actions.logout.open();
 			}
 
-			element(by.name('os_username')).sendKeys(username);
-			element(by.name('os_password')).sendKeys(password);
+			self.actions.login.open();
 
-			var loginButton = element(by.id('loginButton')); // pageObjectUtils.logPromise(loginButton.isPresent());
+			asyncElement(by.name('os_username')).sendKeys(username);
+			asyncElement(by.name('os_password')).sendKeys(password);
+
+			var loginButton = asyncElement(by.id('loginButton')); // pageObjectUtils.logPromise(loginButton.isPresent());
 			loginButton.click();
 
-			assert(element(by.css('#captcha-container')).isPresent(), false, 'Captcha required. Log in manually once.');
+			assert(asyncElement(by.css('#captcha-container')).isPresent(), false, 'Captcha required. Log in manually once.');
 
 			browser.getCurrentUrl().then(function (url) {
 				if (url.endsWith('plugins/termsofuse/agreement.action')) {
@@ -48,57 +74,68 @@ function ConfluenceLogin() {
 		});
 	};
 
+	this.authenticate = function (password) {
+		password = password || testUser().PASSWORD;
+
+		// authenticate
+		self.actions.authenticate.open();
+
+		asyncElement(by.name('password')).sendKeys(password);
+		asyncElement(by.name('authenticate')).click();
+	};
+
 	this.loginAsAdmin = function () {
-		this.login(this.confluenceConfig().USERS.ADMIN.USERNAME, this.confluenceConfig().USERS.ADMIN.PASSWORD);
+		this.login(admin().USERNAME, admin().PASSWORD);
 	};
 
 	this.authenticateAsAdmin = function () {
 		this.loginAsAdmin();
 
-		// authenticate
-		browser.get('/authenticate.action');
-
-		element(by.name('password')).sendKeys(this.confluenceConfig().USERS.ADMIN.PASSWORD);
-		element(by.name('authenticate')).click();
-
-		browser.get('/admin');
-
-		assert(element(by.css('.admin-body')).isPresent(), true, 'Admin authentication failed');
+		this.authenticate(admin().PASSWORD)
 	};
 
 	this.currentUsername = function () {
+		return this.getParamFromAJS('remoteUser', '');
+	};
+
+	this.getParamFromAJS = function (paramName, defaultValue) {
 		return browser.executeScript(function () {
-			return AJS.params.remoteUser;
+			if (!window.AJS || !window.AJS.params) {
+				return {};
+			}
+			return AJS.params;
+		}).then(function (params) {
+			return params[paramName] || defaultValue;
 		});
 	};
 
 	this.logout = function () {
-		browser.get('/logout.action');
+		self.actions.logout.open();
 	};
 
 	this.skipWelcomeProcedure = function () {
 		// skip welcome message
-		clickIfPresent(element(by.id('grow-intro-welcome-start')));
+		clickIfPresent(asyncElement(by.id('grow-intro-welcome-start')));
 
 		// skip video
-		clickIfPresent(element(by.id('grow-intro-video-skip-button')));
+		clickIfPresent(asyncElement(by.id('grow-intro-video-skip-button')));
 
 		// skip picture
-		clickIfPresent(element(by.css('[data-action="skip"]')));
+		clickIfPresent(asyncElement(by.css('[data-action="skip"]')));
 
 		// select space
-		clickIfPresent(element.all(by.css('.space-checkbox input.checkbox')).first());
-		clickIfPresent(element(by.css('.intro-find-spaces-button-continue')));
+		clickIfPresent(asyncElement.all(by.css('.space-checkbox input.checkbox')).first());
+		clickIfPresent(asyncElement(by.css('.intro-find-spaces-button-continue')));
 
 		// reload dashboard
-		browser.get('/');
+		openPage();
 	};
 
 	this.confirmTermsOfUse = function () {
-		clickIfPresent(element(by.css('form[action="/plugins/termsofuse/agreement.action"] input[type="submit"]')));
+		clickIfPresent(asyncElement(by.css('form[action="/plugins/termsofuse/agreement.action"] input[type="submit"]')));
 
 		// reload dashboard
-		browser.get('/');
+		openPage();
 	}
 
 }

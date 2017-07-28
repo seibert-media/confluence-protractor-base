@@ -35,20 +35,17 @@ function loadConfluenceConfig() {
 	var confluenceConfigParam = browser.params.confluenceConfig;
 
 	if (confluenceConfigParam === 'default') {
-		extendedConfluenceConfig == {};
+		extendedConfluenceConfig = {};
 	} else if (typeof confluenceConfigParam === 'string') {
 		var confluenceConfigModule = './config/' + confluenceConfigParam;
 		extendedConfluenceConfig = require(confluenceConfigModule);
 	} else {
-		throw new Error(
-						'No valid confluenceConfig parameter in protractor config: ',
-						confluenceConfigParam);
+		throw new Error('No valid confluenceConfig parameter in protractor config: ', confluenceConfigParam);
 	}
 
 	var configOverwriteParam = browser.params.configOverwrite;
 
-	if (configOverwriteParam === undefined
-					|| typeof configOverwriteParam !== 'object') {
+	if (configOverwriteParam === undefined || typeof configOverwriteParam !== 'object') {
 		configOverwriteParam = {};
 	}
 

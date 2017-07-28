@@ -1,6 +1,6 @@
 // conf.js
 exports.config = {
-	baseUrl: 'http://localhost:8090',
+	baseUrl: 'http://localhost:8090/',
 	params: {
 		confluenceConfig: 'default'
 	},
@@ -21,5 +21,16 @@ exports.config = {
 
 		var screenshotReporter = require('./jasmineReporters/screenshotReporter');
 		jasmineEnv.addReporter(screenshotReporter);
+
+		// wait until confluence version is loaded
+		var ConfluenceBase = require('./page-objects/ConfluenceBase');
+		var confluenceBase = new ConfluenceBase();
+		confluenceBase.actions.login.open();
+		return browser.wait(function () {
+			return confluenceBase.loadConfluenceVersion().then(function (confluenceVersion) {
+				console.log('Detected Confluence Version for UI-Tests: ', confluenceVersion);
+				return confluenceVersion;
+			});
+		});
 	}
 };
