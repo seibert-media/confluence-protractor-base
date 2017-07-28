@@ -36,12 +36,12 @@ describe('ConfluenceLogin (page object)', function() {
 			confluenceLogin.logout();
 		});
 
-		it('opens dashboard', function() {
-			expect(browser.getTitle()).toEqual(confluenceConfig.DASHBOARD_TITLE);
+		it('logs in the test users', function () {
+			expect(confluenceLogin.currentUsername()).toBe(testUser.USERNAME);
 		});
 
-		it('logs in the admin users', function () {
-			expect(confluenceLogin.currentUsername()).toBe(testUser.USERNAME);
+		it('opens dashboard', function() {
+			expect(browser.getTitle()).toEqual(confluenceConfig.DASHBOARD_TITLE);
 		});
 
 		it('switches the user without logout', function () {
