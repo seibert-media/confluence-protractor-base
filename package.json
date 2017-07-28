@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@stash.lf.seibert-media.net:7999/cdt/confluence-protractor-base.git"
+    "url": "git@github.com:seibert-media/confluence-protractor-base.git"
   },
   "author": "",
   "license": "ISC",
