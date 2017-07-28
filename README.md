@@ -1,11 +1,15 @@
+# Confluence Protractor Base
+The Confluence&reg; Protractor Base is a simple solution to implement und run UI tests for [Atlassian&reg; Confluence&reg;](https://www.atlassian.com/software/confluence).
+It provides basic functionality like creating pages, spaces, users and groups as well as login, authenticate as admin and open pages.  
+
 # Local setup
 To start up local UI tests, you need the following setup
-- protractor (<http://www.protractortest.org>)
-- a running confluence instance
+- [protractor](http://www.protractortest.org)
+- a running Confluence&reg; instance
 
 ## Steps to run UI tests
 There has to be UI tests in your project
-1. Start a clean Confluence docker instance <https://hub.docker.com/r/atlassian/confluence-server/>
+1. Start a clean [Confluence&reg; docker instance](https://hub.docker.com/r/atlassian/confluence-server/)
    - The instance should be locally available under <http://confluence:8090>\
      (!) Note: There may be changes needed in the `/etc/hosts` file `127.0.0.1      confluence`
 1. Setup required resources
