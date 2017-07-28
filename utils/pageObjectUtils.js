@@ -197,6 +197,7 @@ var pageObjectUtils = {
 		});
 	},
 	getLocation: function () {
+		pageObjectUtils.skipAlertIfPresent();
 		var locationPromise = browser.getCurrentUrl().then(function (url) {
 			return pageObjectUtils.locationFromUrl(url);
 		});
