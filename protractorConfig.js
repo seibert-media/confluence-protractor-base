@@ -40,6 +40,7 @@ exports.config = {
 		jasmineEnv.addReporter(screenshotReporter);
 
 		var failFastReporter = require('./jasmineReporters/failFastReporter');
+		failFastReporter.init();
 		jasmineEnv.addReporter(failFastReporter);
 
 		/**

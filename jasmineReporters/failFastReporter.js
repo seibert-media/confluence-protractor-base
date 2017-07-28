@@ -2,7 +2,9 @@ var _ = require('lodash');
 
 var enabled = true;
 
-var refs = (function getSpecReferences() {
+var refs;
+
+function getSpecReferences() {
 	var specs = [];
 	var suites = [];
 
@@ -24,7 +26,7 @@ var refs = (function getSpecReferences() {
 		specs: specs,
 		suites: suites
 	};
-}());
+}
 
 function disableSpecs() {
 	if (!refs) {
@@ -44,6 +46,9 @@ function disableSpecs() {
 }
 
 module.exports = {
+	init: function () {
+		refs = getSpecReferences();
+	},
 	enable: function () {
 		enabled = true;
 	},
