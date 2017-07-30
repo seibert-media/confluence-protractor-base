@@ -10,14 +10,18 @@ const skipAlertIfPresent = pageObjectUtils.skipAlertIfPresent;
 const DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 const DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
 
+export interface PageActions {
+	createPage: ConfluenceAction;
+	displayPage: ConfluenceAction;
+}
+
 export class ConfluencePage extends ConfluenceBase {
+
+	public pageEditor = new ConfluenceEditor();
+	public pageActions: PageActions;
 
 	private pageName: string;
 	private spaceKey: string;
-
-	private pageEditor = new ConfluenceEditor();
-
-	private pageActions;
 
 	constructor(pageName: string, spaceKey: string) {
 		super();
