@@ -1,6 +1,6 @@
 {
   "name": "confluence-protractor-base",
-  "version": "0.7.0-13",
+  "version": "0.7.0-14",
   "description": "Base project for protractor e2e tests with confluence",
   "main": "./built/index.js",
   "types": "./built/index.d.ts",
