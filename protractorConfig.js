@@ -27,7 +27,10 @@ exports.config = {
 	},
 	framework: 'jasmine',
 	seleniumAddress: 'http://localhost:4444/wd/hub',
-	specs: ['specs/*.spec.js'],
+	specs: [
+		'specs/common/prepareTestSetup.spec.js',
+		'specs/*.spec.js'
+	],
 	onPrepare: function() {
 		// ignoreSynchronization prevents protractor from waiting for angular
 		browser.ignoreSynchronization = true;
