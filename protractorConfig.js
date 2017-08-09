@@ -9,7 +9,7 @@ exports.config = {
 		'browserName': 'chrome',
 		// chrome options
 		'chromeOptions': {
-			args: [ 'lang=en-EN', '--window-size=' + SCREEN_WIDTH + ',' + SCREEN_HEIGHT],
+			args: [ 'lang=en-EN', '--window-size=' + SCREEN_WIDTH + ',' + SCREEN_HEIGHT, 'disable-infobars=true'],
 			prefs: {
 				intl: { accept_languages: "en-EN" },
 				'credentials_enable_service': false,
@@ -27,7 +27,10 @@ exports.config = {
 	},
 	framework: 'jasmine',
 	seleniumAddress: 'http://localhost:4444/wd/hub',
-	specs: ['specs/*.spec.js'],
+	specs: [
+		'specs/common/prepareTestSetup.spec.js',
+		'specs/*.spec.js'
+	],
 	onPrepare: function() {
 		// ignoreSynchronization prevents protractor from waiting for angular
 		browser.ignoreSynchronization = true;

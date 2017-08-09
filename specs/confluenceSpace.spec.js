@@ -87,18 +87,18 @@ describe('ConfluenceSpace (page object)', function() {
 
 
 	describe('create() and remove() as non admin user', function () {
-		var adarasTestSpace = new ConfluenceSpace('ADARA', 'Adara\'s Test Space');
+		var usersTestSpace = new ConfluenceSpace('USER', 'User\'s Test Space');
 
 		beforeEach(function () {
-			adarasTestSpace.login();
+			usersTestSpace.login();
 		});
 
 		it('creates a space', function () {
-			adarasTestSpace.create();
+			usersTestSpace.create();
 		});
 
-		it('has ADARA space', function () {
-			adarasTestSpace.waitForSpaceToAppearInSpaceDirectory();
+		it('has USER space', function () {
+			usersTestSpace.waitForSpaceToAppearInSpaceDirectory();
 		});
 
 		describe('spacePermissions', function () {
@@ -114,10 +114,10 @@ describe('ConfluenceSpace (page object)', function() {
 				];
 
 				var group = 'confluence-users';
-				confluenceSpaceTestUtils.testGroupPermissions(adarasTestSpace, confluenceUsersPermissionsAsList, group);
+				confluenceSpaceTestUtils.testGroupPermissions(usersTestSpace, confluenceUsersPermissionsAsList, group);
 			});
 
-			describe('creator user permissions (Adara.Moss)', function () {
+			describe('creator user permissions (user)', function () {
 
 				var creatorUserPermissionsAsList = [
 					'viewspace',
@@ -136,25 +136,25 @@ describe('ConfluenceSpace (page object)', function() {
 					'setspacepermissions'
 				];
 
-				var username = 'Adara.Moss';
-				confluenceSpaceTestUtils.testUserPermissions(adarasTestSpace, creatorUserPermissionsAsList, username);
+				var username = 'user';
+				confluenceSpaceTestUtils.testUserPermissions(usersTestSpace, creatorUserPermissionsAsList, username);
 			});
 
 			describe('anonymous user', function () {
 
 				var anonymousPermissionsAsList = [];
 
-				confluenceSpaceTestUtils.testAnonymousPermissions(adarasTestSpace, anonymousPermissionsAsList);
+				confluenceSpaceTestUtils.testAnonymousPermissions(usersTestSpace, anonymousPermissionsAsList);
 			});
 		});
 
 		it('removes a space', function () {
-			adarasTestSpace.authenticate();
-			adarasTestSpace.remove();
+			usersTestSpace.authenticate();
+			usersTestSpace.remove();
 		});
 
-		it('has no ADARA space anymore', function () {
-			adarasTestSpace.waitForSpaceToDisappearFromSpaceDirectory();
+		it('has no USER space anymore', function () {
+			usersTestSpace.waitForSpaceToDisappearFromSpaceDirectory();
 		});
 	});
 });
