@@ -116,7 +116,7 @@ describe("ConfluenceSpace (page object)", () => {
 				confluenceSpaceTestUtils.testGroupPermissions(usersTestSpace, confluenceUsersPermissionsAsList, group);
 			});
 
-			describe("creator user permissions (User)", () => {
+			describe("creator user permissions (user)", () => {
 
 				const creatorUserPermissionsAsList = [
 					"viewspace",
@@ -135,7 +135,7 @@ describe("ConfluenceSpace (page object)", () => {
 					"setspacepermissions",
 				];
 
-				const username = "User";
+				const username = "user";
 				confluenceSpaceTestUtils.testUserPermissions(usersTestSpace, creatorUserPermissionsAsList, username);
 			});
 
