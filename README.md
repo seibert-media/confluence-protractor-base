@@ -31,12 +31,13 @@ This can be done via the Atlassian SDK or with a Docker container
 ## Atlassian SDK
 Start a local Confluence test instance using the [Atlassian&reg; SDK](https://developer.atlassian.com/docs/getting-started/set-up-the-atlassian-plugin-sdk-and-build-a-project)
 
-`atlas-run-standalone --product confluence --http-port 8090 --server confluence --context-path ROOT
+`atlas-run-standalone --product confluence --http-port 8090 --server confluence --context-path ROOT --jvmargs "-Xms4g -Xmx4g -server"
 `
 
-## Docker container
-Start a local [Confluence&reg; docker instance](https://hub.docker.com/r/atlassian/confluence-server/)\
-
+#Supported Platforms
+We have tested the confluence-protractor-base with 
+* Confluence 5.7 - 6.3
+* PSQL, MYSQL, MSSQL
 
 # Troubleshooting
 See [Issues](https://github.com/seibert-media/confluence-protractor-base/issues)
