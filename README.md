@@ -2,7 +2,7 @@
 The Confluence&reg; Protractor Base is a simple solution to implement und run UI tests for [Atlassian&reg; Confluence&reg;](https://www.atlassian.com/software/confluence).
 It provides basic functionality like creating pages, spaces, users and groups as well as login, authenticate as admin and open pages.  
 
-#Installation
+# Installation
 `npm install confluence-protractor-base`
 
 # First Steps
@@ -18,7 +18,7 @@ It provides basic functionality like creating pages, spaces, users and groups as
 `npm run test-e2e`
 
 
-#Local Confluence instance<a name="localConf"></a>
+# Local Confluence instance<a name="localConf"></a>
 First of all you need a local Confluence instance. 
 
 The instance should be locally available under <http://confluence:8090>\
@@ -34,7 +34,7 @@ Start a local Confluence test instance using the [Atlassian&reg; SDK](https://de
 `atlas-run-standalone --product confluence --http-port 8090 --server confluence --context-path ROOT --jvmargs "-Xms4g -Xmx4g -server"
 `
 
-#Supported Platforms
+# Supported Platforms
 We have tested the confluence-protractor-base with 
 * Confluence 5.7 - 6.3
 * PSQL, MYSQL, MSSQL
