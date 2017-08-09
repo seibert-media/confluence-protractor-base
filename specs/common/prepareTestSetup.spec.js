@@ -3,7 +3,7 @@ var ConfluenceUser = require('../../page-objects/ConfluenceUser');
 
 describe('Prepare Test Setup', function () {
 
-	var user = new ConfluenceUser('user', 'user', 'dev0@seibert-media.net', 'user');
+	var user = new ConfluenceUser('user', 'user', 'user@mail.net', 'user');
 
 	beforeAll(function () {
 		failFastReporter.enable();
@@ -24,8 +24,11 @@ describe('Prepare Test Setup', function () {
 
 	describe('personal space', function () {
 
-		it('creates a personal space', function () {
+		beforeAll(function() {
 			user.login();
+		});
+
+		it('creates a personal space', function () {
 			user.createPersonalSpace();
 
 			user.personalSpace.waitForSpaceToAppearInSpaceDirectory();
