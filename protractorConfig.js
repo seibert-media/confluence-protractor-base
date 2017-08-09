@@ -9,7 +9,7 @@ exports.config = {
 		'browserName': 'chrome',
 		// chrome options
 		'chromeOptions': {
-			args: [ 'lang=en-EN', '--window-size=' + SCREEN_WIDTH + ',' + SCREEN_HEIGHT],
+			args: [ 'lang=en-EN', '--window-size=' + SCREEN_WIDTH + ',' + SCREEN_HEIGHT, 'disable-infobars=true'],
 			prefs: {
 				intl: { accept_languages: "en-EN" },
 				'credentials_enable_service': false,

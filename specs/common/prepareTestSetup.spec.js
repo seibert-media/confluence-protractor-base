@@ -1,4 +1,4 @@
-var failFastReporter = require('../jasmineReporters/failFastReporter');
+var failFastReporter = require('../../jasmineReporters/failFastReporter');
 var ConfluenceUser = require('../../page-objects/ConfluenceUser');
 
 describe('Prepare Test Setup', function () {
@@ -10,7 +10,7 @@ describe('Prepare Test Setup', function () {
 		user.authenticateAsAdmin();
 	});
 
-	afterAll(failFastReporter.disable());
+	afterAll(failFastReporter.disable);
 
 	describe('create()', function () {
 
