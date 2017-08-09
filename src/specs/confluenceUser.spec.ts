@@ -3,7 +3,7 @@ import {ConfluenceUser} from "../page-objects/ConfluenceUser";
 
 describe("ConfluenceUser (page object)", () => {
 
-	const user = new ConfluenceUser("testuser_björn_müller", "Björn Müller", "dev0@seibert-media.net", "pass123456");
+	const user = new ConfluenceUser("testuser_björn_müller", "Björn Müller", "bmueller@example.com", "pass123456");
 
 	beforeAll(() => {
 		user.authenticateAsAdmin();

@@ -12,7 +12,7 @@ export let config: Config = {
 		"browserName": "chrome",
 		// chrome options
 		"chromeOptions": {
-			args: ["lang=en-EN", "--window-size=" + SCREEN_WIDTH + "," + SCREEN_HEIGHT],
+			args: ["lang=en-EN", "--window-size=" + SCREEN_WIDTH + "," + SCREEN_HEIGHT, "disable-infobars=true"],
 			prefs: {
 				credentials_enable_service: false,
 				intl: {accept_languages: "en-EN"},
@@ -30,7 +30,10 @@ export let config: Config = {
 		confluenceConfig: "default",
 	},
 	seleniumAddress: "http://localhost:4444/wd/hub",
-	specs: ["specs/*.spec.js"],
+	specs: [
+		"specs/common/prepareTestSetup.spec.js",
+		"specs/*.spec.js",
+	],
 	onPrepare() {
 		// ignoreSynchronization prevents protractor from waiting for angular
 		browser.waitForAngularEnabled(false);

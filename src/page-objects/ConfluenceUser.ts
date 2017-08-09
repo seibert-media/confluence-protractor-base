@@ -1,7 +1,7 @@
 import {browser, by, element, ExpectedConditions} from "protractor";
+import {Locator} from "protractor/built/locators";
 import {promise} from "selenium-webdriver";
 import {CheckboxOption} from "../utils/elements/CheckboxOption";
-import {Locator} from "protractor/built/locators";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceAction} from "./ConfluenceAction";
 import {ConfluenceBase} from "./ConfluenceBase";
@@ -89,7 +89,7 @@ export class ConfluenceUser extends ConfluenceBase {
 	}
 
 	public createIfNotExists() {
-		this.isInSearchIndex().then(function (isInSearchIndex) {
+		this.isInSearchIndex().then(function(isInSearchIndex) {
 			if (!isInSearchIndex) {
 				this.create();
 			}

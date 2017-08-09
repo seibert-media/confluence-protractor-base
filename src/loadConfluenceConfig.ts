@@ -23,8 +23,8 @@ export function loadConfluenceConfig() {
 				PASSWORD: "admin",
 			},
 			TEST_USER: {
-				USERNAME: "Adara.Moss",
-				PASSWORD: "pass123456",
+				USERNAME: "user",
+				PASSWORD: "user",
 			},
 		},
 	};
