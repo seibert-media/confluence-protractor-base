@@ -9,6 +9,8 @@ var asyncElement = pageObjectUtils.asyncElement;
 
 function ConfluenceUser(username, fullName, email, password) {
 	var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+	var EC = protractor.ExpectedConditions;
+	var self = this;
 
 	pageObjectUtils.assertNotNull(username, 'options.username is required');
 
@@ -73,16 +75,41 @@ function ConfluenceUser(username, fullName, email, password) {
 		asyncElement(by.css('#create-user-form [type="submit"]')).click();
 	};
 
+	this.createIfNotExists = function() {
+		this.isInSearchIndex().then(function (isInSearchIndex) {
+			if (!isInSearchIndex) {
+				self.create();
+			}
+		});
+	};
+
 	this.remove = function () {
 		this.actions.removeUser.open();
 		asyncElement(by.id('confirm')).click();
 	};
 
+	function groupSelector(groupName) {
+		return by.css('[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]');
+	}
+
+	this.isInGroup = function (groupName) {
+		this.actions.userAdminView.open({refreshAlways: true});
+
+		return element(groupSelector(groupName)).isPresent();
+	};
+
+	this.waitUntilUserAppearsInGroup = function (groupName) {
+		return browser.wait(this.isInGroup.bind(this, groupName), DEFAULT_LOADING_TIMEOUT);
+	};
+
+	this.waitUntilUserDisappearsFromGroup = function (groupName) {
+		browser.wait(EC.not(this.isInGroup.bind(this, groupName)), DEFAULT_LOADING_TIMEOUT);
+	};
+
 	this.hasGroup = function (groupName) {
 		this.actions.userAdminView.open();
 
-		var selector = '[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]';
-		return asyncElement(by.css(selector)).isPresent();
+		return asyncElement(groupSelector(groupName)).isPresent();
 	};
 
 	this.isInSearchIndex = function () {
@@ -112,7 +139,7 @@ function ConfluenceUser(username, fullName, email, password) {
 	function changeGroup(groupname, operation) {
 		var form = "form#editusergroupsform";
 		var groupCheckbox = form + " input[name='newGroups']#" + groupname;
-		this.actions.editUserGroups.open();
+		self.actions.editUserGroups.open();
 		var checkboxOption = new CheckboxOption(by.css(groupCheckbox));
 		checkboxOption[operation]();
 		return element(by.css(form + " input[type='submit']")).click();
