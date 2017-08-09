@@ -22,7 +22,7 @@ describe('AutocompleteSearch (page object)', function() {
 		expect(pageEditor.hasEditor()).toBe(true);
 
 		var mentionAutocomplete = new AutocompleteSearch({
-			searchTerm: 'Adara',
+			searchTerm: 'user',
 			inputElement: pageEditor.editor,
 			resultContainer: element(by.css('.autocomplete-mentions'))
 		});
