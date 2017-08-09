@@ -3,7 +3,7 @@ var ConfluenceGroup = require('../page-objects/ConfluenceGroup');
 
 describe('ConfluenceUser (page object)', function () {
 
-	var user = new ConfluenceUser('testuser_björn_müller', 'Björn Müller', 'bmueller@mail.net', 'pass123456');
+	var user = new ConfluenceUser('testuser_björn_müller', 'Björn Müller', 'bmueller@example.com', 'pass123456');
 
 	beforeAll(function () {
 		user.authenticateAsAdmin();

@@ -3,7 +3,7 @@ var ConfluenceUser = require('../../page-objects/ConfluenceUser');
 
 describe('Prepare Test Setup', function () {
 
-	var user = new ConfluenceUser('user', 'user', 'user@mail.net', 'user');
+	var user = new ConfluenceUser('user', 'user', 'user@example.com', 'user');
 
 	beforeAll(function () {
 		failFastReporter.enable();
