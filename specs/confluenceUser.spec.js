@@ -52,25 +52,32 @@ describe('ConfluenceUser (page object)', function () {
 			user.create();
 		});
 
-		afterAll(function () {
-			user.remove();
-		});
+		// TODO fails in 6.1 as user-login creates a mysteric daft, which makes the user un-deletable
+		// afterAll(function () {
+		// 	user.remove();
+		// });
 
 		describe('group membership', function () {
-			it('has NOT the group "department-technologies"', function () {
-				expect(user.hasGroup("confluence-administrators")).toBe(false);
+			var groupName = "confluence-administrators";
+
+			it('has NOT the group "' + groupName + '"', function () {
+				expect(user.hasGroup(groupName)).toBe(false);
 			});
 
-			it('adds user to group "department-technologies"', function () {
-				user.addGroup("confluence-administrators");
+			it('adds user to group "' + groupName + '"', function () {
+				user.addGroup(groupName);
 
-				expect(user.hasGroup("confluence-administrators")).toBe(true);
+				user.waitUntilUserAppearsInGroup(groupName);
+
+				expect(user.hasGroup(groupName)).toBe(true);
 			});
 
-			it('removes user from group "department-technologies"', function () {
-				user.removeGroup("confluence-administrators");
+			it('removes user from group "' + groupName + '"', function () {
+				user.removeGroup(groupName);
 
-				expect(user.hasGroup("confluence-administrators")).toBe(false);
+				user.waitUntilUserDisappearsFromGroup(groupName);
+
+				expect(user.hasGroup(groupName)).toBe(false);
 			});
 		});
 
