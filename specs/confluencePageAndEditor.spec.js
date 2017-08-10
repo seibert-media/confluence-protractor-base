@@ -48,7 +48,7 @@ describe('ConfluencePage und ConfluenceEditor (page object)', function() {
 			page.remove();
 		});
 
-		it('opens the editor', function () {
+		it('opens and closes the editor', function () {
 			page.edit();
 			expect(pageEditor.hasEditor()).toBe(true);
 			page.getEditor().cancel();
@@ -73,10 +73,7 @@ describe('ConfluencePage und ConfluenceEditor (page object)', function() {
 			it('has a draft message', function () {
 				pageEditor.waitUntilEditorOpened();
 				expect(element(by.id('draft-messages')).isPresent()).toBe(true);
-			});
 
-			it('should not has a draft message', function () {
-				pageEditor.waitUntilEditorOpened();
 				pageEditor.discardDraftIfPresent();
 				expect(element(by.id('draft-messages')).isPresent()).toBe(false);
 			});
