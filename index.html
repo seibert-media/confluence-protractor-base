@@ -65,54 +65,40 @@
 				<h1 id="confluence-protractor-base">Confluence Protractor Base</h1>
 				<p>The Confluence&reg; Protractor Base is a simple solution to implement und run UI tests for <a href="https://www.atlassian.com/software/confluence">Atlassian&reg; Confluence&reg;</a>.
 				It provides basic functionality like creating pages, spaces, users and groups as well as login, authenticate as admin and open pages.  </p>
-				<h1 id="local-setup">Local setup</h1>
-				<p>To start up local UI tests, you need the following setup</p>
-				<ul>
-					<li><a href="http://www.protractortest.org">protractor</a></li>
-					<li>a running Confluence&reg; instance</li>
-				</ul>
-				<h2 id="steps-to-run-ui-tests">Steps to run UI tests</h2>
-				<p>There has to be UI tests in your project</p>
+				<h1 id="installation">Installation</h1>
+				<p><code>npm install confluence-protractor-base</code></p>
+				<h1 id="first-steps">First Steps</h1>
 				<ol>
-					<li>Start a clean <a href="https://hub.docker.com/r/atlassian/confluence-server/">Confluence&reg; docker instance</a><ul>
-							<li>The instance should be locally available under <a href="http://confluence:8090">http://confluence:8090</a>\
-							(!) Note: There may be changes needed in the <code>/etc/hosts</code> file <code>127.0.0.1      confluence</code></li>
-						</ul>
-					</li>
-					<li>Setup required resources<ol>
-							<li>Run <code>npm install</code> in your plugin project, after that, there should be runnable programs inside <code>node_modules/.bin</code></li>
-							<li>Update <code>webdriver-manager</code> once with <code>node_modules/.bin/webdriver-manager update</code></li>
-							<li>Start <code>webdriver-manager</code> in another console using <code>node_modules/.bin/webdriver-manager start</code></li>
-						</ol>
-					</li>
-					<li>Run UI tests with an npm script using <code>npm run test-e2e</code> (e2e means End-to-End)</li>
+					<li>Start a <a href="#localConf">local Confluence instance</a></li>
+					<li>Checkout the project and switch to the directory</li>
+					<li>Install requirements\
+					<code>npm install</code></li>
+					<li>Update <a href="https://github.com/angular/webdriver-manager">webdriver manager</a>\
+					<code>webdriver-update</code></li>
+					<li>Start the webdriver manager\
+					<code>./node_modules/.bin/webdriver-manager start --seleniumPort 4444</code></li>
+					<li>run UI tests in another console window (e2e means End-to-End)\
+					<code>npm run test-e2e</code></li>
 				</ol>
+				<h1 id="local-confluence-instance-a-name-localconf-a-">Local Confluence instance<a name="localConf"></a></h1>
+				<p>First of all you need a local Confluence instance. </p>
+				<p>The instance should be locally available under <a href="http://confluence:8090">http://confluence:8090</a>\
+					Note: There may be changes needed in the <code>/etc/hosts</code> file\
+				<code>127.0.0.1      confluence</code></p>
+				<p>This can be done via the Atlassian SDK or with a Docker container</p>
+				<h2 id="atlassian-sdk">Atlassian SDK</h2>
+				<p>Start a local Confluence test instance using the <a href="https://developer.atlassian.com/docs/getting-started/set-up-the-atlassian-plugin-sdk-and-build-a-project">Atlassian&reg; SDK</a></p>
+				<p><code>atlas-run-standalone --product confluence --http-port 8090 --server confluence --context-path ROOT --jvmargs &quot;-Xms4g -Xmx4g -server&quot;</code></p>
+				<h2 id="docker-container">Docker container</h2>
+				<p>Start a local <a href="https://hub.docker.com/r/atlassian/confluence-server/">Confluence&reg; docker instance</a>\</p>
+				<h1 id="supported-platforms">Supported Platforms</h1>
+				<p>We have tested the confluence-protractor-base with </p>
+				<ul>
+					<li>Confluence 5.7 - 6.3</li>
+					<li>PSQL, MYSQL, MSSQL</li>
+				</ul>
 				<h1 id="troubleshooting">Troubleshooting</h1>
-				<h2 id="phantom-js">phantom.js</h2>
-				<pre><code class="lang-text">error while loading shared libraries: libicui18n.so.52: cannot open shared object file: No such file or directory
-</code></pre>
-				<p>On Ubuntu 16.04 this solved the issue: <a href="https://github.com/Pyppe/phantomjs2.0-ubuntu14.04x64/issues/1#issuecomment-244120878">https://github.com/Pyppe/phantomjs2.0-ubuntu14.04x64/issues/1#issuecomment-244120878</a></p>
-				<h2 id="webdriverjs">WebDriverJS</h2>
-				<pre><code class="lang-text">run &#39;webdriver-manager update&#39;.The cmd show &#39;SyntaxError: Unexpected token ...&#39; #4001
-</code></pre>
-				<p>See <a href="https://github.com/angular/protractor/issues/4001">https://github.com/angular/protractor/issues/4001</a>.</p>
-				<pre><code class="lang-text">node_modules\webdriver-manager\built\lib\cli\logger.js:66
-    info(...msgs) {
-         ^^^
-SyntaxError: Unexpected token ...
-    at exports.runInThisContext (vm.js:53:16)
-    at Module._compile (module.js:404:25)
-    at Object.Module._extensions..js (module.js:432:10)
-    at Module.load (module.js:356:32)
-    at Function.Module._load (module.js:313:12)
-    at Module.require (module.js:366:17)
-    at require (module.js:385:17)
-    at Object.&lt;anonymous&gt; (C:\Users\wuyang\AppData\Roaming\npm\node_modules\protractor\node_modules\webdriver-manager\built\
-lib\cli\index.js:8:10)
-    at Module._compile (module.js:425:26)
-    at Object.Module._extensions..js (module.js:432:10)
-</code></pre>
-				<p>Update Node and npm (for Ubuntu 16.04 Node 7.6.0 and npm 4.1.2 worked).</p>
+				<p>See <a href="https://github.com/seibert-media/confluence-protractor-base/issues">Issues</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -177,6 +163,9 @@ lib\cli\index.js:8:10)
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_specs_autocompletesearch_spec_.html">"specs/autocomplete<wbr>Search.spec"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_specs_common_preparetestsetup_spec_.html">"specs/common/prepare<wbr>Test<wbr>Setup.spec"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_specs_confluencebase_spec_.html">"specs/confluence<wbr>Base.spec"</a>
