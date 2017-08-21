@@ -37,7 +37,7 @@
     "typescript": "^2.4.1"
   },
   "publishConfig": {
-    "registry": "https://nexus3.apps.seibert-media.net/nexus/repository/npmtest/"
+    "registry": "https://nexus.apps.seibert-media.net/nexus/repository/npmtest/"
   },
   "devDependencies": {
     "typedoc": "^0.8.0"
