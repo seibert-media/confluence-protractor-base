@@ -83,9 +83,10 @@ function ConfluenceSpace(spaceKey, spaceName) {
 
 	this.spaceWizard = {
 		open: function () {
-			self.actions.spaceDirectory.open();
+			self.actions.spaceDirectory.open({refreshAlways: true});
 
-			var createSpaceButton = asyncElement(by.id('addSpaceLink'));
+			var createSpaceButton = asyncElement(by.css('#addSpaceLink'));
+			waitForElementToBeClickable(createSpaceButton, DEFAULT_LOADING_TIMEOUT);
 			createSpaceButton.click();
 
 			var skipButtonSelector = by.css('.start-creating-space');

@@ -89,9 +89,8 @@ var pageObjectUtils = {
 		});
 	},
 	clickIfPresent: function (element) {
-		console.log('92 $(' + element.locator().value + ')');
 		return element.isPresent().then(function (isPresent) {
-			console.log('94 $(' + element.locator().value + ')', isPresent);
+			console.log('94 $(' + element.locator().value + ') -> ' + isPresent + ' <-');
 			if (isPresent) {
 				return element.click();
 			}
