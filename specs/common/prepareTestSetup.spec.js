@@ -8,6 +8,8 @@ describe('Prepare Test Setup', function () {
 	beforeAll(function () {
 		failFastReporter.enable();
 		user.authenticateAsAdmin();
+
+		user.skipLicenseHealthCheck();
 	});
 
 	afterAll(failFastReporter.disable);
