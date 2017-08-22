@@ -31,9 +31,9 @@ function UniversalPluginManager() {
 		self.actions.upm.open({refreshAlways: true});
 
 		// dismiss up to three notifications if they occur
-		// clickIfPresent(asyncElement(by.css('.dismiss-notification')));
-		// clickIfPresent(asyncElement(by.css('.dismiss-notification')));
-		// clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		asyncElement.all(by.css('.dismiss-notification')).each(function(notification) {
+			notification.click();
+		});
 
 		// open upload dialog
 		var uploadButton = asyncElement(by.css('#upm-upload'));
