@@ -47,9 +47,7 @@ function UniversalPluginManager() {
 		asyncElement(by.id('upm-upload-file')).sendKeys(absolutePath);
 
 		// try upload buttons for different confluence versions
-		var confirmButton = asyncElement(by.css('button.confirm'));
-		waitForElementToBeClickable(confirmButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
-		clickIfPresent(confirmButton);
+		clickIfPresent(asyncElement(by.css('button.confirm')));
 		clickIfPresent(asyncElement(by.css('button.upm-upload-plugin-submit')));
 
 
