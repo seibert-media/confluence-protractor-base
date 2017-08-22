@@ -93,6 +93,7 @@ var pageObjectUtils = {
 			if (isPresent) {
 				return element.click();
 			}
+			console.log('Element not present', element);
 		});
 	},
 	clickIfClickable: function (element) {
@@ -100,6 +101,7 @@ var pageObjectUtils = {
 			if (isClickable) {
 				return element.click();
 			}
+			console.log('Element not clickable', element);
 		});
 	},
 	takeScreenshot: function (imageName) {

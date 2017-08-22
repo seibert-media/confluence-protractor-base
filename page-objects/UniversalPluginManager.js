@@ -5,6 +5,7 @@ var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var asyncElement = pageObjectUtils.asyncElement;
+var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 
 function UniversalPluginManager() {
 	browser.setFileDetector(new remote.FileDetector());
@@ -35,7 +36,7 @@ function UniversalPluginManager() {
 
 		// open upload dialog
 		var uploadButton = asyncElement(by.id('upm-upload'));
-		browser.wait(protractor.ExpectedConditions.elementToBeClickable(uploadButton), UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
+		waitForElementToBeClickable(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
 		uploadButton.click();
 
 		// get path and upload plugin
@@ -45,8 +46,10 @@ function UniversalPluginManager() {
 
 		asyncElement(by.id('upm-upload-file')).sendKeys(absolutePath);
 
-		// try upload buttons for different confluence versiions
-		clickIfPresent(asyncElement(by.css('button.confirm')));
+		// try upload buttons for different confluence versions
+		var confirmButton = asyncElement(by.css('button.confirm'));
+		waitForElementToBeClickable(confirmButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
+		clickIfPresent(confirmButton);
 		clickIfPresent(asyncElement(by.css('button.upm-upload-plugin-submit')));
 
 
