@@ -30,18 +30,21 @@ function UniversalPluginManager() {
 
 		self.actions.upm.open({refreshAlways: true});
 
-		console.log('hello');
+		console.log('33');
 
 		// dismiss up to three notifications if they occur
 		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		console.log('37');
 		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		console.log('39');
 		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		console.log('41');
 
 		// open upload dialog
 		var uploadButton = asyncElement(by.id('upm-upload'));
 		waitForElementToBeClickable(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
 		clickIfPresent(uploadButton);
-
+		console.log('47');
 		// get path and upload plugin
 		var absolutePath = path.resolve(process.cwd(), fileToUpload);
 		// check if file exists
