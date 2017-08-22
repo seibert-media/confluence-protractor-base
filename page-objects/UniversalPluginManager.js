@@ -4,7 +4,6 @@ var ConfluenceBase = require('./ConfluenceBase');
 var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var clickIfPresent = pageObjectUtils.clickIfPresent;
-var clickIfClickable = pageObjectUtils.clickIfClickable;
 var asyncElement = pageObjectUtils.asyncElement;
 
 function UniversalPluginManager() {
@@ -30,9 +29,9 @@ function UniversalPluginManager() {
 		self.actions.upm.open({refreshAlways: true});
 
 		// dismiss up to three notifications if they occur
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
 
 		// open upload dialog
 		var uploadButton = asyncElement(by.id('upm-upload'));
@@ -64,7 +63,7 @@ function UniversalPluginManager() {
 				});
 			}
 
-			// try confirm buttons for different confluence versiions
+			// try confirm buttons for different confluence versions
 			clickIfPresent(asyncElement(by.css('button.confirm')));
 			clickIfPresent(asyncElement(by.css('button.button-panel-cancel-link')));
 		});

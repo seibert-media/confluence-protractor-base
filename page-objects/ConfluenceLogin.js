@@ -131,14 +131,6 @@ function ConfluenceLogin() {
 		openPage();
 	};
 
-	this.skipLicenseHealthCheck = function() {
-		// aui flag warning if license health check failed
-		var licenseHealthCheck = asyncElement.all(by.css('#healthcheck-notification .dismiss-notification'));
-
-		pageObjectUtils.clickIfPresent(licenseHealthCheck);
-		console.log('Skipped "license health check"');
-	};
-
 	this.confirmTermsOfUse = function () {
 		clickIfPresent(asyncElement(by.css('form[action="/plugins/termsofuse/agreement.action"] input[type="submit"]')));
 
