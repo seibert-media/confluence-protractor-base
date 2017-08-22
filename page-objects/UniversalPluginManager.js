@@ -31,21 +31,21 @@ function UniversalPluginManager() {
 		self.actions.upm.open({refreshAlways: true});
 
 		// dismiss up to three notifications if they occur
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
+		clickIfPresent(asyncElement(by.css('.dismiss-notification')));
 
 		// open upload dialog
-		var uploadButton = asyncElement(by.id('upm-upload'));
+		var uploadButton = asyncElement(by.css('#upm-upload'));
 		waitForElementToBeClickable(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
-		clickIfPresent(uploadButton);
+		uploadButton.click();
 
 		// get path and upload plugin
 		var absolutePath = path.resolve(process.cwd(), fileToUpload);
 		// check if file exists
 		require('fs').accessSync(absolutePath);
 
-		asyncElement(by.id('upm-upload-file')).sendKeys(absolutePath);
+		asyncElement(by.css('#upm-upload-file')).sendKeys(absolutePath);
 
 		// try upload buttons for different confluence versions
 		clickIfPresent(asyncElement(by.css('button.confirm')));
