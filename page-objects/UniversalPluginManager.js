@@ -5,7 +5,6 @@ var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var asyncElement = pageObjectUtils.asyncElement;
-var clickIfClickable = pageObjectUtils.clickIfClickable;
 var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 
 function UniversalPluginManager() {
@@ -30,9 +29,9 @@ function UniversalPluginManager() {
 
 		self.actions.upm.open({refreshAlways: true});
 
-		// dismiss up to three notifications if they occur
+		// dismiss all notifications if any occur
 		asyncElement.all(by.css('.dismiss-notification')).each(function(notification) {
-			notification.click();
+			clickIfPresent(notification);
 		});
 
 		// open upload dialog

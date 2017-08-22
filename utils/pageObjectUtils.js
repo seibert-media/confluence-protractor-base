@@ -90,7 +90,6 @@ var pageObjectUtils = {
 	},
 	clickIfPresent: function (element) {
 		return element.isPresent().then(function (isPresent) {
-			console.log('94 $(' + element.locator().value + ') -> ' + isPresent + ' <-');
 			if (isPresent) {
 				return element.click();
 			}
