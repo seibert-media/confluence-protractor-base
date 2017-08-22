@@ -91,7 +91,7 @@ var pageObjectUtils = {
 	clickIfPresent: function (element) {
 		console.log('92 $(' + element.locator().value + ')');
 		return element.isPresent().then(function (isPresent) {
-			console.log('94 $(' + element.locator().value + ')');
+			console.log('94 $(' + element.locator().value + ')', isPresent);
 			if (isPresent) {
 				return element.click();
 			}
@@ -99,9 +99,7 @@ var pageObjectUtils = {
 		});
 	},
 	clickIfClickable: function (element) {
-		console.log('102 $(' + element.locator().value + ')');
 		return EC().elementToBeClickable(element)().then(function (isClickable) {
-			console.log('104 $(' + element.locator().value + ')');
 			if (isClickable) {
 				return element.click();
 			}
