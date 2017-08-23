@@ -40,6 +40,14 @@ function ConfluenceBase() {
 		return confluenceVersion;
 	};
 
+	this.disableNotifications = function() {
+		self.openAdminPage('plugins/servlet/stp/view/?source=notification');
+
+		var notificationToggle = element(By.css('.notification-toggle'));
+		pageObjectUtils.waitForElementToBeClickable(notificationToggle);
+		notificationToggle.click();
+		element(By.css('option[value="critical"]')).click();
+	};
 }
 
 ConfluenceBase.prototype = new ConfluenceLogin();

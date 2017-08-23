@@ -28,7 +28,7 @@ function UniversalPluginManager() {
 		maxAttempts = maxAttempts || 1;
 		attemptCount = attemptCount || 0;
 
-		skipNotifications();
+		self.disableNotifications();
 
 		self.actions.upm.open({refreshAlways: true});
 
@@ -65,27 +65,6 @@ function UniversalPluginManager() {
 			// try confirm buttons for different confluence versions
 			clickIfPresent(asyncElement(by.css('button.confirm')));
 			clickIfPresent(asyncElement(by.css('button.button-panel-cancel-link')));
-		});
-	}
-
-	function skipNotifications() {
-		self.openAdminPage('admin/viewgeneralconfig.action');
-		takeScreenshot('aa_skip-notifications_01.png');
-
-		// beware "ugly" workaround to make sure notifications are loaded
-		browser.sleep(5000);
-		takeScreenshot('aa_skip-notifications_02.png');
-
-		self.openAdminPage('admin/viewgeneralconfig.action');
-		takeScreenshot('aa_skip-notifications_03.png');
-
-		browser.sleep(5000);
-		takeScreenshot('aa_skip-notifications_04.png');
-
-		// dismiss all notifications if any occur
-		asyncElement.all(by.css('.dismiss-notification')).each(function(notification) {
-			console.log('skipped notification');
-			clickIfPresent(notification);
 		});
 	}
 

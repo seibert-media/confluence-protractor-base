@@ -50,9 +50,9 @@ var assertUtils = {
 	},
 	assertEqualsSync: function (value, expectedValue, message) {
 		if (!jasmine.matchersUtil.equals(value, expectedValue)) {
-			var expectComparison =  assertUtils.expectComparisonMessage(value, expectedValue);
+			var expectComparison = assertUtils.expectComparisonMessage(value, expectedValue);
 			if (message) {
-				message = message + ' ('+ expectComparison + ')';
+				message = message + ' (' + expectComparison + ')';
 			} else {
 				message = expectComparison;
 			}
