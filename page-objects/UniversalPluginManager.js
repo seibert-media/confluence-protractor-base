@@ -6,6 +6,7 @@ var pageObjectUtils = require('../utils/pageObjectUtils');
 var clickIfPresent = pageObjectUtils.clickIfPresent;
 var asyncElement = pageObjectUtils.asyncElement;
 var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
+var takeScreenshot = pageObjectUtils.takeScreenshot;
 
 function UniversalPluginManager() {
 	browser.setFileDetector(new remote.FileDetector());
@@ -68,11 +69,11 @@ function UniversalPluginManager() {
 	}
 
 	function skipNotifications() {
-		var generalAdminAction = 'admin/viewgeneralconfig.action';
-		self.openAdminPage(generalAdminAction);
+		self.openAdminPage('admin/viewgeneralconfig.action');
 
 		// beware "ugly" workaround to make sure notifications are loaded
 		browser.sleep(5000);
+		takeScreenshot('skip-notifications.png');
 
 		// dismiss all notifications if any occur
 		asyncElement.all(by.css('.dismiss-notification')).each(function(notification) {
