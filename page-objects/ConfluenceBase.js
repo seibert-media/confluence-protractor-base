@@ -41,11 +41,15 @@ function ConfluenceBase() {
 	};
 
 	this.disableNotifications = function() {
+		console.log('disabling notifications');
+		pageObjectUtils.takeScreenshot('disabling_notifications.png');
+
 		self.openAdminPage('plugins/servlet/stp/view/?source=notification');
 
-		var notificationToggle = element(By.css('.notification-toggle'));
-		pageObjectUtils.waitForElementToBeClickable(notificationToggle);
-		notificationToggle.click();
+		pageObjectUtils.asyncElement(By.css('.notification-toggle')).click();
+
+		pageObjectUtils.takeScreenshot('disabled_notifications.png');
+
 		element(By.css('option[value="critical"]')).click();
 	};
 }
