@@ -2,6 +2,10 @@ var ConfluenceLogin = require('./ConfluenceLogin');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var Version = require('../utils/Version');
 
+var takeScreenshot = pageObjectUtils.takeScreenshot;
+var asyncElement = pageObjectUtils.asyncElement;
+var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+
 var openPage = pageObjectUtils.openPage;
 
 // cache confluence version for all ConfluenceLogin instances
@@ -42,13 +46,12 @@ function ConfluenceBase() {
 
 	this.disableNotifications = function() {
 		console.log('disabling notifications');
-		pageObjectUtils.takeScreenshot('disabling_notifications.png');
-
 		self.openAdminPage('plugins/servlet/stp/view/?source=notification');
+		takeScreenshot('disabling_notifications.png');
 
-		pageObjectUtils.asyncElement(By.css('.notification-toggle')).click();
+		asyncElement(By.css('.notification-toggle'), DEFAULT_LOADING_TIMEOUT).click();
 
-		pageObjectUtils.takeScreenshot('disabled_notifications.png');
+		takeScreenshot('disabled_notifications.png');
 
 		element(By.css('option[value="critical"]')).click();
 	};
