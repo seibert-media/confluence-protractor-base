@@ -33,7 +33,7 @@ function UniversalPluginManager() {
 		self.actions.upm.open({refreshAlways: true});
 
 		// open upload dialog
-		var uploadButton = asyncElement(by.css('#upm-upload'));
+		var uploadButton = asyncElement(by.id('upm-upload'));
 		waitForElementToBeClickable(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
 		uploadButton.click();
 
@@ -42,7 +42,7 @@ function UniversalPluginManager() {
 		// check if file exists
 		require('fs').accessSync(absolutePath);
 
-		asyncElement(by.css('#upm-upload-file')).sendKeys(absolutePath);
+		asyncElement(by.id('upm-upload-file')).sendKeys(absolutePath);
 
 		// try upload buttons for different confluence versions
 		clickIfPresent(asyncElement(by.css('button.confirm')));
@@ -77,7 +77,7 @@ function UniversalPluginManager() {
 
 		// dismiss all notifications if any occur
 		asyncElement.all(by.css('.dismiss-notification')).each(function(notification) {
-			console.log('skipped one');
+			console.log('skipped notification');
 			clickIfPresent(notification);
 		});
 	}
