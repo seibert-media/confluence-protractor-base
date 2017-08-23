@@ -73,8 +73,14 @@ function UniversalPluginManager() {
 		takeScreenshot('aa_skip-notifications_01.png');
 
 		// beware "ugly" workaround to make sure notifications are loaded
-		browser.sleep(10000);
+		browser.sleep(5000);
 		takeScreenshot('aa_skip-notifications_02.png');
+
+		self.openAdminPage('admin/viewgeneralconfig.action');
+		takeScreenshot('aa_skip-notifications_03.png');
+
+		browser.sleep(5000);
+		takeScreenshot('aa_skip-notifications_04.png');
 
 		// dismiss all notifications if any occur
 		asyncElement.all(by.css('.dismiss-notification')).each(function(notification) {
