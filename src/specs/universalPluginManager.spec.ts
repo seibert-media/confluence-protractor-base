@@ -3,20 +3,20 @@ import {UniversalPluginManager} from "../page-objects/UniversalPluginManager";
 
 const failFastReporter = require("../jasmineReporters/failFastReporter").failFastReporter;
 
-function createTestPluginPath(path) {
+function createTestPluginPath(path: string) {
 	return require("path").resolve(process.cwd(), __dirname + "/../../test-data/" + path);
 }
 
 function fakeUploadPluginInput() {
 	const originalSendKeys = WebElement.prototype.sendKeys;
 
-	spyOn(WebElement.prototype, "sendKeys").and.callFake(function(path) {
-		if (path === testPluginPath) {
+	spyOn(WebElement.prototype, "sendKeys").and.callFake((path: string) => {
+		if (path == testPluginPath) {
 			originalSendKeys.call(this, brokenPluginPath);
 			// reset spy
 			WebElement.prototype.sendKeys = originalSendKeys;
 		} else {
-			originalSendKeys.apply(this, arguments);
+			originalSendKeys.apply(this, path);
 		}
 	});
 }

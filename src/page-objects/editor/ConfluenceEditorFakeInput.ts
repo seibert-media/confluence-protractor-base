@@ -1,4 +1,6 @@
 import {ConfluenceEditor} from "../ConfluenceEditor";
+import {ElementFinder} from "protractor";
+import {promise} from "selenium-webdriver";
 
 export class ConfluenceEditorFakeInput {
 
@@ -8,20 +10,21 @@ export class ConfluenceEditorFakeInput {
 		this.editor = editor;
 	}
 
-	public extendResult(result) {
-		result.clear = this.clear;
-		result.sendKeys = this.sendKeys;
+	public extendResult(result: promise.Promise<void>) {
+		// TODO: Check this way more thoroughly
+		result['clear'] = this.clear;
+		result['sendKeys'] = this.sendKeys;
 		return result;
 	}
 
 	public clear() {
-		return this.editor.executeInEditorContext((editorInput) => {
+		return this.editor.executeInEditorContext((editorInput: ElementFinder) => {
 			return this.extendResult(editorInput.clear());
 		});
 	}
 
-	public sendKeys(keys) {
-		return this.editor.executeInEditorContext((editorInput) => {
+	public sendKeys(keys: string) {
+		return this.editor.executeInEditorContext((editorInput: ElementFinder) => {
 			return this.extendResult(editorInput.sendKeys(keys));
 		});
 	}

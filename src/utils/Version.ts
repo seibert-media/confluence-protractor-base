@@ -1,5 +1,41 @@
 export class Version {
-	public static compare(versionA, versionB) {
+	private version: string;
+	private major: number;
+	private minor: number;
+	private patch: number;
+
+	constructor(version: string, major?: number, minor?: number, patch?: number) {
+		this.version = version;
+		this.major = major;
+		this.minor = minor;
+		this.patch = patch;
+	}
+
+	public toString() {
+		return this.version;
+	}
+
+	public equals(otherVersion: Version|string) {
+		return Version.compare(this, otherVersion) === 0;
+	}
+
+	public lessThan(otherVersion: Version|string) {
+		return Version.compare(this, otherVersion) < 0;
+	}
+
+	public lessThanEquals(otherVersion: Version|string) {
+		return Version.compare(this, otherVersion) <= 0;
+	}
+
+	public greaterThan(otherVersion: Version|string) {
+		return Version.compare(this, otherVersion) > 0;
+	}
+
+	public greaterThanEquals(otherVersion: Version|string) {
+		return Version.compare(this, otherVersion) >= 0;
+	}
+
+	public static compare(versionA: Version|string, versionB: Version|string) {
 		versionA = Version.parse(versionA);
 		versionB = Version.parse(versionB);
 
@@ -18,12 +54,9 @@ export class Version {
 		return patchCompare;
 	}
 
-	public static parse(version) {
+	public static parse(version: Version|string) {
 		if (version instanceof Version) {
 			return new Version(version.version, version.major, version.minor, version.patch);
-		}
-		if (!version) {
-			throw new Error("Parameter version in Version.parse must be defined");
 		}
 
 		version = ALLOWED_SUFFIXES.reduce((versionString, allowedSuffexRegex) => {
@@ -38,41 +71,6 @@ export class Version {
 		return new Version(version, major, minor, patch);
 	}
 
-	private version: string;
-	private major: number;
-	private minor: number;
-	private patch: number;
-
-	constructor(version: string, major?: number, minor?: number, patch?: number) {
-		this.version = version;
-		this.major = major;
-		this.minor = minor;
-		this.patch = patch;
-	}
-
-	public toString() {
-		return this.version;
-	}
-
-	public equals(otherVersion) {
-		return Version.compare(this, otherVersion) === 0;
-	}
-
-	public lessThan(otherVersion) {
-		return Version.compare(this, otherVersion) < 0;
-	}
-
-	public lessThanEquals(otherVersion) {
-		return Version.compare(this, otherVersion) <= 0;
-	}
-
-	public greaterThan(otherVersion) {
-		return Version.compare(this, otherVersion) > 0;
-	}
-
-	public greaterThanEquals(otherVersion) {
-		return Version.compare(this, otherVersion) >= 0;
-	}
 }
 
 const ALLOWED_SUFFIXES = [

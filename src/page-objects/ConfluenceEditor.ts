@@ -34,7 +34,7 @@ export class ConfluenceEditor extends ConfluenceBase {
 		return browser.wait(ExpectedConditions.not(this.hasEditor.bind(this)), DEFAULT_LOADING_TIMEOUT);
 	}
 
-	public executeInEditorContext(fn) {
+	public executeInEditorContext(fn: Function) {
 		this.waitUntilEditorOpened();
 
 		browser.switchTo().frame(this.getEditorFrame().getWebElement());
@@ -70,4 +70,5 @@ export class ConfluenceEditor extends ConfluenceBase {
 		element.all(by.css(".quick-comment-prompt")).first().click();
 		this.waitUntilEditorOpened();
 	}
+
 }

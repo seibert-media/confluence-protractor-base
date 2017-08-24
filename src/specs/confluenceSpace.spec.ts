@@ -140,9 +140,7 @@ describe("ConfluenceSpace (page object)", () => {
 			});
 
 			describe("anonymous user", () => {
-
-				const anonymousPermissionsAsList = [];
-
+				const anonymousPermissionsAsList = [] as any[];
 				confluenceSpaceTestUtils.testAnonymousPermissions(usersTestSpace, anonymousPermissionsAsList);
 			});
 		});

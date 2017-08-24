@@ -70,7 +70,7 @@ export class UniversalPluginManager extends ConfluenceBase {
 			stdio: [0],
 		});
 
-		const mavenVersionLine = mavenVersionOutput.split("\n").filter((outputLine) => {
+		const mavenVersionLine = mavenVersionOutput.split("\n").filter((outputLine: string) => {
 			// expect version line to match number and dot "1."
 			return /^\d+\..*$/.test(outputLine.trim());
 		});
@@ -114,7 +114,8 @@ export class UniversalPluginManager extends ConfluenceBase {
 
 		browser.wait(ExpectedConditions.or(pluginInstalledCondition, pluginInstallFailCondition)).then(() => {
 			if (attemptCount < maxAttempts) {
-				pluginInstallFailCondition().then((installFailed) => {
+				// TODO: EC#visibilityOf simply returns Function as typing. Add scaffolding to make it into () => Promise?<boolean> to get rid of this explicit any
+				pluginInstallFailCondition().then((installFailed: any) => {
 					if (installFailed) {
 						this.uploadPluginInternal(pluginName, fileToUpload, timeout, maxAttempts, attemptCount + 1);
 					}

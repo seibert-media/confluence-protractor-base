@@ -1,3 +1,5 @@
+import CustomReporterResult = jasmine.CustomReporterResult;
+
 const _ = require("lodash");
 
 // let enabled = false;
@@ -55,7 +57,7 @@ export const failFastReporter = {
 	disable() {
 		// enabled = false;
 	},
-	specDone(result) {
+	specDone(result: CustomReporterResult) {
 		// if (result.status !== "failed" || !enabled) {
 		// 	return;
 		// }

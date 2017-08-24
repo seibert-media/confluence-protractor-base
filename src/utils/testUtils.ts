@@ -1,43 +1,42 @@
 import * as _ from "lodash";
 import {browser} from "protractor";
-import MatchersUtil = jasmine.MatchersUtil;
 import {promise} from "selenium-webdriver";
 
 export {testUtils, TestUtils};
 
+// TODO: Refactor this into class
+// TODO: Some very vague typings in here, clean them up
 interface TestUtils {
-	expectPromiseToBeResolved: ((promise, done: DoneFn, message) => any);
-	expectPromiseFail: ((promise, done: DoneFn, expectedError) => any);
-	createDomElement: ((name, properties) => promise.Promise<any>);
-	removeDomElement: ((cssSelector) => promise.Promise<any>);
-	mockElement: ((options) => { registerDone: ((done, beforeDone) => any) });
+	expectPromiseToBeResolved: (promise: promise.Promise<any>, done: DoneFn, message: string) => any;
+	expectPromiseFail: (promise: promise.Promise<any>, done: DoneFn, expectedError: Error) => any;
+	createDomElement: (name: string, properties: any) => promise.Promise<any>;
+	removeDomElement: (cssSelector: any) => promise.Promise<any>;
+	mockElement: (options: {spy: any, promise: {name: any, value: any}}) => { registerDone: (done: DoneFn, beforeDone: Function) => any };
 }
 
 const testUtils: TestUtils = {
 	expectPromiseToBeResolved(promise, done: DoneFn, message) {
-
-		message = message || "Unexpected fail in assertion";
+		message = message || "Unexpected failure in assertion";
 		promise.then(() => {
 			done();
-		}).catch((reason) => {
+		}).catch((reason: Error) => {
 			done.fail(message + " // reason: " + reason);
 		});
 	},
 
 	expectPromiseFail(promise, done: DoneFn, expectedError) {
-
 		promise.then((value) => {
 			done.fail("Expected assert to fail // value: " + value);
-		}).catch((error) => {
-
+		}).catch((error: Error) => {
 			if (expectedError && !_.isEqual(error, expectedError)) {
 				done.fail("Expected " + expectedError + ", but was " + error + ".");
 			}
 			done();
 		});
 	},
+
 	createDomElement(name, properties) {
-		return browser.executeScript((innerName, innerProperties) => {
+		return browser.executeScript((innerName: string, innerProperties: any) => {
 			const element = document.createElement(innerName);
 
 			innerProperties = innerProperties || {};
@@ -56,14 +55,16 @@ const testUtils: TestUtils = {
 			return element;
 		}, name, properties);
 	},
+
 	removeDomElement(cssSelector) {
-		return browser.executeScript((innerCssSelector) => {
+		return browser.executeScript((innerCssSelector: any) => {
 			const e = document.querySelector(innerCssSelector);
 			if (e) {
 				e.remove();
 			}
 		}, cssSelector);
 	},
+
 	mockElement(options) {
 		let doneFn: DoneFn;
 
@@ -84,7 +85,7 @@ const testUtils: TestUtils = {
 		});
 
 		const element = {
-			registerDone(done, beforeDone) {
+			registerDone(done: DoneFn, beforeDone: Function) {
 				doneFn = done;
 
 				promiseMock.then(() => {
@@ -106,4 +107,5 @@ const testUtils: TestUtils = {
 
 		return element;
 	},
+
 };

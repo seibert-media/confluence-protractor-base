@@ -1,25 +1,27 @@
+import {ConfluenceSpace} from "../page-objects/ConfluenceSpace";
+
 const screenshotReporter = require("../jasmineReporters/screenshotReporter").screenshotReporter;
 const pageObjectUtils = require("../utils/pageObjectUtils").pageObjectUtils;
 
 export const confluenceSpaceTestUtils = {
-	testAnonymousPermissions: (spacePageObject, permissions) => {
-		testPermissions(spacePageObject, permissions, permissionMethods.ANONYMOUS);
+	testAnonymousPermissions: (spacePageObject: ConfluenceSpace, permissions: any) => {
+		testPermissions(spacePageObject, permissions, PermissionMethod.ANONYMOUS);
 	},
-	testGroupPermissions: (spacePageObject, permissions, group) => {
-		testPermissions(spacePageObject, permissions, permissionMethods.GROUP, group);
+	testGroupPermissions: (spacePageObject: ConfluenceSpace, permissions: any, group: any) => {
+		testPermissions(spacePageObject, permissions, PermissionMethod.GROUP, group);
 	},
-	testUserPermissions: (spacePageObject, permissions, user) => {
-		testPermissions(spacePageObject, permissions, permissionMethods.USER, user);
+	testUserPermissions: (spacePageObject: ConfluenceSpace, permissions: any, user: any) => {
+		testPermissions(spacePageObject, permissions, PermissionMethod.USER, user);
 	},
 };
 
-const permissionMethods = {
-	ANONYMOUS: "getAnonymousPermission",
-	GROUP: "getGroupPermission",
-	USER: "getUserPermission",
-};
+enum PermissionMethod {
+	ANONYMOUS = "getAnonymousPermission",
+	GROUP = "getGroupPermission",
+	USER = "getUserPermission"
+}
 
-function createPermissionMapFromList(permissionList) {
+function createPermissionMapFromList(permissionList: string[]) {
 	const allPermissions = {
 		viewspace: false,
 		removeowncontent: false,
@@ -37,7 +39,7 @@ function createPermissionMapFromList(permissionList) {
 		setspacepermissions: false,
 	};
 
-	permissionList.forEach((permissionName) => {
+	permissionList.forEach(permissionName => {
 		if (allPermissions[permissionName]) {
 			throw new Error("Unknown permission: " + permissionName);
 		}
@@ -48,7 +50,8 @@ function createPermissionMapFromList(permissionList) {
 	return allPermissions;
 }
 
-function testPermissions(spacePageObject, permissions, permissionMethod, additionalPermissionParam?) {
+// TODO: Replace explicit any typing with Permission Object logic (will also allow calling SpacePermissionAction methods *much* more type safe)
+function testPermissions(spacePageObject: ConfluenceSpace, permissions: any, permissionMethod: PermissionMethod, additionalPermissionParam?: any) {
 	const spacePermissionsAction = spacePageObject.spaceActions.spacePermissions;
 
 	if (Array.isArray(permissions)) {
@@ -64,7 +67,7 @@ function testPermissions(spacePageObject, permissions, permissionMethod, additio
 
 	afterAll(screenshotReporter.enable);
 
-	Object.keys(permissions).forEach((permissionName, index) => {
+	Object.keys(permissions).forEach(permissionName => {
 		const permitted = permissions[permissionName];
 		const permittedText = permitted ? "" : "NO ";
 
@@ -79,4 +82,5 @@ function testPermissions(spacePageObject, permissions, permissionMethod, additio
 			expect(spacePermissionsAction[permissionMethod](permissionName, additionalPermissionParam)).toBe("" + permitted);
 		});
 	});
+
 }

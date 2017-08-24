@@ -10,7 +10,7 @@ const asyncElement = pageObjectUtils.asyncElement;
 const DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 
 // cache confluence version for all ConfluenceLogin instances
-let confluenceVersion;
+let confluenceVersion: Version;
 
 export class ConfluenceBase extends ConfluenceLogin {
 
@@ -57,4 +57,5 @@ export class ConfluenceBase extends ConfluenceLogin {
 			console.log('skipped disable notifications as version is <= 5.9');
 		}
 	};
+
 }

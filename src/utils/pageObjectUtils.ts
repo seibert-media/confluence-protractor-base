@@ -3,6 +3,7 @@ import {By, promise} from "selenium-webdriver";
 
 import {browser, element, ElementFinder, protractor} from "protractor";
 import {Url} from "url";
+import {CustomLocation} from "./typings";
 
 const generateScreenshotName = ((() => {
 	let screenshotCounter = 0;
@@ -23,7 +24,7 @@ function EC() {
 let DEFAULT_ELEMENT_TIMEOUT = 6 * 1000;
 let DEFAULT_LOADING_TIMEOUT = 30 * 1000;
 
-function resolveAttribute(promise, attributeName) {
+function resolveAttribute(promise: promise.Promise<any>, attributeName: string) {
 	const attributPromise = promise.then((object) => object[attributeName]);
 
 	promise[attributeName] = attributPromise;
@@ -31,7 +32,7 @@ function resolveAttribute(promise, attributeName) {
 	return attributPromise;
 }
 
-function resolveAttributes(promise, attributeList) {
+function resolveAttributes(promise: promise.Promise<any>, attributeList: string[]) {
 	attributeList.forEach((attributeName) => {
 		resolveAttribute(promise, attributeName);
 	});
@@ -41,7 +42,7 @@ const screenshotsAlreadyTaken = {};
 
 const assertUtils = {
 	ASSERTION_ERROR: "AssertionError for PageObject: ",
-	expectComparisonMessage: (value, expected) => {
+	expectComparisonMessage: (value: any, expected: any) => {
 		return "Expected " + JSON.stringify(expected) + ", but was " + JSON.stringify(value);
 	},
 	assertNotNullSync: (value: any, message?: string) => {
@@ -50,7 +51,7 @@ const assertUtils = {
 			throw new Error(assertUtils.ASSERTION_ERROR + message);
 		}
 	},
-	assertEqualsSync: (value, expectedValue, message) => {
+	assertEqualsSync: (value: any, expectedValue: any, message: string) => {
 		if (!isEqual(value, expectedValue)) {
 			const expectComparison = assertUtils.expectComparisonMessage(value, expectedValue);
 			if (message) {
@@ -71,25 +72,25 @@ export interface OpenPageOptions {
 export interface PageObjectUtils {
 	DEFAULT_ELEMENT_TIMEOUT: number;
 	DEFAULT_LOADING_TIMEOUT: number;
-	assertEquals: any; // ((value: any, expectedValue: any, message?: string) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<R> | any | Promise<TResult2 | TResult1> | any);
-	assertNotNull: any; // ((value, message?: string) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<R> | any | Promise<TResult2 | TResult1> | any);
-	clickIfPresent: ((element: ElementFinder) => promise.Promise<void>);
-	clickIfClickable: ((element: ElementFinder) => promise.Promise<void>);
-	logPromise: any; // ((promise) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<R> | any | Promise<TResult2 | TResult1> | any);
-	takeScreenshot: any; // ((imageName) => (Promise<string> | promise.Promise<void>));
-	cleanScreenshots: any; // (() => any);
-	waitForElementToBeClickable: ((element, timeout?: number) => any);
-	asyncElement: ((selector: By, timeout?: number) => ElementFinder);
-	findFirstDisplayed: ((elementSelector: By) => ElementFinder);
-	openPage: any; // ((path?: string, {ignoreSearch = false, refreshAlways = false}?: OpenPageOptions) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<any> | any | Promise<TResult2 | TResult1> | any);
-	getLocation: (() => any);
-	locationFromUrl: ((url) => Url);
-	getCurrentPath: (() => promise.Promise<any>);
-	setTurnOffAlerts: ((turnOffAlertsValue) => any);
-	turnOffAlerts: (() => any);
-	skipAlertIfPresent: (() => promise.Promise<any>);
-	setDefaultElementTimeout: ((timeout) => any);
-	setDefaultLoadingTimeout: ((timeout) => any);
+	assertEquals: (value: any, expectedValue: any, message?: string) => promise.Promise<any>;
+	assertNotNull: (value: any, message?: string) => promise.Promise<any>;
+	clickIfPresent: (element: ElementFinder) => promise.Promise<void>;
+	clickIfClickable: (element: ElementFinder) => promise.Promise<void>;
+	logPromise: (promise: Promise<any>) => Promise<void>;
+	takeScreenshot: (imageName: string) => Promise<string> | promise.Promise<void>;
+	cleanScreenshots: () => any;
+	waitForElementToBeClickable: (element: ElementFinder, timeout?: number) => any;
+	asyncElement: (selector: By, timeout?: number) => ElementFinder;
+	findFirstDisplayed: (elementSelector: By) => ElementFinder;
+	openPage: (path?: string, options?: OpenPageOptions) => promise.Promise<any>;
+	getLocation: () => promise.Promise<CustomLocation> & CustomLocation;
+	locationFromUrl: (url: string) => Url;
+	getCurrentPath: () => promise.Promise<any>;
+	setTurnOffAlerts: (turnOffAlertsValue: boolean) => any;
+	turnOffAlerts: () => any;
+	skipAlertIfPresent: () => promise.Promise<any>;
+	setDefaultElementTimeout: (timeout: number) => any;
+	setDefaultLoadingTimeout: (timeout: number) => any;
 	resetJasmineTimeoutForPageObjectTimeouts: (() => any);
 	assert: any;
 }
@@ -99,17 +100,16 @@ export const pageObjectUtils: PageObjectUtils = {
 	DEFAULT_LOADING_TIMEOUT,
 	assertEquals: (value: any, expectedValue: any, message?: string) => {
 		if (value && value.then) {
-			return value.then((promisedValue) => {
+			return value.then((promisedValue: any) => {
 				assertUtils.assertEqualsSync(promisedValue, expectedValue, message);
 			});
 		} else {
 			assertUtils.assertEqualsSync(value, expectedValue, message);
 		}
-
 	},
 	assertNotNull: (value, message?: string) => {
 		if (value && value.then) {
-			return value.then((promisedValue) => {
+			return value.then((promisedValue: any) => {
 				assertUtils.assertNotNullSync(promisedValue, message);
 			});
 		} else {
@@ -121,7 +121,7 @@ export const pageObjectUtils: PageObjectUtils = {
 			return element.click();
 		}
 	}),
-	clickIfClickable: (element) => EC().elementToBeClickable(element)().then((isClickable) => {
+	clickIfClickable: (element) => EC().elementToBeClickable(element)().then((isClickable: boolean) => {
 		if (isClickable) {
 			return element.click();
 		}
@@ -142,26 +142,26 @@ export const pageObjectUtils: PageObjectUtils = {
 
 		screenshotsAlreadyTaken[imageName] = imageName;
 
-		function saveSuccessfullScreenshot(base64Screenshot) {
-			return fs.writeFile(screenshotPath + imageName, base64Screenshot, "base64", (error) => {
+		function saveSuccessfulScreenshot(base64Screenshot: any) {
+			return fs.writeFile(screenshotPath + imageName, base64Screenshot, "base64", (error: Error) => {
 				if (error) {
 					console.log(error);
 				}
 			});
 		}
 
-		return browser.takeScreenshot().then(saveSuccessfullScreenshot, (error) => {
+		return browser.takeScreenshot().then(saveSuccessfulScreenshot, (error) => {
 			console.log(error);
 
 			// skip alerts and retry
 			browser.wait(pageObjectUtils.skipAlertIfPresent()).then(() => {
-				browser.takeScreenshot().then(saveSuccessfullScreenshot);
+				browser.takeScreenshot().then(saveSuccessfulScreenshot);
 			});
 		});
 	},
 	cleanScreenshots: () => {
 		if (fs.existsSync(screenshotPath)) {
-			fs.readdirSync(screenshotPath).forEach((file) => {
+			fs.readdirSync(screenshotPath).forEach((file: string) => {
 				fs.unlinkSync(screenshotPath + file);
 			});
 		}
@@ -184,12 +184,7 @@ export const pageObjectUtils: PageObjectUtils = {
 	findFirstDisplayed: (elementSelector: By) => {
 		return element.all(elementSelector).filter((element) => element.isDisplayed()).first();
 	},
-	openPage: (path = "", {ignoreSearch = false, refreshAlways = false}: OpenPageOptions = {}) => {
-
-		if (ignoreSearch === undefined) {
-			ignoreSearch = false;
-		}
-
+	openPage: (path = "", {ignoreSearch = false, refreshAlways = false}: OpenPageOptions) => {
 		if (!browser.baseUrl.endsWith("/")) {
 			throw new Error("openPage need a baseUrl with a trailing / (baseUrl: " + browser.baseUrl + ")");
 		}
@@ -265,7 +260,7 @@ export const pageObjectUtils: PageObjectUtils = {
 	skipAlertIfPresent: () => {
 		const alertIsPresentPromise = EC().alertIsPresent();
 
-		return alertIsPresentPromise().then((alertIsPresent) => {
+		return alertIsPresentPromise().then((alertIsPresent: boolean) => {
 			if (alertIsPresent) {
 				return browser.switchTo().alert().accept();
 			}

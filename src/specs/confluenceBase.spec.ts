@@ -38,13 +38,13 @@ describe("ConfluenceBase (page object)", () => {
 			expect(confluenceBase.getParamFromAJS).toHaveBeenCalledWith("versionNumber");
 		});
 
-		it("caches the value after async method is resolved", (done) => {
+		it("caches the value after async method is resolved", (done: DoneFn) => {
 			confluenceBase.loadConfluenceVersion().then((confluenceVersionAsyncResult) => {
 				const confluenceVersion = confluenceBase.confluenceVersion();
 				expect(confluenceVersion).toBeDefined();
 				expect(confluenceVersion).toEqual(confluenceVersionAsyncResult);
 				done();
-			}).catch((error) => {
+			}).catch((error: Error) => {
 				done.fail(error);
 			});
 		});

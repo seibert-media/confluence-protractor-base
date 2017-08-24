@@ -5,7 +5,7 @@
     "checkJs": false, // TODO: Discuss
     "declaration": true,
     "module": "commonjs",
-    "noImplicitAny": false, // TODO: Discuss
+    "noImplicitAny": true,
     "removeComments": true,
     "noLib": false,
     "preserveConstEnums": true,

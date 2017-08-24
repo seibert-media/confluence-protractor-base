@@ -4,9 +4,6 @@ import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceAction} from "./ConfluenceAction";
 import {ConfluenceBase} from "./ConfluenceBase";
 
-const CheckboxOption = require("../utils/elements/CheckboxOption").CheckboxOption;
-
-// page object utils imports
 const asyncElement = pageObjectUtils.asyncElement;
 
 export class ConfluenceGroup extends ConfluenceBase {
@@ -55,4 +52,5 @@ export class ConfluenceGroup extends ConfluenceBase {
 		filterInput.sendKeys(this.groupname);
 		filterInput.sendKeys(Key.ENTER);
 	}
+
 }
