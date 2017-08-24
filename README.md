@@ -34,6 +34,9 @@ Start a local Confluence test instance using the [Atlassian&reg; SDK](https://de
 `atlas-run-standalone --product confluence --http-port 8090 --server confluence --context-path ROOT --jvmargs "-Xms4g -Xmx4g -server"
 `
 
+## Docker container
+Start a local [Confluence&reg; docker instance](https://hub.docker.com/r/atlassian/confluence-server/)\
+
 # Supported Platforms
 We have tested the confluence-protractor-base with 
 * Confluence 5.7 - 6.3

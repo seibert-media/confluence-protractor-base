@@ -4,8 +4,9 @@ var ConfluenceBase = require('./ConfluenceBase');
 var ConfluenceAction = require('./ConfluenceAction');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var clickIfPresent = pageObjectUtils.clickIfPresent;
-var clickIfClickable = pageObjectUtils.clickIfClickable;
 var asyncElement = pageObjectUtils.asyncElement;
+var waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
+var takeScreenshot = pageObjectUtils.takeScreenshot;
 
 function UniversalPluginManager() {
 	browser.setFileDetector(new remote.FileDetector());
@@ -27,16 +28,13 @@ function UniversalPluginManager() {
 		maxAttempts = maxAttempts || 1;
 		attemptCount = attemptCount || 0;
 
-		self.actions.upm.open({refreshAlways: true});
+		self.disableNotifications();
 
-		// dismiss up to three notifications if they occur
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
-		clickIfClickable(asyncElement(by.css('.dismiss-notification')));
+		self.actions.upm.open({refreshAlways: true});
 
 		// open upload dialog
 		var uploadButton = asyncElement(by.id('upm-upload'));
-		browser.wait(protractor.ExpectedConditions.elementToBeClickable(uploadButton), UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
+		waitForElementToBeClickable(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
 		uploadButton.click();
 
 		// get path and upload plugin
@@ -46,7 +44,7 @@ function UniversalPluginManager() {
 
 		asyncElement(by.id('upm-upload-file')).sendKeys(absolutePath);
 
-		// try upload buttons for different confluence versiions
+		// try upload buttons for different confluence versions
 		clickIfPresent(asyncElement(by.css('button.confirm')));
 		clickIfPresent(asyncElement(by.css('button.upm-upload-plugin-submit')));
 
@@ -64,7 +62,7 @@ function UniversalPluginManager() {
 				});
 			}
 
-			// try confirm buttons for different confluence versiions
+			// try confirm buttons for different confluence versions
 			clickIfPresent(asyncElement(by.css('button.confirm')));
 			clickIfPresent(asyncElement(by.css('button.button-panel-cancel-link')));
 		});
