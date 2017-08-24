@@ -45,15 +45,19 @@ function ConfluenceBase() {
 	};
 
 	this.disableNotifications = function() {
-		console.log('disabling notifications');
-		self.openAdminPage('plugins/servlet/stp/view/?source=notification');
-		takeScreenshot('disabling_notifications.png');
+		if (self.confluenceVersion().greaterThan('5.9')) {
+			console.log('disable notifications');
+			self.openAdminPage('plugins/servlet/stp/view/?source=notification');
+			takeScreenshot('disabling_notifications.png');
 
-		asyncElement(By.css('.notification-toggle'), DEFAULT_LOADING_TIMEOUT).click();
+			asyncElement(By.css('.notification-toggle'), DEFAULT_LOADING_TIMEOUT).click();
 
-		takeScreenshot('disabled_notifications.png');
+			takeScreenshot('disabled_notifications.png');
 
-		element(By.css('option[value="critical"]')).click();
+			element(By.css('option[value="critical"]')).click();
+		} else {
+			console.log('skipped disable notifications as version is <= 5.9');
+		}
 	};
 }
 
