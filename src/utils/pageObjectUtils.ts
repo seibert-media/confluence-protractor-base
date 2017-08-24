@@ -1,10 +1,8 @@
 import {isEqual} from "lodash";
 import {By, promise} from "selenium-webdriver";
 
-import {browser, element, protractor} from "protractor";
+import {browser, element, ElementFinder, protractor} from "protractor";
 import {Url} from "url";
-
-import MatchersUtil = jasmine.MatchersUtil;
 
 const generateScreenshotName = ((() => {
 	let screenshotCounter = 0;
@@ -75,16 +73,16 @@ export interface PageObjectUtils {
 	DEFAULT_LOADING_TIMEOUT: number;
 	assertEquals: any; // ((value: any, expectedValue: any, message?: string) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<R> | any | Promise<TResult2 | TResult1> | any);
 	assertNotNull: any; // ((value, message?: string) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<R> | any | Promise<TResult2 | TResult1> | any);
-	clickIfPresent: any; // ((element) => promise.Promise<R>);
-	clickIfClickable: any; // ((element) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<any | promise.Promise<void> | void | ActionSequence> | any | Promise<TResult2 | TResult1> | any);
+	clickIfPresent: ((element: ElementFinder) => promise.Promise<void>);
+	clickIfClickable: ((element: ElementFinder) => promise.Promise<void>);
 	logPromise: any; // ((promise) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<R> | any | Promise<TResult2 | TResult1> | any);
 	takeScreenshot: any; // ((imageName) => (Promise<string> | promise.Promise<void>));
 	cleanScreenshots: any; // (() => any);
-	waitForElementToBeClickable: any; // ((element, timeout?: number) => any);
-	asyncElement: any; // ((selector: By, timeout?: number) => ElementFinder);
-	findFirstDisplayed: any; // ((elementSelector: By) => ElementFinder);
+	waitForElementToBeClickable: ((element, timeout?: number) => any);
+	asyncElement: ((selector: By, timeout?: number) => ElementFinder);
+	findFirstDisplayed: ((elementSelector: By) => ElementFinder);
 	openPage: any; // ((path?: string, {ignoreSearch = false, refreshAlways = false}?: OpenPageOptions) => promise.Promise<R> | promise.Promise<any> | promise.Promise<T> | promise.Promise<any> | any | Promise<TResult2 | TResult1> | any);
-	getLocation: any; // (() => any);
+	getLocation: (() => any);
 	locationFromUrl: ((url) => Url);
 	getCurrentPath: (() => promise.Promise<any>);
 	setTurnOffAlerts: ((turnOffAlertsValue) => any);
@@ -178,7 +176,7 @@ export const pageObjectUtils: PageObjectUtils = {
 	asyncElement: (selector: By, timeout = DEFAULT_ELEMENT_TIMEOUT) => {
 		const asyncElement = element(selector);
 		browser.wait(EC().presenceOf(asyncElement), timeout).catch(() => {
-			// call element.isPresent to get better message
+			// TODO call element.isPresent to get better message - investigate how to handle this better
 			asyncElement.isPresent();
 		});
 		return asyncElement;
