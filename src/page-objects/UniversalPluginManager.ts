@@ -6,7 +6,7 @@ import {ConfluenceBase} from "./ConfluenceBase";
 const remote = require("selenium-webdriver/remote");
 const path = require("path");
 const clickIfPresent = pageObjectUtils.clickIfPresent;
-const clickIfClickable = pageObjectUtils.clickIfClickable;
+const waitForElementToBeClickable = pageObjectUtils.waitForElementToBeClickable;
 const asyncElement = pageObjectUtils.asyncElement;
 
 const DEFAULT_PLUGIN_UPLOAD_TIMEOUT = 60 * 1000;
@@ -88,16 +88,13 @@ export class UniversalPluginManager extends ConfluenceBase {
 	                             maxAttempts = DEFAULT_MAX_ATTEMPTS,
 	                             attemptCount = 1) {
 
-		this.upmAction.open({refreshAlways: true});
+		this.disableNotifications();
 
-		// dismiss up to three notifications if they occur
-		clickIfClickable(asyncElement(by.css(".dismiss-notification")));
-		clickIfClickable(asyncElement(by.css(".dismiss-notification")));
-		clickIfClickable(asyncElement(by.css(".dismiss-notification")));
+		this.upmAction.open({refreshAlways: true});
 
 		// open upload dialog
 		const uploadButton = asyncElement(by.id("upm-upload"));
-		browser.wait(ExpectedConditions.elementToBeClickable(uploadButton), UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
+		waitForElementToBeClickable(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
 		uploadButton.click();
 
 		// get path and upload plugin
