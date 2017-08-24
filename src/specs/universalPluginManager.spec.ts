@@ -14,7 +14,7 @@ function fakeUploadPluginInput() {
 			// reset spy
 			WebElement.prototype.sendKeys = originalSendKeys;
 		} else {
-			originalSendKeys.apply(this, path);
+			originalSendKeys.call(this, path);
 		}
 	});
 }
