@@ -8,6 +8,7 @@
     "version": "npm run tslint; npm run build",
     "build": "rm -rf built; tsc",
     "docs": "typedoc --module commonjs --excludeExternals src/specs/*.spec.ts --out docs src/",
+    "prepublish": "npm run build",
     "pretest": "rm -rf built",
     "test": "tsc; protractor built/protractorConfig.js",
     "test-e2e": "tsc; protractor built/protractorConfig.js",
