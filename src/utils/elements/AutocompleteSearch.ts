@@ -1,7 +1,7 @@
 import {browser, ExpectedConditions} from "protractor";
 import {Key} from "selenium-webdriver";
 import {pageObjectUtils} from "../pageObjectUtils";
-import {AutocompleteOptions, AutocompleteSearchOptions} from "./typings";
+import {AutocompleteOptions, AutocompleteSearchOptions} from "./Autocomplete";
 
 const DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 

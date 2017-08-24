@@ -1,7 +1,6 @@
 import {browser, by, element, ElementFinder, ExpectedConditions} from "protractor";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
-import * as Url from "url";
-import {CustomLocation} from "../utils/typings";
+import {CustomLocation} from "../utils/CustomLocation";
 
 const testUtils = require("../utils/testUtils").testUtils;
 const screenshotReporter = require("../jasmineReporters/screenshotReporter").screenshotReporter;

@@ -3,7 +3,7 @@ import {By, promise} from "selenium-webdriver";
 
 import {browser, element, ElementFinder, protractor} from "protractor";
 import {Url} from "url";
-import {CustomLocation} from "./typings";
+import {CustomLocation} from "./CustomLocation";
 
 const generateScreenshotName = ((() => {
 	let screenshotCounter = 0;
