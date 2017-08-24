@@ -50,9 +50,9 @@ var assertUtils = {
 	},
 	assertEqualsSync: function (value, expectedValue, message) {
 		if (!jasmine.matchersUtil.equals(value, expectedValue)) {
-			var expectComparison =  assertUtils.expectComparisonMessage(value, expectedValue);
+			var expectComparison = assertUtils.expectComparisonMessage(value, expectedValue);
 			if (message) {
-				message = message + ' ('+ expectComparison + ')';
+				message = message + ' (' + expectComparison + ')';
 			} else {
 				message = expectComparison;
 			}
@@ -93,6 +93,7 @@ var pageObjectUtils = {
 			if (isPresent) {
 				return element.click();
 			}
+			console.log('element not present $(' + element.locator().value + ')');
 		});
 	},
 	clickIfClickable: function (element) {
@@ -100,6 +101,7 @@ var pageObjectUtils = {
 			if (isClickable) {
 				return element.click();
 			}
+			console.log('element not clickable $(' + element.locator() + ')');
 		});
 	},
 	takeScreenshot: function (imageName) {
@@ -142,7 +144,7 @@ var pageObjectUtils = {
 	waitForElementToBeClickable: function (element, timeout) {
 		browser.wait(EC().elementToBeClickable(element), timeout || DEFAULT_ELEMENT_TIMEOUT).catch(function () {
 			// call element.isPresent to get better message
-			throw new Error('Element not clickable', element);
+			throw new Error('Element not clickable', element.locator());
 		});
 		return element;
 	},

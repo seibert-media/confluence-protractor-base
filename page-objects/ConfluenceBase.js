@@ -2,6 +2,10 @@ var ConfluenceLogin = require('./ConfluenceLogin');
 var pageObjectUtils = require('../utils/pageObjectUtils');
 var Version = require('../utils/Version');
 
+var takeScreenshot = pageObjectUtils.takeScreenshot;
+var asyncElement = pageObjectUtils.asyncElement;
+var DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+
 var openPage = pageObjectUtils.openPage;
 
 // cache confluence version for all ConfluenceLogin instances
@@ -40,6 +44,21 @@ function ConfluenceBase() {
 		return confluenceVersion;
 	};
 
+	this.disableNotifications = function() {
+		if (self.confluenceVersion().greaterThan('5.9')) {
+			console.log('disable notifications');
+			self.openAdminPage('plugins/servlet/stp/view/?source=notification');
+			takeScreenshot('disabling_notifications.png');
+
+			asyncElement(By.css('.notification-toggle'), DEFAULT_LOADING_TIMEOUT).click();
+
+			takeScreenshot('disabled_notifications.png');
+
+			element(By.css('option[value="critical"]')).click();
+		} else {
+			console.log('skipped disable notifications as version is <= 5.9');
+		}
+	};
 }
 
 ConfluenceBase.prototype = new ConfluenceLogin();
