@@ -1,6 +1,7 @@
 import {by} from "protractor";
 import {pageObjectUtils} from "../../utils/pageObjectUtils";
 import {ConfluenceAction} from "../ConfluenceAction";
+import {promise} from "selenium-webdriver";
 
 const asyncElement = pageObjectUtils.asyncElement;
 
@@ -35,11 +36,12 @@ export class SpacePermissionAction extends ConfluenceAction {
 		return this.getPermission(tablePrefixes.USER, permission, additionalSelector);
 	}
 
-	private getPermission(tablePrefix: string, permission: string, additionalSelector = "") {
+	private getPermission(tablePrefix: string, permission: string, additionalSelector = ""): promise.Promise<any> {
 		const tableSelector = "table#" + tablePrefix + "PermissionsTable ";
 		const permissionSelector = '[data-permission="' + permission + '"]';
 
 		const selector = tableSelector + permissionSelector + additionalSelector;
 		return asyncElement(by.css(selector)).getAttribute("data-permission-set");
 	}
+
 }
