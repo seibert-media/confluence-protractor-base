@@ -34,8 +34,13 @@ function UniversalPluginManager() {
 
 		// open upload dialog
 		var uploadButton = asyncElement(by.id('upm-upload'));
-		waitForElementToBeClickable(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
-		uploadButton.click();
+		uploadButton.click().then(function () {
+			// passed, do nothing
+		}, function (err) {
+			console.log('error opening upload plugin button:', err);
+			self.skipNotifications();
+			uploadButton.click();
+		});
 
 		// get path and upload plugin
 		var absolutePath = path.resolve(process.cwd(), fileToUpload);

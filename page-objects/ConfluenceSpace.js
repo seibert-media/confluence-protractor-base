@@ -64,7 +64,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 				path: 'spaces/spacepermissions.action?key=' + spaceKey,
 				getGroupPermission: function (permisson, group) {
 					pageObjectUtils.assertNotNull(group, 'getGroupPermission needs a group parameter');
-					var additionalSelector = '[data-permission-group="' + group+ '"]';
+					var additionalSelector = '[data-permission-group="' + group + '"]';
 					return getPermission(tablePrefixes.GROUP, permisson, additionalSelector);
 				},
 				getAnonymousPermission: function (permisson) {
@@ -86,7 +86,13 @@ function ConfluenceSpace(spaceKey, spaceName) {
 			self.actions.spaceDirectory.open();
 
 			var createSpaceButton = asyncElement(by.id('addSpaceLink'));
-			createSpaceButton.click();
+			createSpaceButton.click().then(function () {
+				// passed, do nothing
+			}, function (err) {
+				console.log('error opening space wizard:', err);
+				self.skipNotifications();
+				createSpaceButton.click();
+			});
 
 			var skipButtonSelector = by.css('.start-creating-space');
 			var skipButtonVisibility = EC.presenceOf(element(skipButtonSelector));
@@ -159,7 +165,7 @@ function ConfluenceSpace(spaceKey, spaceName) {
 		clickIfPresent(asyncElement(by.id('confirm')));
 		// check and wait for plugin name
 		var percentComplete = asyncElement(by.id('percentComplete'));
-		browser.wait(function() {
+		browser.wait(function () {
 			return percentComplete.getText().then(function (text) {
 				return text === '100';
 			});
