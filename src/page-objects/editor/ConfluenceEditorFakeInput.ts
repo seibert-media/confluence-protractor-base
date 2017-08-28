@@ -12,8 +12,8 @@ export class ConfluenceEditorFakeInput {
 
 	public extendResult(result: promise.Promise<void>) {
 		// TODO: Check this way more thoroughly
-		result.clear = this.clear;
-		result.sendKeys = this.sendKeys;
+		result["clear"] = this.clear;
+		result["sendKeys"] = this.sendKeys;
 		return result;
 	}
 
