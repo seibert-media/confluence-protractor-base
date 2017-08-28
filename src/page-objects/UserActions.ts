@@ -22,22 +22,22 @@ export class UserActions {
 			path: "admin/users/createuser.action",
 		});
 		this.removeUser = new ConfluenceAction({
-			path: "admin/users/removeuser.action?_username=" + encodeURIComponent(this.username),
+			path: "admin/users/removeuser.action?username=" + encodeURIComponent(username),
 		});
 		this.userProfile = new ConfluenceAction({
-			path: "display/~" + encodeURIComponent(this.username),
+			path: "display/~" + encodeURIComponent(username),
 		});
 		this.userAdminView = new ConfluenceAction({
-			path: "admin/users/viewuser.action?_username=" + encodeURIComponent(this.username),
+			path: "admin/users/viewuser.action?username=" + encodeURIComponent(username),
 		});
 		this.searchUser = new ConfluenceAction({
-			path: "dosearchsite.action?queryString=" + this.fullname.replace(" ", "+"),
+			path: "dosearchsite.action?queryString=" + fullname.replace(" ", "+"),
 		});
 		this.editUserGroups = new ConfluenceAction({
-			path: "admin/users/editusergroups-start.action?_username=" + encodeURIComponent(this.username),
+			path: "admin/users/editusergroups-start.action?username=" + encodeURIComponent(username),
 		});
 		this.viewPersonalSpace = new ConfluenceAction({
-			path: "spaces/viewspace.action?key=~" + encodeURIComponent(this.username),
+			path: "spaces/viewspace.action?key=~" + encodeURIComponent(username),
 		});
 		this.createPersonalSpace = new ConfluenceAction({
 			path: "spaces/createpersonalspace.action",
