@@ -14,14 +14,14 @@ const DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 
 export class ConfluenceUser extends ConfluenceBase {
 
-	public username: string;
-	public fullName: string;
-	public email: string;
-	public password: string;
+	public readonly username: string;
+	public readonly fullName: string;
+	public readonly email: string;
+	public readonly password: string;
 
-	public userActions: UserActions;
+	public readonly userActions: UserActions;
 
-	public personalSpace: ConfluenceSpace;
+	public readonly personalSpace: ConfluenceSpace;
 
 	constructor(username: string, fullName: string, email: string, password: string) {
 		super();
