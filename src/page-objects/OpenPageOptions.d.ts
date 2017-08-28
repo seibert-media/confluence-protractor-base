@@ -1,4 +1,4 @@
 export interface OpenPageOptions {
-	ignoreSearch?: boolean,
-	refreshAlways?: boolean
+	ignoreSearch?: boolean;
+	refreshAlways?: boolean;
 }

@@ -1,6 +1,6 @@
 interface ConfluenceConfig {
-	DASHBOARD_TITLE: string,
-	ADMIN_TITLE: string,
+	DASHBOARD_TITLE: string;
+	ADMIN_TITLE: string;
 	USERS: {
 		ADMIN: {
 			USERNAME: string,
@@ -10,5 +10,5 @@ interface ConfluenceConfig {
 			USERNAME: string,
 			PASSWORD: string,
 		},
-	},
+	};
 }

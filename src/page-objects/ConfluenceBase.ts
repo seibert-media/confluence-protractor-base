@@ -43,19 +43,19 @@ export class ConfluenceBase extends ConfluenceLogin {
 	}
 
 	public disableNotifications() {
-		if (this.confluenceVersion().greaterThan('5.9')) {
-			console.log('disable notifications');
-			this.openAdminPage('plugins/servlet/stp/view/?source=notification');
-			takeScreenshot('disabling_notifications.png');
+		if (this.confluenceVersion().greaterThan("5.9")) {
+			console.log("disable notifications");
+			this.openAdminPage("plugins/servlet/stp/view/?source=notification");
+			takeScreenshot("disabling_notifications.png");
 
-			asyncElement(by.css('.notification-toggle'), DEFAULT_LOADING_TIMEOUT).click();
+			asyncElement(by.css(".notification-toggle"), DEFAULT_LOADING_TIMEOUT).click();
 
-			takeScreenshot('disabled_notifications.png');
+			takeScreenshot("disabled_notifications.png");
 
 			element(by.css('option[value="critical"]')).click();
 		} else {
-			console.log('skipped disable notifications as version is <= 5.9');
+			console.log("skipped disable notifications as version is <= 5.9");
 		}
-	};
+	}
 
 }

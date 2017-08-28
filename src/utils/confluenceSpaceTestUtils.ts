@@ -18,7 +18,7 @@ export const confluenceSpaceTestUtils = {
 enum PermissionMethod {
 	ANONYMOUS = "getAnonymousPermission",
 	GROUP = "getGroupPermission",
-	USER = "getUserPermission"
+	USER = "getUserPermission",
 }
 
 function createPermissionMapFromList(permissionList: string[]) {
@@ -39,7 +39,7 @@ function createPermissionMapFromList(permissionList: string[]) {
 		setspacepermissions: false,
 	};
 
-	permissionList.forEach(permissionName => {
+	permissionList.forEach((permissionName) => {
 		if (allPermissions[permissionName]) {
 			throw new Error("Unknown permission: " + permissionName);
 		}
@@ -67,7 +67,7 @@ function testPermissions(spacePageObject: ConfluenceSpace, permissions: any, per
 
 	afterAll(screenshotReporter.enable);
 
-	Object.keys(permissions).forEach(permissionName => {
+	Object.keys(permissions).forEach((permissionName) => {
 		const permitted = permissions[permissionName];
 		const permittedText = permitted ? "" : "NO ";
 

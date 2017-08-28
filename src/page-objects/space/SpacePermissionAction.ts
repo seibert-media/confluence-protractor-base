@@ -1,7 +1,7 @@
 import {by} from "protractor";
+import {promise} from "selenium-webdriver";
 import {pageObjectUtils} from "../../utils/pageObjectUtils";
 import {ConfluenceAction} from "../ConfluenceAction";
-import {promise} from "selenium-webdriver";
 
 const asyncElement = pageObjectUtils.asyncElement;
 

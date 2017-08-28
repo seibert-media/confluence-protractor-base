@@ -1,6 +1,6 @@
-import {ConfluenceEditor} from "../ConfluenceEditor";
 import {ElementFinder} from "protractor";
 import {promise} from "selenium-webdriver";
+import {ConfluenceEditor} from "../ConfluenceEditor";
 
 export class ConfluenceEditorFakeInput {
 
@@ -12,8 +12,8 @@ export class ConfluenceEditorFakeInput {
 
 	public extendResult(result: promise.Promise<void>) {
 		// TODO: Check this way more thoroughly
-		result['clear'] = this.clear;
-		result['sendKeys'] = this.sendKeys;
+		result.clear = this.clear;
+		result.sendKeys = this.sendKeys;
 		return result;
 	}
 

@@ -27,7 +27,7 @@ let DEFAULT_ELEMENT_TIMEOUT = 6 * 1000;
 let DEFAULT_LOADING_TIMEOUT = 30 * 1000;
 
 function resolveAttribute(promise: promise.Promise<any>, attributeName: string) {
-	const attributPromise = promise.then(object => object[attributeName]);
+	const attributPromise = promise.then((object) => object[attributeName]);
 
 	promise[attributeName] = attributPromise;
 
