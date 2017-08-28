@@ -186,7 +186,7 @@ export const pageObjectUtils: PageObjectUtils = {
 	findFirstDisplayed: (elementSelector: By) => {
 		return element.all(elementSelector).filter((element) => element.isDisplayed()).first();
 	},
-	openPage: (path = "", {ignoreSearch = false, refreshAlways = false}: OpenPageOptions) => {
+	openPage: (path = "", {ignoreSearch = false, refreshAlways = false}: OpenPageOptions = {}) => {
 		if (!browser.baseUrl.endsWith("/")) {
 			throw new Error("openPage need a baseUrl with a trailing / (baseUrl: " + browser.baseUrl + ")");
 		}
