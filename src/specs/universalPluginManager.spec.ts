@@ -8,7 +8,7 @@ function createTestPluginPath(path: string) {
 function fakeUploadPluginInput() {
 	const originalSendKeys = WebElement.prototype.sendKeys;
 
-	spyOn(WebElement.prototype, "sendKeys").and.callFake((path: string) => {
+	spyOn(WebElement.prototype, "sendKeys").and.callFake(function(path: string) {
 		if (path === testPluginPath) {
 			originalSendKeys.call(this, brokenPluginPath);
 			// reset spy
