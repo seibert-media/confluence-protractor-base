@@ -1,4 +1,4 @@
-import {by, element} from "protractor";
+import {by, element, ElementFinder} from "protractor";
 import {promise} from "selenium-webdriver";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {Version} from "../utils/Version";
@@ -54,8 +54,15 @@ export class ConfluenceBase extends ConfluenceLogin {
 
 			element(by.css('option[value="critical"]')).click();
 		} else {
-			console.log("skipped disable notifications as version is <= 5.9");
+			console.log('skipped disable notifications as Confluence version <= 5.9');
 		}
 	}
 
+	public skipNotifications() {
+		takeScreenshot('skip_notifications.png');
+		element.all(by.css('.dismiss-notification')).each(function (notification: ElementFinder) {
+			console.log("skipped notification");
+			notification.click();
+		});
+	};
 }

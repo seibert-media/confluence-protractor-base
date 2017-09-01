@@ -94,8 +94,13 @@ export class UniversalPluginManager extends ConfluenceBase {
 
 		// open upload dialog
 		const uploadButton = asyncElement(by.id("upm-upload"));
-		waitForElementToBeClickable(uploadButton, UPLOAD_BUTTON_VISIBILITY_TIMEOUT);
-		uploadButton.click();
+		uploadButton.click().then(() => {
+			// passed, do nothing
+		}, (err) => {
+			console.log('error opening upload plugin button:', err);
+			this.skipNotifications();
+			uploadButton.click();
+		});
 
 		// get path and upload plugin
 		const absolutePath = path.resolve(process.cwd(), fileToUpload);

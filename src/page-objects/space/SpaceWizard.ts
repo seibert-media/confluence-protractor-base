@@ -21,7 +21,13 @@ export class SpaceWizard {
 		this.space.spaceActions.spaceDirectory.open();
 
 		const createSpaceButton = asyncElement(by.id("addSpaceLink"));
-		createSpaceButton.click();
+		createSpaceButton.click().then(() => {
+			// passed, do nothing
+		}, (err) => {
+			console.log('error opening space wizard:', err);
+			this.space.skipNotifications();
+			createSpaceButton.click();
+		});
 
 		const skipButtonSelector = by.css(".start-creating-space");
 		const skipButtonVisibility = EC.presenceOf(element(skipButtonSelector));
