@@ -5,8 +5,6 @@ import {browser, by, element} from "protractor";
 import {ConfluenceAction} from "./ConfluenceAction";
 import Promise = promise.Promise;
 
-const Version = require("../utils/Version").Version;
-
 const assert = pageObjectUtils.assert;
 const clickIfPresent = pageObjectUtils.clickIfPresent;
 const openPage = pageObjectUtils.openPage;
@@ -102,7 +100,7 @@ export class ConfluenceLogin {
 		return this.getParamFromAJS("remoteUser", "");
 	}
 
-	public getParamFromAJS(paramName, defaultValue?): Promise<string> {
+	public getParamFromAJS(paramName: string, defaultValue?: any): Promise<string> {
 		return browser.executeScript(() => {
 			// tslint:disable-next-line
 			if (!window["AJS"] || !window["AJS"].params) {

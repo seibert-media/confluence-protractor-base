@@ -1,7 +1,9 @@
-import {pageObjectUtils} from "../utils/pageObjectUtils";
+import {promise} from "selenium-webdriver";
+import {OpenPageOptions, pageObjectUtils} from "../utils/pageObjectUtils";
 
 export class ConfluenceAction {
-	private path: string;
+
+	public readonly path: string;
 
 	constructor(options: { path: string }) {
 		pageObjectUtils.assertNotNull(options.path, 'ConfluenceAction "path" must not be null');
@@ -13,11 +15,18 @@ export class ConfluenceAction {
 		});
 	}
 
-	public getPath() {
+	/**
+	 * Legacy getter for path.
+	 *
+	 * @deprecated
+	 * @returns {string}
+	 */
+	public getPath(): string {
 		return this.path;
 	}
 
-	public open(options?) { // TODO: better type for options
+	public open(options?: OpenPageOptions): promise.Promise<any> {
 		return pageObjectUtils.openPage(this.path, options);
 	}
+
 }

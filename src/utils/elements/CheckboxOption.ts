@@ -1,8 +1,8 @@
-import {promise} from "selenium-webdriver";
+import {By, promise} from "selenium-webdriver";
 import {RadioOption} from "./RadioOption";
 
 export class CheckboxOption extends RadioOption {
-	constructor(selector) {
+	constructor(selector: By) {
 		super(selector);
 	}
 

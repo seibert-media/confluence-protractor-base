@@ -1,7 +1,7 @@
 import {pageObjectUtils} from "../utils/pageObjectUtils";
+import CustomReporterResult = jasmine.CustomReporterResult;
 
-let enabled: boolean;
-enabled = true;
+let enabled = true;
 
 export const screenshotReporter = {
 	enable() {
@@ -10,11 +10,12 @@ export const screenshotReporter = {
 	disable() {
 		enabled = false;
 	},
-	specDone(result) {
+	specDone(result: CustomReporterResult) {
 		if (result.status === "disabled" || !enabled) {
 			return;
 		}
 
 		pageObjectUtils.takeScreenshot(result.status + " - " + result.fullName + ".png");
 	},
+
 };

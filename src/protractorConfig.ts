@@ -1,4 +1,5 @@
 import {browser, Config} from "protractor";
+import {Version} from "./utils/Version";
 
 const SCREEN_WIDTH = 1280;
 const SCREEN_HEIGHT = 960;
@@ -83,7 +84,8 @@ export let config: Config = {
 		// initial screenshot
 		pageObjectUtils.takeScreenshot("initial-screenshot.png");
 
-		return browser.wait(() => confluenceBase.loadConfluenceVersion().then((confluenceVersion) => {
+		// TODO: maybe get rid of the typing here once promise.Promises have been replaced with native Promises
+		return browser.wait(() => confluenceBase.loadConfluenceVersion().then((confluenceVersion: Version) => {
 			console.log("Detected Confluence Version for UI-Tests: ", confluenceVersion);
 			return confluenceVersion;
 		}));

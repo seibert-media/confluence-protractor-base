@@ -1,4 +1,5 @@
-import {browser, by, element, ExpectedConditions} from "protractor";
+import {browser, by, element, ElementFinder, ExpectedConditions} from "protractor";
+import {CustomLocation} from "../utils/CustomLocation";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 
 const testUtils = require("../utils/testUtils").testUtils;
@@ -54,21 +55,21 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 				expect(pageObjectUtils.assertEquals).toBe(pageObjectUtils.assert);
 			});
 
-			it("passes expected values", (done) => {
+			it("passes expected values", (done: DoneFn) => {
 				const promiseWithExpectedValue = Promise.resolve("Ex");
 				const assertPromise = pageObjectUtils.assertEquals(promiseWithExpectedValue, "Ex", "Error message");
 
 				testUtils.expectPromiseToBeResolved(assertPromise, done);
 			});
 
-			it("fails on unexpected values", (done) => {
+			it("fails on unexpected values", (done: DoneFn) => {
 				const promiseWithUnexpectedValue = Promise.resolve("Val");
 				const assertPromise = pageObjectUtils.assertEquals(promiseWithUnexpectedValue, "Ex", "Error message");
 				testUtils.expectPromiseFail(assertPromise, done,
 					new Error('AssertionError for PageObject: Error message (Expected "Ex", but was "Val")'));
 			});
 
-			it("fails on unexpected values with default message", (done) => {
+			it("fails on unexpected values with default message", (done: DoneFn) => {
 				const promiseWithUnexpectedValue = Promise.resolve("Val");
 				const assertPromise = pageObjectUtils.assertEquals(promiseWithUnexpectedValue, "Ex");
 				testUtils.expectPromiseFail(assertPromise, done,
@@ -79,7 +80,7 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 
 	describe("clickIfPresent()", () => {
 
-		function clickableElementWithPresentState(isPresent) {
+		function clickableElementWithPresentState(isPresent: boolean) {
 			return testUtils.mockElement({
 				spy: "click",
 				promise: {
@@ -89,7 +90,7 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 			});
 		}
 
-		it("calls the element click function when isPresent() promise returns true", (done) => {
+		it("calls the element click function when isPresent() promise returns true", (done: DoneFn) => {
 			const clickableElement = clickableElementWithPresentState(true);
 
 			pageObjectUtils.clickIfPresent(clickableElement);
@@ -99,7 +100,7 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 			});
 		});
 
-		it("calls the element click function when isPresent() promise returns false", (done) => {
+		it("calls the element click function when isPresent() promise returns false", (done: DoneFn) => {
 			const clickableElement = clickableElementWithPresentState(false);
 
 			pageObjectUtils.clickIfPresent(clickableElement);
@@ -113,7 +114,7 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 
 	describe("asyncElement()", () => {
 
-		function addTestElementAsync(id) {
+		function addTestElementAsync(id: string) {
 			setTimeout(() => {
 				testUtils.createDomElement("h1", {
 					id,
@@ -148,7 +149,7 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 
 	describe("urlToLocation()", () => {
 		const testUrl = "login.action?permissionViolation=true#someHash";
-		let location;
+		let location: CustomLocation;
 
 		beforeEach(() => {
 			pageObjectUtils.openPage(testUrl, {refreshAlways: true});
@@ -206,8 +207,8 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 	describe("takeScreenshot()", () => {
 		beforeEach(() => {
 			spyOn(browser, "takeScreenshot").and.returnValue({
-				then() {
-					return undefined;
+				then(): any {
+					return undefined; // TODO: really?
 				},
 			});
 		});
@@ -265,7 +266,7 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 		const EC = ExpectedConditions;
 
 		const RACE_CONDITION_ELEMENT_ID = "race-condition-element";
-		let RACE_CONDITION_ELEMENT;
+		let RACE_CONDITION_ELEMENT: ElementFinder;
 
 		function createTestElement() {
 			RACE_CONDITION_ELEMENT = element(by.id(RACE_CONDITION_ELEMENT_ID));
@@ -283,7 +284,7 @@ describe("pageObjectUtils", function describePageObjectUtils() {
 		beforeEach(createTestElement);
 		afterEach(removeTestElement);
 
-		function prepareInterceptorToRemoveElementBeforeCall(fn) {
+		function prepareInterceptorToRemoveElementBeforeCall(fn: string) {
 			const originalIsDisplayedFn = RACE_CONDITION_ELEMENT[fn];
 
 			RACE_CONDITION_ELEMENT[fn] = function() {

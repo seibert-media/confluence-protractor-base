@@ -74,7 +74,7 @@ export class ConfluencePage extends ConfluenceBase {
 		});
 	}
 
-	public getLabelSuggestions(label): ElementArrayFinder {
+	public getLabelSuggestions(label: string): ElementArrayFinder {
 		const EC = ExpectedConditions;
 		const labelsEditor = this.openLabelEditor();
 		browser.wait(EC.visibilityOf(element(labelsEditor)), DEFAULT_LOADING_TIMEOUT);
@@ -109,7 +109,7 @@ export class ConfluencePage extends ConfluenceBase {
 		browser.wait(ExpectedConditions.stalenessOf(latestComment), DEFAULT_ELEMENT_TIMEOUT);
 	}
 
-	private sendLabelToInput(label) {
+	private sendLabelToInput(label: string) {
 		const labelInput = element(by.id("labels-string"));
 		waitForElementToBeClickable(labelInput);
 		labelInput.sendKeys(label);
@@ -119,4 +119,5 @@ export class ConfluencePage extends ConfluenceBase {
 		element(by.css("a.show-labels-editor")).click();
 		return by.id("edit-labels-dialog");
 	}
+
 }

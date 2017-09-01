@@ -3,9 +3,9 @@ import {Locator} from "protractor/built/locators";
 import {promise} from "selenium-webdriver";
 import {CheckboxOption} from "../utils/elements/CheckboxOption";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
-import {ConfluenceAction} from "./ConfluenceAction";
 import {ConfluenceBase} from "./ConfluenceBase";
 import {ConfluenceSpace} from "./ConfluenceSpace";
+import {UserActions} from "./UserActions";
 
 // page object utils imports
 const asyncElement = pageObjectUtils.asyncElement;
@@ -14,14 +14,14 @@ const DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 
 export class ConfluenceUser extends ConfluenceBase {
 
-	public username: string;
-	public fullName: string;
-	public email: string;
-	public password: string;
+	public readonly username: string;
+	public readonly fullName: string;
+	public readonly email: string;
+	public readonly password: string;
 
-	public userActions;
+	public readonly userActions: UserActions;
 
-	public personalSpace: ConfluenceSpace;
+	public readonly personalSpace: ConfluenceSpace;
 
 	constructor(username: string, fullName: string, email: string, password: string) {
 		super();
@@ -36,35 +36,10 @@ export class ConfluenceUser extends ConfluenceBase {
 		const personalSpaceKey = "~" + username;
 		this.personalSpace = new ConfluenceSpace(personalSpaceKey);
 
-		this.userActions = {
-			createUser: new ConfluenceAction({
-				path: "admin/users/createuser.action",
-			}),
-			removeUser: new ConfluenceAction({
-				path: "admin/users/removeuser.action?username=" + encodeURIComponent(username),
-			}),
-			userProfile: new ConfluenceAction({
-				path: "display/~" + encodeURIComponent(username),
-			}),
-			userAdminView: new ConfluenceAction({
-				path: "admin/users/viewuser.action?username=" + encodeURIComponent(username),
-			}),
-			searchUser: new ConfluenceAction({
-				path: "dosearchsite.action?queryString=" + fullName.replace(" ", "+"),
-			}),
-			editUserGroups: new ConfluenceAction({
-				path: "admin/users/editusergroups-start.action?username=" + encodeURIComponent(username),
-			}),
-			viewPersonalSpace: new ConfluenceAction({
-				path: "spaces/viewspace.action?key=~" + encodeURIComponent(username),
-			}),
-			createPersonalSpace: new ConfluenceAction({
-				path: "spaces/createpersonalspace.action",
-			}),
-		};
+		this.userActions = new UserActions(username, fullName);
 	}
 
-	public login(loginUsername?, loginPassword?) {
+	public login(loginUsername?: string, loginPassword?: string) {
 		super.login(loginUsername || this.username, loginPassword || this.password);
 	}
 
@@ -101,20 +76,20 @@ export class ConfluenceUser extends ConfluenceBase {
 		asyncElement(by.id("confirm")).click();
 	}
 
-	public isInGroup(groupName) {
+	public isInGroup(groupName: string) {
 		this.userActions.userAdminView.open({refreshAlways: true});
 		return element(this.groupSelector(groupName)).isPresent();
 	}
 
-	public waitUntilUserAppearsInGroup(groupName) {
+	public waitUntilUserAppearsInGroup(groupName: string) {
 		return browser.wait(this.isInGroup.bind(this, groupName), DEFAULT_LOADING_TIMEOUT);
 	}
 
-	public waitUntilUserDisappearsFromGroup(groupName) {
+	public waitUntilUserDisappearsFromGroup(groupName: string) {
 		browser.wait(ExpectedConditions.not(this.isInGroup.bind(this, groupName)), DEFAULT_LOADING_TIMEOUT);
 	}
 
-	public hasGroup(groupName): promise.Promise<boolean> {
+	public hasGroup(groupName: string): promise.Promise<boolean> {
 		this.userActions.userAdminView.open();
 
 		const selector = '[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]';
@@ -137,11 +112,11 @@ export class ConfluenceUser extends ConfluenceBase {
 		return browser.wait(this.isInSearchIndex.bind(this), DEFAULT_LOADING_TIMEOUT);
 	}
 
-	public addGroup(groupname) {
+	public addGroup(groupname: string) {
 		return this.changeGroup(groupname, "select");
 	}
 
-	public removeGroup(groupname) {
+	public removeGroup(groupname: string) {
 		return this.changeGroup(groupname, "unselect");
 	}
 
@@ -162,7 +137,7 @@ export class ConfluenceUser extends ConfluenceBase {
 		return by.css('[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]');
 	}
 
-	private changeGroup(groupname, operation) {
+	private changeGroup(groupname: string, operation: string) {
 		const form = "form#editusergroupsform";
 		const groupCheckbox = form + " input[name='newGroups']#" + groupname;
 		this.userActions.editUserGroups.open();

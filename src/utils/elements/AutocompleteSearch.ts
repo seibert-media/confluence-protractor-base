@@ -1,19 +1,21 @@
 import {browser, ExpectedConditions} from "protractor";
 import {Key} from "selenium-webdriver";
 import {pageObjectUtils} from "../pageObjectUtils";
+import {AutocompleteOptions, AutocompleteSearchOptions} from "./Autocomplete";
 
 const DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 
+// TODO: Try to refactor all these Function typed variables and members into more useful typings
 export class AutocompleteSearch {
 
-	public foundExpectedResult;
+	public foundExpectedResult: Function;
 
 	private searchTerm: string;
-	private searchEndedCondition;
-	private resultCondition;
-	private inputElement;
+	private searchEndedCondition: Function;
+	private resultCondition: Function;
+	private inputElement: any;
 
-	constructor(options) {
+	constructor(options: AutocompleteOptions) {
 		const EC = ExpectedConditions;
 
 		pageObjectUtils.assertNotNull(options.inputElement, "options.inputElement is required");
@@ -39,7 +41,7 @@ export class AutocompleteSearch {
 		this.foundExpectedResult = this.resultCondition;
 	}
 
-	public search(options) {
+	public search(options: AutocompleteSearchOptions) {
 		options = options || {};
 		const searchPrefix = options.searchPrefix || "";
 

@@ -1,6 +1,6 @@
 import {browser} from "protractor";
 
-let cachedConfluenceConfig = null;
+let cachedConfluenceConfig: ConfluenceConfig = null;
 
 export function loadConfluenceConfig() {
 	if (typeof browser === "undefined") {

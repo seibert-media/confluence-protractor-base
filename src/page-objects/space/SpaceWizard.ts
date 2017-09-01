@@ -30,7 +30,8 @@ export class SpaceWizard {
 
 		return browser.wait(EC.or(skipButtonVisibility, templateContainerVisibility), DEFAULT_LOADING_TIMEOUT)
 			.then(() => {
-				skipButtonVisibility().then((skipButtonVisible) => {
+				// TODO: EC#presenceOf simply returns Function as typing. Add scaffolding to make it into () => Promise?<boolean> to get rid of this explicit any
+				skipButtonVisibility().then((skipButtonVisible: any) => {
 					if (skipButtonVisible) {
 						element(skipButtonSelector).click();
 					}
@@ -38,7 +39,7 @@ export class SpaceWizard {
 			});
 	}
 
-	public selectTemplate(itemModuleCompleteKey) {
+	public selectTemplate(itemModuleCompleteKey: string) {
 		const templateSelector = '[data-item-module-complete-key="' + itemModuleCompleteKey + '"]';
 		asyncElement(by.css(templateSelector)).click();
 		asyncElement(by.css(ConfluenceSpace.createButtonSelector)).click();
