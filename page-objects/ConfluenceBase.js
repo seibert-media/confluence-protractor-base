@@ -31,7 +31,7 @@ function ConfluenceBase() {
 	};
 
 	this.loadConfluenceVersion = function () {
-		return this.getParamFromAJS('versionNumber').then(function(version) {
+		return this.getParamFromAJS('versionNumber').then(function (version) {
 			confluenceVersion = Version.parse(version);
 			return confluenceVersion;
 		});
@@ -44,7 +44,7 @@ function ConfluenceBase() {
 		return confluenceVersion;
 	};
 
-	this.disableNotifications = function() {
+	this.disableNotifications = function () {
 		if (self.confluenceVersion().greaterThan('5.9')) {
 			console.log('disable notifications');
 			self.openAdminPage('plugins/servlet/stp/view/?source=notification');
@@ -56,8 +56,16 @@ function ConfluenceBase() {
 
 			element(By.css('option[value="critical"]')).click();
 		} else {
-			console.log('skipped disable notifications as version is <= 5.9');
+			console.log('skipped disable notifications as Confluence version <= 5.9');
 		}
+	};
+
+	this.skipNotifications = function () {
+		takeScreenshot('skip_notifications.png');
+		asyncElement.all(by.css('.dismiss-notification')).each(function (notification) {
+			console.log("skipped notification");
+			notification.click();
+		});
 	};
 }
 
