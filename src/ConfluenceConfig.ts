@@ -1,4 +1,4 @@
-interface ConfluenceConfig {
+export interface ConfluenceConfig {
 	DASHBOARD_TITLE: string;
 	ADMIN_TITLE: string;
 	USERS: {

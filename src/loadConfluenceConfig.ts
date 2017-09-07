@@ -1,4 +1,5 @@
 import {browser} from "protractor";
+import {ConfluenceConfig} from "./ConfluenceConfig";
 
 let cachedConfluenceConfig: ConfluenceConfig = null;
 
