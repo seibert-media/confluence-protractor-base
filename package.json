@@ -19,7 +19,9 @@
     "webdriver-start": "webdriver-manager start --seleniumPort 4445",
     "webdriver-update": "webdriver-manager update",
     "tslint": "tslint -c tslint.json 'src/**/*.ts'",
-    "tslint-fix": "tslint -c tslint.json 'src/**/*.ts' --fix "
+    "tslint-fix": "tslint -c tslint.json 'src/**/*.ts' --fix ",
+    "eclint": "eclint check",
+    "eclint-fix": "eclint fix"
   },
   "repository": {
     "type": "git",
@@ -30,12 +32,12 @@
   "dependencies": {
     "@types/jasmine": "^2.5.53",
     "@types/jasminewd2": "^2.0.2",
+    "@types/lodash": "^4.14.68",
+    "@types/node": "^8.0.17",
     "jasmine-reporters": "^2.2.0",
     "lodash": "^4.15.0",
     "phantomjs-prebuilt": "^2.1.14",
     "protractor": "^5.1.0",
-    "@types/lodash": "^4.14.68",
-    "@types/node": "^8.0.17",
     "tslint": "^5.4.3",
     "typescript": "^2.4.1"
   },
@@ -43,6 +45,7 @@
     "registry": "https://nexus.apps.seibert-media.net/nexus/repository/npmtest/"
   },
   "devDependencies": {
+    "eclint": "^2.3.0",
     "typedoc": "^0.8.0"
   }
 }
