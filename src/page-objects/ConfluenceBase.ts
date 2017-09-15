@@ -54,15 +54,15 @@ export class ConfluenceBase extends ConfluenceLogin {
 
 			element(by.css('option[value="critical"]')).click();
 		} else {
-			console.log('skipped disable notifications as Confluence version <= 5.9');
+			console.log("skipped disable notifications as Confluence version <= 5.9");
 		}
 	}
 
 	public skipNotifications() {
-		takeScreenshot('skip_notifications.png');
-		element.all(by.css('.dismiss-notification')).each(function (notification: ElementFinder) {
+		takeScreenshot("skip_notifications.png");
+		element.all(by.css(".dismiss-notification")).each(function(notification: ElementFinder) {
 			console.log("skipped notification");
 			notification.click();
 		});
-	};
+	}
 }

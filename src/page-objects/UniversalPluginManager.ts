@@ -97,7 +97,7 @@ export class UniversalPluginManager extends ConfluenceBase {
 		uploadButton.click().then(() => {
 			// passed, do nothing
 		}, (err) => {
-			console.log('error opening upload plugin button:', err);
+			console.log("error opening upload plugin button:", err);
 			this.skipNotifications();
 			uploadButton.click();
 		});

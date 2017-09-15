@@ -36,7 +36,7 @@ function disableSpecs() {
 		spec.disable();
 	});
 
-	refs.suites.forEach((suite: any) =>{
+	refs.suites.forEach((suite: any) => {
 		suite.beforeFns = [];
 		suite.afterFns = [];
 		suite.beforeAllFns = [];

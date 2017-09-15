@@ -24,7 +24,7 @@ export class SpaceWizard {
 		createSpaceButton.click().then(() => {
 			// passed, do nothing
 		}, (err) => {
-			console.log('error opening space wizard:', err);
+			console.log("error opening space wizard:", err);
 			this.space.skipNotifications();
 			createSpaceButton.click();
 		});
