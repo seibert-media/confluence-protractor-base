@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "es5",
     "allowJs": false,
-    "checkJs": false, // TODO: Discuss
     "declaration": true,
     "module": "commonjs",
     "noImplicitAny": true,
