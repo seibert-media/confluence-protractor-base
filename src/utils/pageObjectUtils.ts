@@ -26,17 +26,17 @@ function EC() {
 let DEFAULT_ELEMENT_TIMEOUT = 6 * 1000;
 let DEFAULT_LOADING_TIMEOUT = 30 * 1000;
 
-function resolveAttribute(promise: promise.Promise<any>, attributeName: string) {
-	const attributPromise = promise.then((object) => object[attributeName]);
+function resolveAttribute(resultPromise: promise.Promise<any>, attributeName: string) {
+	const attributPromise = resultPromise.then((object) => object[attributeName]);
 
-	promise[attributeName] = attributPromise;
+	resultPromise[attributeName] = attributPromise;
 
 	return attributPromise;
 }
 
-function resolveAttributes(promise: promise.Promise<any>, attributeList: string[]) {
+function resolveAttributes(resultPromise: promise.Promise<any>, attributeList: string[]) {
 	attributeList.forEach((attributeName) => {
-		resolveAttribute(promise, attributeName);
+		resolveAttribute(resultPromise, attributeName);
 	});
 }
 
@@ -118,17 +118,17 @@ export const pageObjectUtils: PageObjectUtils = {
 			assertUtils.assertNotNullSync(value, message);
 		}
 	},
-	clickIfPresent: (element) => element.isPresent().then((isPresent) => {
+	clickIfPresent: (elementToClick) => elementToClick.isPresent().then((isPresent) => {
 		if (isPresent) {
-			return element.click();
+			return elementToClick.click();
 		}
 	}),
-	clickIfClickable: (element) => EC().elementToBeClickable(element)().then((isClickable: boolean) => {
+	clickIfClickable: (elementToClick) => EC().elementToBeClickable(elementToClick)().then((isClickable: boolean) => {
 		if (isClickable) {
-			return element.click();
+			return elementToClick.click();
 		}
 	}),
-	logPromise: (promise) => promise.then((value) => {
+	logPromise: (resultPromise) => resultPromise.then((value) => {
 		console.log(value);
 	}),
 	takeScreenshot: (imageName) => {
@@ -168,12 +168,12 @@ export const pageObjectUtils: PageObjectUtils = {
 			});
 		}
 	},
-	waitForElementToBeClickable: (element, timeout = DEFAULT_ELEMENT_TIMEOUT) => {
-		browser.wait(EC().elementToBeClickable(element), timeout).catch(() => {
+	waitForElementToBeClickable: (elementToClick, timeout = DEFAULT_ELEMENT_TIMEOUT) => {
+		browser.wait(EC().elementToBeClickable(elementToClick), timeout).catch(() => {
 			// call element.isPresent to get better message
-			throw new Error("Element not clickable " + element);
+			throw new Error("Element not clickable " + elementToClick);
 		});
-		return element;
+		return elementToClick;
 	},
 	asyncElement: (selector: By, timeout = DEFAULT_ELEMENT_TIMEOUT) => {
 		const asyncElement = element(selector);
@@ -184,7 +184,7 @@ export const pageObjectUtils: PageObjectUtils = {
 		return asyncElement;
 	},
 	findFirstDisplayed: (elementSelector: By) => {
-		return element.all(elementSelector).filter((element) => element.isDisplayed()).first();
+		return element.all(elementSelector).filter((elementFromSelector) => elementFromSelector.isDisplayed()).first();
 	},
 	openPage: (path = "", {ignoreSearch = false, refreshAlways = false}: OpenPageOptions = {}) => {
 		if (!browser.baseUrl.endsWith("/")) {
@@ -197,21 +197,21 @@ export const pageObjectUtils: PageObjectUtils = {
 		const newLocation = pageObjectUtils.locationFromUrl(browser.baseUrl + path);
 
 		return pageObjectUtils.getLocation().then((currentLocation) => {
-			let promise;
+			let resultPromise;
 
 			if (refreshAlways) {
-				promise = browser.get(path);
+				resultPromise = browser.get(path);
 			} else if (newLocation.pathname !== currentLocation.pathname) {
-				promise = browser.get(path);
+				resultPromise = browser.get(path);
 			} else if (!ignoreSearch && newLocation.search !== currentLocation.search) {
-				promise = browser.get(path);
+				resultPromise = browser.get(path);
 			}
 
-			if (promise) {
+			if (resultPromise) {
 				if (turnOffAlerts) {
 					pageObjectUtils.turnOffAlerts();
 				}
-				return promise;
+				return resultPromise;
 			}
 			console.log("Page is already opened: " + path);
 		});

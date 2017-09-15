@@ -60,7 +60,7 @@ export class ConfluenceBase extends ConfluenceLogin {
 
 	public skipNotifications() {
 		takeScreenshot("skip_notifications.png");
-		element.all(by.css(".dismiss-notification")).each(function(notification: ElementFinder) {
+		element.all(by.css(".dismiss-notification")).each((notification: ElementFinder) => {
 			console.log("skipped notification");
 			notification.click();
 		});

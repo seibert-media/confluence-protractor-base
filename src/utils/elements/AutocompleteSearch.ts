@@ -8,11 +8,11 @@ const DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
 // TODO: Try to refactor all these Function typed variables and members into more useful typings
 export class AutocompleteSearch {
 
-	public foundExpectedResult: Function;
+	public foundExpectedResult: Function; // tslint:disable-line
 
 	private searchTerm: string;
-	private searchEndedCondition: Function;
-	private resultCondition: Function;
+	private searchEndedCondition: Function; // tslint:disable-line
+	private resultCondition: Function; // tslint:disable-line
 	private inputElement: any;
 
 	constructor(options: AutocompleteOptions) {

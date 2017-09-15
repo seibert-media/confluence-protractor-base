@@ -82,12 +82,12 @@ export class UniversalPluginManager extends ConfluenceBase {
 		return mavenVersionLine[0].trim();
 	}
 
-	private uploadPluginInternal(pluginName: string,
-	                             fileToUpload: string,
-	                             timeout = DEFAULT_PLUGIN_UPLOAD_TIMEOUT,
-	                             maxAttempts = DEFAULT_MAX_ATTEMPTS,
-	                             attemptCount = 1) {
-
+	private uploadPluginInternal(
+		pluginName: string,
+		fileToUpload: string,
+		timeout = DEFAULT_PLUGIN_UPLOAD_TIMEOUT,
+		maxAttempts = DEFAULT_MAX_ATTEMPTS,
+		attemptCount = 1) {
 		this.disableNotifications();
 
 		this.upmAction.open({refreshAlways: true});

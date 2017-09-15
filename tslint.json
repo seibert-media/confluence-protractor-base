@@ -9,7 +9,8 @@
         "interface-name": [true, "never-prefix"],
         "no-console": false,
         "no-var-requires": false, // ignore while using mixed code,
-        "object-literal-sort-keys": false // ignore for now
+        "object-literal-sort-keys": false, // ignore for now,
+        "max-line-length": [true, 160]
     },
     "rulesDirectory": []
 }

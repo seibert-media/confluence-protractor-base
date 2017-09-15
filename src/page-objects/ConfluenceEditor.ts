@@ -34,7 +34,7 @@ export class ConfluenceEditor extends ConfluenceBase {
 		return browser.wait(ExpectedConditions.not(this.hasEditor.bind(this)), DEFAULT_LOADING_TIMEOUT);
 	}
 
-	public executeInEditorContext(fn: Function) {
+	public executeInEditorContext(fn: (element: ElementFinder) => any) {
 		this.waitUntilEditorOpened();
 
 		browser.switchTo().frame(this.getEditorFrame().getWebElement());

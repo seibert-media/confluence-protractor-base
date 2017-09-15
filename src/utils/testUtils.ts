@@ -11,21 +11,21 @@ interface TestUtils {
 	expectPromiseFail: (promise: promise.Promise<any>, done: DoneFn, expectedError: Error) => any;
 	createDomElement: (name: string, properties: any) => promise.Promise<any>;
 	removeDomElement: (cssSelector: any) => promise.Promise<any>;
-	mockElement: (options: {spy: any, promise: {name: any, value: any}}) => { registerDone: (done: DoneFn, beforeDone: Function) => any };
+	mockElement: (options: {spy: any, promise: {name: any, value: any}}) => { registerDone: (done: DoneFn, beforeDone: () => void) => any };
 }
 
 const testUtils: TestUtils = {
-	expectPromiseToBeResolved(promise, done: DoneFn, message) {
+	expectPromiseToBeResolved(resultPromise, done: DoneFn, message) {
 		message = message || "Unexpected failure in assertion";
-		promise.then(() => {
+		resultPromise.then(() => {
 			done();
 		}).catch((reason: Error) => {
 			done.fail(message + " // reason: " + reason);
 		});
 	},
 
-	expectPromiseFail(promise, done: DoneFn, expectedError) {
-		promise.then((value) => {
+	expectPromiseFail(resultPromise, done: DoneFn, expectedError) {
+		resultPromise.then((value) => {
 			done.fail("Expected assert to fail // value: " + value);
 		}).catch((error: Error) => {
 			if (expectedError && !_.isEqual(error, expectedError)) {
@@ -85,7 +85,7 @@ const testUtils: TestUtils = {
 		});
 
 		const element = {
-			registerDone(done: DoneFn, beforeDone: Function) {
+			registerDone(done: DoneFn, beforeDone: () => void) {
 				doneFn = done;
 
 				promiseMock.then(() => {
@@ -98,8 +98,7 @@ const testUtils: TestUtils = {
 		};
 
 		// create dummy function add add as spy
-		element[options.spy] = () => {
-		};
+		element[options.spy] = _.noop;
 		spyOn(element, options.spy);
 
 		// add promise returning function
