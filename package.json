@@ -41,9 +41,6 @@
     "tslint": "^5.4.3",
     "typescript": "^2.4.1"
   },
-  "publishConfig": {
-    "registry": "https://nexus.apps.seibert-media.net/nexus/repository/npmtest/"
-  },
   "devDependencies": {
     "eclint": "^2.3.0",
     "typedoc": "^0.8.0"
