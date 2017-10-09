@@ -106,6 +106,13 @@
 			return EC.visibilityOf(disableBtn)();
 		}
 
+    public pluginLicensed(pluginName: string): Promise<boolean> {
+      const EC = ExpectedConditions;
+      this.openPlugin(pluginName);
+      browser.wait(EC.visibilityOf(element(by.css(".upm-plugin-details"))));
+      return EC.visibilityOf(element(by.css(".upm-plugin-license-status-label")))();
+    }
+
 		public addLicense(pluginName: string, licenseKey: string) {
 			const EC = ExpectedConditions;
 			this.openPlugin(pluginName);
