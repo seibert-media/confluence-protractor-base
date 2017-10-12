@@ -56,7 +56,7 @@ export class ConfluencePage extends ConfluenceBase {
 		this.open();
 		this.pageEditor.hasEditor().then((hasEditor) => {
 			if (!hasEditor) {
-				asyncElement(by.id('editPageLink')).click();
+				asyncElement(by.id("editPageLink")).click();
 				this.pageEditor.waitUntilEditorOpened();
 				this.pageEditor.discardDraftIfPresent();
 			}

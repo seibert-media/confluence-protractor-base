@@ -35,8 +35,8 @@ export class ConfluenceEditor extends ConfluenceBase {
 	}
 
 	public discardDraftIfPresent() {
-		const draftMessage = element(by.id('draft-messages'));
-		draftMessage.isPresent().then(function (presence) {
+		const draftMessage = element(by.id("draft-messages"));
+		draftMessage.isPresent().then((presence) => {
 			if (presence) {
 				draftMessage.element(by.className("discard-draft")).click();
 			}

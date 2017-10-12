@@ -38,17 +38,17 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		});
 	});
 
-	describe('edit()', function () {
-		beforeAll(function () {
+	describe("edit()", () => {
+		beforeAll(() => {
 			page.create();
 			pageEditor.waitUntilEditorClosed();
 		});
 
-		afterAll(function () {
+		afterAll(() => {
 			page.remove();
 		});
 
-		it('opens and closes the editor', function () {
+		it("opens and closes the editor", () => {
 			page.edit();
 			expect(pageEditor.hasEditor()).toBe(true);
 			page.getEditor().cancel();
@@ -56,26 +56,26 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
 
-		describe('discardDraftIfPresent()', function () {
-			beforeAll(function () {
+		describe("discardDraftIfPresent()", () => {
+			beforeAll(() => {
 				page.edit();
 				pageEditor.editor.sendKeys("Some Content");
 				pageEditor.cancel();
 				pageEditor.waitUntilEditorClosed();
-				pageObjectUtils.asyncElement(by.id('editPageLink')).click();
+				pageObjectUtils.asyncElement(by.id("editPageLink")).click();
 			});
 
-			afterAll(function () {
+			afterAll(() => {
 				pageEditor.cancel();
 				pageEditor.waitUntilEditorClosed();
 			});
 
-			it('has a draft message', function () {
+			it("has a draft message", () => {
 				pageEditor.waitUntilEditorOpened();
-				expect(element(by.id('draft-messages')).isPresent()).toBe(true);
+				expect(element(by.id("draft-messages")).isPresent()).toBe(true);
 
 				pageEditor.discardDraftIfPresent();
-				expect(element(by.id('draft-messages')).isPresent()).toBe(false);
+				expect(element(by.id("draft-messages")).isPresent()).toBe(false);
 			});
 		});
 	});

@@ -1,9 +1,9 @@
 import {by, element, ElementFinder} from "protractor";
+import {Locator} from "protractor/built/locators";
+import {promise} from "selenium-webdriver";
+import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceEditor} from "./ConfluenceEditor";
-import {Locator} from "protractor/built/locators";
-import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
-import {promise} from "selenium-webdriver";
 
 const asyncElement = pageObjectUtils.asyncElement;
 
@@ -33,14 +33,14 @@ export class ConfluenceMacroBrowser {
 		const macroAutocomplete = new AutocompleteSearch({
 			searchTerm: this.macroName,
 			inputElement: this.pageEditor.editor,
-			resultContainer: element(by.css('.autocomplete-macros'))
+			resultContainer: element(by.css(".autocomplete-macros")),
 		});
 
 		macroAutocomplete
-			.search({searchPrefix: '{', skipClear: true})
+			.search({searchPrefix: "{", skipClear: true})
 			.waitForMatchingResult()
 			.selectResult();
-	};
+	}
 
 	public getMacroElement(): promise.Promise<ElementFinder> {
 		return this.pageEditor.hasEditor().then((hasEditor) => {

@@ -3,42 +3,42 @@ import {ConfluenceEditor} from "../page-objects/ConfluenceEditor";
 import {ConfluenceMacroBrowser} from "../page-objects/ConfluenceMacroBrowser";
 import {ConfluencePage} from "../page-objects/ConfluencePage";
 
-describe('ConfluenceMacroBrowser (page object)', function() {
+describe("ConfluenceMacroBrowser (page object)", () => {
 	const timestamp = new Date().valueOf();
-	const uniquePageTitle = 'Test Page - ' + timestamp;
+	const uniquePageTitle = "Test Page - " + timestamp;
 
-	const page = new ConfluencePage(uniquePageTitle, 'ds');
+	const page = new ConfluencePage(uniquePageTitle, "ds");
 	const pageEditor = new ConfluenceEditor();
 	const macroBrowser = new ConfluenceMacroBrowser("Info", "info");
 
-	beforeAll(function () {
+	beforeAll(() => {
 		pageEditor.authenticateAsAdmin();
 	});
 
-	describe('insertMacroViaBracket()', function () {
-		beforeAll(function () {
+	describe("insertMacroViaBracket()", () => {
+		beforeAll(() => {
 			page.create();
 			pageEditor.waitUntilEditorClosed();
 		});
 
-		afterAll(function () {
-			browser.getTitle().then(function (pageTitle) {
+		afterAll(() => {
+			browser.getTitle().then((pageTitle) => {
 				if (pageTitle.indexOf(uniquePageTitle) >= 0) {
 					page.remove();
 				}
 			});
 		});
 
-		it('inserts Macro', function () {
+		it("inserts Macro", () => {
 			page.edit();
 			pageEditor.waitUntilEditorOpened();
 
 			macroBrowser.insertMacroViaBracket();
 
-			macroBrowser.getMacroElement().then(function(macro) {
+			macroBrowser.getMacroElement().then((macro) => {
 				// browser.wait(macro.isPresent(), DEFAULT_LOADING_TIMEOUT);
 
-				page.getEditor().executeInEditorContext(function() {
+				page.getEditor().executeInEditorContext(() => {
 					expect(macro.isPresent()).toBe(true);
 				});
 
