@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "allowJs": false,
+    "declaration": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "noLib": false,
+    "preserveConstEnums": true,
+    "strictNullChecks": false, // TODO: Discuss
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "./built/",
+    "lib": ["es2017", "dom"]
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules/*"
+  ],
+  "files": [
+    "./src/index.ts",
+    "./src/protractorConfig.ts"
+  ]
+}
