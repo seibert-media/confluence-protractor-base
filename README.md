@@ -1,4 +1,8 @@
-# Confluence Protractor Base
+# Confluence Protractor Base [![Npm version](https://img.shields.io/npm/v/confluence-protractor-base.svg)](https://www.npmjs.com/package/confluence-protractor-base)
+
+[![Npm dependencies](https://img.shields.io/david/seibert-media/confluence-protractor-base.svg)](https://david-dm.org/seibert-media/confluence-protractor-base)
+[![devDependency Status](https://img.shields.io/david/dev/seibert-media/confluence-protractor-base.svg)](https://david-dm.org/seibert-media/confluence-protractor-base#info=devDependencies)
+
 The Confluence&reg; Protractor Base is a simple solution to implement und run UI tests for [Atlassian&reg; Confluence&reg;](https://www.atlassian.com/software/confluence).
 It provides basic functionality like creating pages, spaces, users and groups as well as login, authenticate as admin and open pages.  
 
