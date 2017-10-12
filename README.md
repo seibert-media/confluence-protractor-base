@@ -48,3 +48,13 @@ We have tested the confluence-protractor-base with
 
 ## Troubleshooting
 See [Issues](https://github.com/seibert-media/confluence-protractor-base/issues)
+
+## Known issues
+
+### Page edit with synchrony (concurrent editing)
+
+Page edit with synchrony enabled may be unstable. All page objects inheriting from `ConfluenceBase` have a
+`disableSynchrony()` method to prevent problems. Example:
+
+    const upm = new UniversalPluginManager();
+    upm.disableSynchrony();
