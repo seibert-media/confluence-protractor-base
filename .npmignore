@@ -1,5 +1,4 @@
 node_modules/
-test-data/
 npm-debug.log
 *.png
 *.xml

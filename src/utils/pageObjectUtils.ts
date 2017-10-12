@@ -177,7 +177,7 @@ export const pageObjectUtils: PageObjectUtils = {
 	},
 	asyncElement: (selector: By, timeout = DEFAULT_ELEMENT_TIMEOUT) => {
 		const asyncElement = element(selector);
-		browser.wait(EC().presenceOf(asyncElement), timeout).catch(() => {
+		browser.wait(EC().visibilityOf(asyncElement), timeout).catch(() => {
 			// TODO call element.isPresent to get better message - investigate how to handle this better
 			asyncElement.isPresent();
 		});

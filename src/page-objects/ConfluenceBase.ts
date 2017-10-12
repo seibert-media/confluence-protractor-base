@@ -42,6 +42,24 @@ export class ConfluenceBase extends ConfluenceLogin {
 		return confluenceVersion;
 	}
 
+	public disableSynchrony() {
+		if (this.confluenceVersion().greaterThan("5.10")) {
+			console.log("disable synchrony");
+			this.openAdminPage("admin/confluence-collaborative-editor-plugin/configure.action");
+			takeScreenshot("disabling_synchrony.png");
+
+			asyncElement(by.css(".action-button"), DEFAULT_LOADING_TIMEOUT).click();
+
+			asyncElement(by.id("mode-disabled"), DEFAULT_LOADING_TIMEOUT).click();
+
+			takeScreenshot("disabled_synchrony.png");
+
+			asyncElement(by.id("dialog-submit-button"), DEFAULT_LOADING_TIMEOUT).click();
+		} else {
+			console.log("skipped disable synchrony as Confluence version <= 5.10");
+		}
+	}
+
 	public disableNotifications() {
 		if (this.confluenceVersion().greaterThan("5.9")) {
 			console.log("disable notifications");
