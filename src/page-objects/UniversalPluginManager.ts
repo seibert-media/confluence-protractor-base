@@ -154,7 +154,6 @@ export class UniversalPluginManager extends ConfluenceBase {
 		maxAttempts = DEFAULT_MAX_ATTEMPTS,
 		attemptCount = 1) {
 		this.disableNotifications();
-		this.disableSynchrony();
 
 		this.upmAction.open({refreshAlways: true});
 
