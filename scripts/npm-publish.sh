@@ -2,6 +2,7 @@
 
 PACKAGE_VERSION=$(node -p -e "require('./package').version")
 VERSION_TAG="v$PACKAGE_VERSION"
+NPM_REGISTRY="$1"
 
 git diff --exit-code --stat $VERSION_TAG
 
@@ -13,4 +14,8 @@ if [ $DIFF_STATUS != 0 ]; then
     exit $DIFF_STATUS
 fi
 
-npm publish
+if [ -z $NPM_REGISTRY ]; then
+    npm publish
+else
+    npm publish --registry $NPM_REGISTRY
+fi
