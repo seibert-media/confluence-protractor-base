@@ -82,6 +82,71 @@ export class UniversalPluginManager extends ConfluenceBase {
 		return mavenVersionLine[0].trim();
 	}
 
+	public disablePlugin(pluginName: string) {
+		const EC = ExpectedConditions;
+		this.openPlugin(pluginName);
+		const disableBtn = element(by.css(".upm-plugin-actions [data-action=DISABLE]"));
+		browser.wait(EC.visibilityOf(disableBtn));
+		disableBtn.click();
+	}
+
+	public enablePlugin(pluginName: string) {
+		const EC = ExpectedConditions;
+		this.openPlugin(pluginName);
+		const enableBtn = element(by.css(".upm-plugin-actions [data-action=ENABLE]"));
+		browser.wait(EC.visibilityOf(enableBtn));
+		enableBtn.click();
+	}
+
+	public pluginEnabled(pluginName: string): Promise<boolean> {
+		const EC = ExpectedConditions;
+		this.openPlugin(pluginName);
+		browser.wait(EC.visibilityOf(element(by.css(".upm-plugin-info"))));
+		const disableBtn = element(by.css(".upm-plugin-actions [data-action=DISABLE]"));
+		return EC.visibilityOf(disableBtn)();
+	}
+
+	public pluginLicensed(pluginName: string): Promise<boolean> {
+		const EC = ExpectedConditions;
+		this.openPlugin(pluginName);
+		browser.wait(EC.visibilityOf(element(by.css(".upm-plugin-details"))));
+		return EC.visibilityOf(element(by.css(".upm-plugin-license-status-label")))();
+	}
+
+	public addLicense(pluginName: string, licenseKey: string) {
+		const EC = ExpectedConditions;
+		this.openPlugin(pluginName);
+		const licenseEditTextarea = element(by.css("textarea.edit-license-key"));
+		browser.wait(EC.visibilityOf(licenseEditTextarea));
+		licenseEditTextarea.clear();
+		licenseEditTextarea.sendKeys(licenseKey);
+		const licenseSubmitBtn = element(by.css("input.submit"));
+		licenseSubmitBtn.click();
+	}
+
+	public removeLicense(pluginName: string) {
+		const EC = ExpectedConditions;
+		this.openPlugin(pluginName);
+		const licenseEditBtn = element(by.css(".upm-plugin-license-edit"));
+		browser.wait(EC.visibilityOf(licenseEditBtn));
+		licenseEditBtn.click();
+		const licenseEditTextarea = element(by.css("textarea.edit-license-key"));
+		browser.wait(EC.visibilityOf(licenseEditTextarea));
+		licenseEditTextarea.clear();
+		const licenseSubmitBtn = element(by.css("input.submit"));
+		licenseSubmitBtn.click();
+	}
+
+	private openPlugin(pluginName: string) {
+		const EC = ExpectedConditions;
+		this.upmAction.open({refreshAlways: true});
+		element(by.id("upm-manage-filter-box")).sendKeys(pluginName);
+		browser.wait(EC.visibilityOf(element(by.css(".upm-plugin-list-container"))), DEFAULT_UPM_LOADING_TIME);
+		const pluginNameElement = pageObjectUtils.findFirstDisplayed(by.css(".upm-plugin-name"));
+		pluginNameElement.click();
+		return EC.visibilityOf(element(by.css(".upm-plugin-info")))();
+	}
+
 	private uploadPluginInternal(
 		pluginName: string,
 		fileToUpload: string,
