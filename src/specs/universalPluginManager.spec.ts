@@ -46,31 +46,36 @@ describe("UniversalPluginManager (page object)", () => {
 		}, PLUGIN_UPLOAD_TIMEOUT);
 	});
 
-	describe("disablePlugin()", () => {
-		it("disables this plugin", () => {
-			universalPluginManager.disablePlugin(pluginName);
-			expect(universalPluginManager.pluginEnabled(pluginName)).toBeFalsy();
+	/*
+	 * Enable these upm tests only for compatible Versions >= 5.9
+	 */
+	if (universalPluginManager.confluenceVersion().greaterThanEquals("5.9")) {
+		describe("disablePlugin()", () => {
+			it("disables this plugin", () => {
+				universalPluginManager.disablePlugin(pluginName);
+				expect(universalPluginManager.pluginEnabled(pluginName)).toBeFalsy();
+			});
 		});
-	});
 
-	describe("enablePlugin()", () => {
-		it("enables this plugin", () => {
-			universalPluginManager.enablePlugin(pluginName);
-			expect(universalPluginManager.pluginEnabled(pluginName)).toBeTruthy();
+		describe("enablePlugin()", () => {
+			it("enables this plugin", () => {
+				universalPluginManager.enablePlugin(pluginName);
+				expect(universalPluginManager.pluginEnabled(pluginName)).toBeTruthy();
+			});
 		});
-	});
 
-	describe("License", () => {
-		it("adds license to plugin", () => {
-			universalPluginManager.uploadPlugin(licensedPluginName, licensedPluginPath, PLUGIN_UPLOAD_TIMEOUT);
-			universalPluginManager.addLicense(licensedPluginName, TimeBombLicenses.THREE_HOURS_TIMEBOMB);
-			expect(universalPluginManager.pluginLicensed(licensedPluginName)).toBeTruthy();
-		}, PLUGIN_UPLOAD_TIMEOUT);
-		it("removes license from plugin", () => {
-			universalPluginManager.removeLicense(licensedPluginName);
-			expect(universalPluginManager.pluginLicensed(licensedPluginName)).toBe(false);
-		}, PLUGIN_UPLOAD_TIMEOUT);
-	});
+		describe("License", () => {
+			it("adds license to plugin", () => {
+				universalPluginManager.uploadPlugin(licensedPluginName, licensedPluginPath, PLUGIN_UPLOAD_TIMEOUT);
+				universalPluginManager.addLicense(licensedPluginName, TimeBombLicenses.THREE_HOURS_TIMEBOMB);
+				expect(universalPluginManager.pluginLicensed(licensedPluginName)).toBeTruthy();
+			}, PLUGIN_UPLOAD_TIMEOUT);
+			it("removes license from plugin", () => {
+				universalPluginManager.removeLicense(licensedPluginName);
+				expect(universalPluginManager.pluginLicensed(licensedPluginName)).toBe(false);
+			}, PLUGIN_UPLOAD_TIMEOUT);
+		});
+	}
 
 	describe("uninstallPlugin()", () => {
 		it("uninstalls this plugin", () => {
