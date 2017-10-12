@@ -1,4 +1,4 @@
-import {browser, by} from "protractor";
+import {browser, by, element} from "protractor";
 import {ConfluenceEditor} from "../page-objects/ConfluenceEditor";
 import {ConfluencePage} from "../page-objects/ConfluencePage";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
