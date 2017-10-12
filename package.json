@@ -21,7 +21,8 @@
     "tslint": "tslint -c tslint.json 'src/**/*.ts'",
     "tslint-fix": "tslint -c tslint.json 'src/**/*.ts' --fix ",
     "eclint": "eclint check",
-    "eclint-fix": "eclint fix"
+    "eclint-fix": "eclint fix",
+    "commit": "commit-wizard"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,27 @@
   },
   "devDependencies": {
     "eclint": "^2.3.0",
+    "pre-git": "^3.15.3",
     "typedoc": "^0.8.0"
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
+  },
+  "config": {
+    "pre-git": {
+      "pre-commit": [
+        "npm run build"
+      ],
+      "pre-push": [
+        "git diff --exit-code --stat",
+        "npm run build",
+        "npm run tslint"
+      ],
+      "post-commit": [],
+      "post-checkout": [
+        "npm install"
+      ],
+      "post-merge": []
+    }
   }
 }
