@@ -14,7 +14,7 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 
 			// enable before test
 			confluenceSecurityConfig.disableWebSudo();
-		})
+		});
 	});
 
 	afterAll(() => {
@@ -34,16 +34,16 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 
 	describe("disableWebSudo()", () => {
 		fit("disables the web sudo configuration", () => {
-			confluenceSecurityConfig.disableWebSudo()
+			confluenceSecurityConfig.disableWebSudo();
 			expect(confluenceSecurityConfig.isWebSudoEnabled()).toBe(false);
-		})
+		});
 	});
 
 	describe("enableWebSudo()", () => {
 		fit("enable the web sudo configuration", () => {
-			confluenceSecurityConfig.enableWebSudo()
+			confluenceSecurityConfig.enableWebSudo();
 			expect(confluenceSecurityConfig.isWebSudoEnabled()).toBe(true);
-		})
+		});
 	});
 
 });

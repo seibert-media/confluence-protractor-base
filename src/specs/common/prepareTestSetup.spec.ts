@@ -1,7 +1,7 @@
 import {browser} from "protractor";
 import {failFastReporter} from "../../jasmineReporters/failFastReporter";
-import {ConfluenceUser} from "../../page-objects/ConfluenceUser";
 import {ConfluenceSecurityConfig} from "../../page-objects/ConfluenceSecurityConfig";
+import {ConfluenceUser} from "../../page-objects/ConfluenceUser";
 
 describe("Prepare Test Setup", () => {
 

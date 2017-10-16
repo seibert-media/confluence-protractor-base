@@ -1,12 +1,10 @@
 import {by, element} from "protractor";
+import {promise} from "selenium-webdriver";
+import {CheckboxOption} from "../utils/elements/CheckboxOption";
 import {ConfluenceAction} from "./ConfluenceAction";
 import {ConfluenceBase} from "./ConfluenceBase";
-import {CheckboxOption} from "../utils/elements/CheckboxOption";
-import {promise} from "selenium-webdriver";
-
 
 export class ConfluenceSecurityConfig extends ConfluenceBase {
-
 
 	public viewSecurityAction = new ConfluenceAction({
 		path: "admin/viewsecurityconfig.action",
@@ -30,13 +28,13 @@ export class ConfluenceSecurityConfig extends ConfluenceBase {
 	public enableWebSudo(): void {
 		this.executeAndSave(() => {
 			this.webSudoCheckbox.select();
-		})
+		});
 	}
 
 	public disableWebSudo(): void {
 		this.executeAndSave(() => {
 			this.webSudoCheckbox.unselect();
-		})
+		});
 	}
 
 	private executeAndSave(changeOptionsFn: () => void) {
