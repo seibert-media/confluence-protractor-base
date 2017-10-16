@@ -7,7 +7,7 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 	let savedWebSudoState: boolean;
 
 	beforeAll(() => {
-		confluenceSecurityConfig.authenticateAsAdmin();
+		confluenceSecurityConfig.loginAsAdmin();
 
 		confluenceSecurityConfig.isWebSudoEnabled().then((isWebSudoEnabled) => {
 			savedWebSudoState = isWebSudoEnabled;

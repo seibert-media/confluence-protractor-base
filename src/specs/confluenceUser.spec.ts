@@ -6,7 +6,7 @@ describe("ConfluenceUser (page object)", () => {
 	const user = new ConfluenceUser("testuser_björn_müller", "Björn Müller", "bmueller@example.com", "pass123456");
 
 	beforeAll(() => {
-		user.authenticateAsAdmin();
+		user.loginAsAdmin();
 	});
 
 	it("has test user not before test", () => {
@@ -104,7 +104,7 @@ describe("ConfluenceUser (page object)", () => {
 			});
 
 			it("removes a personal space", () => {
-				user.authenticateAsAdmin();
+				user.loginAsAdmin();
 				user.removePersonalSpace();
 				user.personalSpace.waitForSpaceToDisappearFromSpaceDirectory();
 			});

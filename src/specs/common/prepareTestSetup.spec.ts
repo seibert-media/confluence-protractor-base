@@ -1,6 +1,7 @@
 import {browser} from "protractor";
 import {failFastReporter} from "../../jasmineReporters/failFastReporter";
 import {ConfluenceUser} from "../../page-objects/ConfluenceUser";
+import {ConfluenceSecurityConfig} from "../../page-objects/ConfluenceSecurityConfig";
 
 describe("Prepare Test Setup", () => {
 
@@ -9,6 +10,8 @@ describe("Prepare Test Setup", () => {
 	beforeAll(() => {
 		failFastReporter.enable();
 		user.authenticateAsAdmin();
+		const confluenceSecurityConfig = new ConfluenceSecurityConfig();
+		confluenceSecurityConfig.disableWebSudo();
 	});
 
 	afterAll(failFastReporter.disable);
