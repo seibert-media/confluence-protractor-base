@@ -83,7 +83,6 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_confluencelogin_.html#version" class="tsd-kind-icon">Version</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_confluencelogin_.html#assert" class="tsd-kind-icon">assert</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_confluencelogin_.html#asyncelement" class="tsd-kind-icon">async<wbr>Element</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_confluencelogin_.html#clickifpresent" class="tsd-kind-icon">click<wbr>IfPresent</a></li>
@@ -96,9 +95,9 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="version" class="tsd-anchor"></a>
-					<h3>Version</h3>
-					<div class="tsd-signature tsd-kind-icon">Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;../utils/Version&quot;).Version</span></div>
+					<a name="assert" class="tsd-anchor"></a>
+					<h3>assert</h3>
+					<div class="tsd-signature tsd-kind-icon">assert<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.assert</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in page-objects/ConfluenceLogin.ts:8</li>
@@ -106,44 +105,103 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="assert" class="tsd-anchor"></a>
-					<h3>assert</h3>
-					<div class="tsd-signature tsd-kind-icon">assert<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.assert</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in page-objects/ConfluenceLogin.ts:10</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="asyncelement" class="tsd-anchor"></a>
 					<h3>async<wbr>Element</h3>
-					<div class="tsd-signature tsd-kind-icon">async<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.asyncElement</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in page-objects/ConfluenceLogin.ts:13</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="clickifpresent" class="tsd-anchor"></a>
-					<h3>click<wbr>IfPresent</h3>
-					<div class="tsd-signature tsd-kind-icon">click<wbr>IfPresent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.clickIfPresent</span></div>
+					<div class="tsd-signature tsd-kind-icon">async<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.asyncElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in page-objects/ConfluenceLogin.ts:11</li>
 						</ul>
 					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">By</span>, timeout<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementFinder</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>selector: <span class="tsd-signature-type">By</span></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeout: <span class="tsd-signature-type">number</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ElementFinder</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="clickifpresent" class="tsd-anchor"></a>
+					<h3>click<wbr>IfPresent</h3>
+					<div class="tsd-signature tsd-kind-icon">click<wbr>IfPresent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.clickIfPresent</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in page-objects/ConfluenceLogin.ts:9</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementFinder</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>element: <span class="tsd-signature-type">ElementFinder</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="openpage" class="tsd-anchor"></a>
 					<h3>open<wbr>Page</h3>
-					<div class="tsd-signature tsd-kind-icon">open<wbr>Page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.openPage</span></div>
+					<div class="tsd-signature tsd-kind-icon">open<wbr>Page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.openPage</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in page-objects/ConfluenceLogin.ts:12</li>
+							<li>Defined in page-objects/ConfluenceLogin.ts:10</li>
 						</ul>
 					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_utils_pageobjectutils_.openpageoptions.html" class="tsd-signature-type">OpenPageOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> path: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_utils_pageobjectutils_.openpageoptions.html" class="tsd-signature-type">OpenPageOptions</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -165,9 +223,6 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_page_objects_confluencelogin_.loginactions.html" class="tsd-kind-icon">Login<wbr>Actions</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_page_objects_confluencelogin_.html#version" class="tsd-kind-icon">Version</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_page_objects_confluencelogin_.html#assert" class="tsd-kind-icon">assert</a>

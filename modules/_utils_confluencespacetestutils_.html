@@ -69,6 +69,12 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Enumerations</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum tsd-parent-kind-external-module tsd-is-not-exported"><a href="../enums/_utils_confluencespacetestutils_.permissionmethod.html" class="tsd-kind-icon">Permission<wbr>Method</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_utils_confluencespacetestutils_.html#pageobjectutils" class="tsd-kind-icon">page<wbr>Object<wbr>Utils</a></li>
@@ -86,7 +92,6 @@
 							<h3>Object literals</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-object-literal tsd-parent-kind-external-module"><a href="_utils_confluencespacetestutils_.html#confluencespacetestutils" class="tsd-kind-icon">confluence<wbr>Space<wbr>Test<wbr>Utils</a></li>
-								<li class="tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported"><a href="_utils_confluencespacetestutils_.html#permissionmethods" class="tsd-kind-icon">permission<wbr>Methods</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,7 +105,7 @@
 					<div class="tsd-signature tsd-kind-icon">page<wbr>Object<wbr>Utils<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;../utils/pageObjectUtils&quot;).pageObjectUtils</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utils/confluenceSpaceTestUtils.ts:2</li>
+							<li>Defined in utils/confluenceSpaceTestUtils.ts:4</li>
 						</ul>
 					</aside>
 				</section>
@@ -110,7 +115,7 @@
 					<div class="tsd-signature tsd-kind-icon">screenshot<wbr>Reporter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;../jasmineReporters/screenshotReporter&quot;).screenshotReporter</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utils/confluenceSpaceTestUtils.ts:1</li>
+							<li>Defined in utils/confluenceSpaceTestUtils.ts:3</li>
 						</ul>
 					</aside>
 				</section>
@@ -121,19 +126,19 @@
 					<a name="createpermissionmapfromlist" class="tsd-anchor"></a>
 					<h3>create<wbr>Permission<wbr>Map<wbr>From<wbr>List</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Permission<wbr>Map<wbr>From<wbr>List<span class="tsd-signature-symbol">(</span>permissionList<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Permission<wbr>Map<wbr>From<wbr>List<span class="tsd-signature-symbol">(</span>permissionList<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in utils/confluenceSpaceTestUtils.ts:22</li>
+									<li>Defined in utils/confluenceSpaceTestUtils.ts:24</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>permissionList: <span class="tsd-signature-type">any</span></h5>
+									<h5>permissionList: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
@@ -188,25 +193,25 @@
 					<a name="testpermissions" class="tsd-anchor"></a>
 					<h3>test<wbr>Permissions</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">test<wbr>Permissions<span class="tsd-signature-symbol">(</span>spacePageObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, permissionMethod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, additionalPermissionParam<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">test<wbr>Permissions<span class="tsd-signature-symbol">(</span>spacePageObject<span class="tsd-signature-symbol">: </span><a href="../classes/_page_objects_confluencespace_.confluencespace.html" class="tsd-signature-type">ConfluenceSpace</a>, permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, permissionMethod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">"getAnonymousPermission"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getGroupPermission"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getUserPermission"</span>, additionalPermissionParam<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in utils/confluenceSpaceTestUtils.ts:51</li>
+									<li>Defined in utils/confluenceSpaceTestUtils.ts:54</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>spacePageObject: <span class="tsd-signature-type">any</span></h5>
+									<h5>spacePageObject: <a href="../classes/_page_objects_confluencespace_.confluencespace.html" class="tsd-signature-type">ConfluenceSpace</a></h5>
 								</li>
 								<li>
 									<h5>permissions: <span class="tsd-signature-type">any</span></h5>
 								</li>
 								<li>
-									<h5>permissionMethod: <span class="tsd-signature-type">any</span></h5>
+									<h5>permissionMethod: <span class="tsd-signature-type">"getAnonymousPermission"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getGroupPermission"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"getUserPermission"</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> additionalPermissionParam: <span class="tsd-signature-type">any</span></h5>
@@ -225,26 +230,26 @@
 					<div class="tsd-signature tsd-kind-icon">confluence<wbr>Space<wbr>Test<wbr>Utils<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utils/confluenceSpaceTestUtils.ts:4</li>
+							<li>Defined in utils/confluenceSpaceTestUtils.ts:6</li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
 						<a name="confluencespacetestutils.testanonymouspermissions" class="tsd-anchor"></a>
 						<h3>test<wbr>Anonymous<wbr>Permissions</h3>
 						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
-							<li class="tsd-signature tsd-kind-icon">test<wbr>Anonymous<wbr>Permissions<span class="tsd-signature-symbol">(</span>spacePageObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+							<li class="tsd-signature tsd-kind-icon">test<wbr>Anonymous<wbr>Permissions<span class="tsd-signature-symbol">(</span>spacePageObject<span class="tsd-signature-symbol">: </span><a href="../classes/_page_objects_confluencespace_.confluencespace.html" class="tsd-signature-type">ConfluenceSpace</a>, permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 						</ul>
 						<ul class="tsd-descriptions">
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in utils/confluenceSpaceTestUtils.ts:5</li>
+										<li>Defined in utils/confluenceSpaceTestUtils.ts:7</li>
 									</ul>
 								</aside>
 								<h4 class="tsd-parameters-title">Parameters</h4>
 								<ul class="tsd-parameters">
 									<li>
-										<h5>spacePageObject: <span class="tsd-signature-type">any</span></h5>
+										<h5>spacePageObject: <a href="../classes/_page_objects_confluencespace_.confluencespace.html" class="tsd-signature-type">ConfluenceSpace</a></h5>
 									</li>
 									<li>
 										<h5>permissions: <span class="tsd-signature-type">any</span></h5>
@@ -258,19 +263,19 @@
 						<a name="confluencespacetestutils.testgrouppermissions" class="tsd-anchor"></a>
 						<h3>test<wbr>Group<wbr>Permissions</h3>
 						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
-							<li class="tsd-signature tsd-kind-icon">test<wbr>Group<wbr>Permissions<span class="tsd-signature-symbol">(</span>spacePageObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, group<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+							<li class="tsd-signature tsd-kind-icon">test<wbr>Group<wbr>Permissions<span class="tsd-signature-symbol">(</span>spacePageObject<span class="tsd-signature-symbol">: </span><a href="../classes/_page_objects_confluencespace_.confluencespace.html" class="tsd-signature-type">ConfluenceSpace</a>, permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, group<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 						</ul>
 						<ul class="tsd-descriptions">
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in utils/confluenceSpaceTestUtils.ts:8</li>
+										<li>Defined in utils/confluenceSpaceTestUtils.ts:10</li>
 									</ul>
 								</aside>
 								<h4 class="tsd-parameters-title">Parameters</h4>
 								<ul class="tsd-parameters">
 									<li>
-										<h5>spacePageObject: <span class="tsd-signature-type">any</span></h5>
+										<h5>spacePageObject: <a href="../classes/_page_objects_confluencespace_.confluencespace.html" class="tsd-signature-type">ConfluenceSpace</a></h5>
 									</li>
 									<li>
 										<h5>permissions: <span class="tsd-signature-type">any</span></h5>
@@ -287,19 +292,19 @@
 						<a name="confluencespacetestutils.testuserpermissions" class="tsd-anchor"></a>
 						<h3>test<wbr>User<wbr>Permissions</h3>
 						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
-							<li class="tsd-signature tsd-kind-icon">test<wbr>User<wbr>Permissions<span class="tsd-signature-symbol">(</span>spacePageObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, user<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+							<li class="tsd-signature tsd-kind-icon">test<wbr>User<wbr>Permissions<span class="tsd-signature-symbol">(</span>spacePageObject<span class="tsd-signature-symbol">: </span><a href="../classes/_page_objects_confluencespace_.confluencespace.html" class="tsd-signature-type">ConfluenceSpace</a>, permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, user<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 						</ul>
 						<ul class="tsd-descriptions">
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in utils/confluenceSpaceTestUtils.ts:11</li>
+										<li>Defined in utils/confluenceSpaceTestUtils.ts:13</li>
 									</ul>
 								</aside>
 								<h4 class="tsd-parameters-title">Parameters</h4>
 								<ul class="tsd-parameters">
 									<li>
-										<h5>spacePageObject: <span class="tsd-signature-type">any</span></h5>
+										<h5>spacePageObject: <a href="../classes/_page_objects_confluencespace_.confluencespace.html" class="tsd-signature-type">ConfluenceSpace</a></h5>
 									</li>
 									<li>
 										<h5>permissions: <span class="tsd-signature-type">any</span></h5>
@@ -311,46 +316,6 @@
 								<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 							</li>
 						</ul>
-					</section>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="permissionmethods" class="tsd-anchor"></a>
-					<h3>permission<wbr>Methods</h3>
-					<div class="tsd-signature tsd-kind-icon">permission<wbr>Methods<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in utils/confluenceSpaceTestUtils.ts:16</li>
-						</ul>
-					</aside>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
-						<a name="permissionmethods.anonymous" class="tsd-anchor"></a>
-						<h3>ANONYMOUS</h3>
-						<div class="tsd-signature tsd-kind-icon">ANONYMOUS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;getAnonymousPermission&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in utils/confluenceSpaceTestUtils.ts:17</li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
-						<a name="permissionmethods.group" class="tsd-anchor"></a>
-						<h3>GROUP</h3>
-						<div class="tsd-signature tsd-kind-icon">GROUP<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;getGroupPermission&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in utils/confluenceSpaceTestUtils.ts:18</li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-not-exported">
-						<a name="permissionmethods.user" class="tsd-anchor"></a>
-						<h3>USER</h3>
-						<div class="tsd-signature tsd-kind-icon">USER<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;getUserPermission&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in utils/confluenceSpaceTestUtils.ts:19</li>
-							</ul>
-						</aside>
 					</section>
 				</section>
 			</section>
@@ -368,6 +333,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../enums/_utils_confluencespacetestutils_.permissionmethod.html" class="tsd-kind-icon">Permission<wbr>Method</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_utils_confluencespacetestutils_.html#pageobjectutils" class="tsd-kind-icon">page<wbr>Object<wbr>Utils</a>
 					</li>
@@ -382,9 +350,6 @@
 					</li>
 					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
 						<a href="_utils_confluencespacetestutils_.html#confluencespacetestutils" class="tsd-kind-icon">confluence<wbr>Space<wbr>Test<wbr>Utils</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_utils_confluencespacetestutils_.html#permissionmethods" class="tsd-kind-icon">permission<wbr>Methods</a>
 					</li>
 				</ul>
 			</nav>

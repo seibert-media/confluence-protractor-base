@@ -100,7 +100,7 @@
 					<div class="tsd-signature tsd-kind-icon">create<wbr>Dom<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utils/testUtils.ts:11</li>
+							<li>Defined in utils/testUtils.ts:12</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -108,14 +108,14 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, properties<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, properties<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>name: <span class="tsd-signature-type">any</span></h5>
+												<h5>name: <span class="tsd-signature-type">string</span></h5>
 											</li>
 											<li>
 												<h5>properties: <span class="tsd-signature-type">any</span></h5>
@@ -134,7 +134,7 @@
 					<div class="tsd-signature tsd-kind-icon">expect<wbr>Promise<wbr>Fail<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utils/testUtils.ts:10</li>
+							<li>Defined in utils/testUtils.ts:11</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -142,20 +142,20 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>promise<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, done<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DoneFn</span>, expectedError<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>promise<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, done<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DoneFn</span>, expectedError<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>promise: <span class="tsd-signature-type">any</span></h5>
+												<h5>promise: <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 											<li>
 												<h5>done: <span class="tsd-signature-type">DoneFn</span></h5>
 											</li>
 											<li>
-												<h5>expectedError: <span class="tsd-signature-type">any</span></h5>
+												<h5>expectedError: <span class="tsd-signature-type">Error</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -171,7 +171,7 @@
 					<div class="tsd-signature tsd-kind-icon">expect<wbr>Promise<wbr>ToBe<wbr>Resolved<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utils/testUtils.ts:9</li>
+							<li>Defined in utils/testUtils.ts:10</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -179,20 +179,20 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>promise<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, done<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DoneFn</span>, message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>promise<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, done<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DoneFn</span>, message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>promise: <span class="tsd-signature-type">any</span></h5>
+												<h5>promise: <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 											<li>
 												<h5>done: <span class="tsd-signature-type">DoneFn</span></h5>
 											</li>
 											<li>
-												<h5>message: <span class="tsd-signature-type">any</span></h5>
+												<h5>message: <span class="tsd-signature-type">string</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -208,7 +208,7 @@
 					<div class="tsd-signature tsd-kind-icon">mock<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utils/testUtils.ts:13</li>
+							<li>Defined in utils/testUtils.ts:14</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -216,14 +216,30 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>options: <span class="tsd-signature-type">any</span></h5>
+												<h5>options: <span class="tsd-signature-type">object</span></h5>
+												<ul class="tsd-parameters">
+													<li class="tsd-parameter">
+														<h5>promise<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h5>
+														<ul class="tsd-parameters">
+															<li class="tsd-parameter">
+																<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+															</li>
+															<li class="tsd-parameter">
+																<h5>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+															</li>
+														</ul>
+													</li>
+													<li class="tsd-parameter">
+														<h5>spy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+													</li>
+												</ul>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
@@ -233,17 +249,29 @@
 												<ul class="tsd-parameters">
 													<li class="tsd-parameter-siganture">
 														<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
-															<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>done<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, beforeDone<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+															<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>done<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DoneFn</span>, beforeDone<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 														</ul>
 														<ul class="tsd-descriptions">
 															<li class="tsd-description">
 																<h4 class="tsd-parameters-title">Parameters</h4>
 																<ul class="tsd-parameters">
 																	<li>
-																		<h5>done: <span class="tsd-signature-type">any</span></h5>
+																		<h5>done: <span class="tsd-signature-type">DoneFn</span></h5>
 																	</li>
 																	<li>
-																		<h5>beforeDone: <span class="tsd-signature-type">any</span></h5>
+																		<h5>beforeDone: <span class="tsd-signature-type">function</span></h5>
+																		<ul class="tsd-parameters">
+																			<li class="tsd-parameter-siganture">
+																				<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+																					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+																				</ul>
+																				<ul class="tsd-descriptions">
+																					<li class="tsd-description">
+																						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+																					</li>
+																				</ul>
+																			</li>
+																		</ul>
 																	</li>
 																</ul>
 																<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -265,7 +293,7 @@
 					<div class="tsd-signature tsd-kind-icon">remove<wbr>Dom<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in utils/testUtils.ts:12</li>
+							<li>Defined in utils/testUtils.ts:13</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">

@@ -109,6 +109,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluencepage_.confluencepage.html#confluenceversion" class="tsd-kind-icon">confluence<wbr>Version</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluencepage_.confluencepage.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluencepage_.confluencepage.html#currentusername" class="tsd-kind-icon">current<wbr>Username</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluencepage_.confluencepage.html#disablenotifications" class="tsd-kind-icon">disable<wbr>Notifications</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluencepage_.confluencepage.html#disablesynchrony" class="tsd-kind-icon">disable<wbr>Synchrony</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluencepage_.confluencepage.html#getcomments" class="tsd-kind-icon">get<wbr>Comments</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluencepage_.confluencepage.html#getlabelsuggestions" class="tsd-kind-icon">get<wbr>Label<wbr>Suggestions</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluencepage_.confluencepage.html#getlatestcomment" class="tsd-kind-icon">get<wbr>Latest<wbr>Comment</a></li>
@@ -126,6 +128,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluencepage_.confluencepage.html#removelatestcomment" class="tsd-kind-icon">remove<wbr>Latest<wbr>Comment</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluencepage_.confluencepage.html#resetconfluenceversion" class="tsd-kind-icon">reset<wbr>Confluence<wbr>Version</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_page_objects_confluencepage_.confluencepage.html#sendlabeltoinput" class="tsd-kind-icon">send<wbr>Label<wbr>ToInput</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluencepage_.confluencepage.html#skipnotifications" class="tsd-kind-icon">skip<wbr>Notifications</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-inherited">
@@ -176,7 +179,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#confluenceconfig">confluenceConfig</a></p>
 						<ul>
-							<li>Defined in page-objects/ConfluenceLogin.ts:22</li>
+							<li>Defined in page-objects/ConfluenceLogin.ts:20</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -272,7 +275,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#authenticate">authenticate</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceLogin.ts:81</li>
+									<li>Defined in page-objects/ConfluenceLogin.ts:79</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -296,7 +299,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#authenticateasadmin">authenticateAsAdmin</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceLogin.ts:95</li>
+									<li>Defined in page-objects/ConfluenceLogin.ts:93</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -307,17 +310,17 @@
 					<a name="confluenceversion" class="tsd-anchor"></a>
 					<h3>confluence<wbr>Version</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">confluence<wbr>Version<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">confluence<wbr>Version<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_utils_version_.version.html" class="tsd-signature-type">Version</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencebase_.confluencebase.html">ConfluenceBase</a>.<a href="_page_objects_confluencebase_.confluencebase.html#confluenceversion">confluenceVersion</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceBase.ts:34</li>
+									<li>Defined in page-objects/ConfluenceBase.ts:38</li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_utils_version_.version.html" class="tsd-signature-type">Version</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -349,10 +352,46 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#currentusername">currentUsername</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceLogin.ts:101</li>
+									<li>Defined in page-objects/ConfluenceLogin.ts:99</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="disablenotifications" class="tsd-anchor"></a>
+					<h3>disable<wbr>Notifications</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">disable<wbr>Notifications<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_page_objects_confluencebase_.confluencebase.html">ConfluenceBase</a>.<a href="_page_objects_confluencebase_.confluencebase.html#disablenotifications">disableNotifications</a></p>
+								<ul>
+									<li>Defined in page-objects/ConfluenceBase.ts:63</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="disablesynchrony" class="tsd-anchor"></a>
+					<h3>disable<wbr>Synchrony</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">disable<wbr>Synchrony<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_page_objects_confluencebase_.confluencebase.html">ConfluenceBase</a>.<a href="_page_objects_confluencebase_.confluencebase.html#disablesynchrony">disableSynchrony</a></p>
+								<ul>
+									<li>Defined in page-objects/ConfluenceBase.ts:45</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -377,7 +416,7 @@
 					<a name="getlabelsuggestions" class="tsd-anchor"></a>
 					<h3>get<wbr>Label<wbr>Suggestions</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Label<wbr>Suggestions<span class="tsd-signature-symbol">(</span>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementArrayFinder</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Label<wbr>Suggestions<span class="tsd-signature-symbol">(</span>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementArrayFinder</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -389,7 +428,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>label: <span class="tsd-signature-type">any</span></h5>
+									<h5>label: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ElementArrayFinder</span></h4>
@@ -434,20 +473,20 @@
 					<a name="getparamfromajs" class="tsd-anchor"></a>
 					<h3>get<wbr>Param<wbr>FromAJS</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Param<wbr>FromAJS<span class="tsd-signature-symbol">(</span>paramName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, defaultValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Param<wbr>FromAJS<span class="tsd-signature-symbol">(</span>paramName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, defaultValue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#getparamfromajs">getParamFromAJS</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceLogin.ts:105</li>
+									<li>Defined in page-objects/ConfluenceLogin.ts:103</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>paramName: <span class="tsd-signature-type">any</span></h5>
+									<h5>paramName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultValue: <span class="tsd-signature-type">any</span></h5>
@@ -485,7 +524,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencebase_.confluencebase.html">ConfluenceBase</a>.<a href="_page_objects_confluencebase_.confluencebase.html#loadconfluenceversion">loadConfluenceVersion</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceBase.ts:27</li>
+									<li>Defined in page-objects/ConfluenceBase.ts:31</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_utils_version_.version.html" class="tsd-signature-type">Version</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -503,7 +542,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#login">login</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceLogin.ts:39</li>
+									<li>Defined in page-objects/ConfluenceLogin.ts:37</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -530,7 +569,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#loginasadmin">loginAsAdmin</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceLogin.ts:91</li>
+									<li>Defined in page-objects/ConfluenceLogin.ts:89</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -548,7 +587,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#logout">logout</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceLogin.ts:116</li>
+									<li>Defined in page-objects/ConfluenceLogin.ts:114</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -583,7 +622,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencebase_.confluencebase.html">ConfluenceBase</a>.<a href="_page_objects_confluencebase_.confluencebase.html#openadminpage">openAdminPage</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceBase.ts:13</li>
+									<li>Defined in page-objects/ConfluenceBase.ts:17</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -658,7 +697,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencebase_.confluencebase.html">ConfluenceBase</a>.<a href="_page_objects_confluencebase_.confluencebase.html#resetconfluenceversion">resetConfluenceVersion</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceBase.ts:23</li>
+									<li>Defined in page-objects/ConfluenceBase.ts:27</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -669,7 +708,7 @@
 					<a name="sendlabeltoinput" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> send<wbr>Label<wbr>ToInput</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">send<wbr>Label<wbr>ToInput<span class="tsd-signature-symbol">(</span>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Label<wbr>ToInput<span class="tsd-signature-symbol">(</span>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -681,9 +720,27 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>label: <span class="tsd-signature-type">any</span></h5>
+									<h5>label: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="skipnotifications" class="tsd-anchor"></a>
+					<h3>skip<wbr>Notifications</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">skip<wbr>Notifications<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_page_objects_confluencebase_.confluencebase.html">ConfluenceBase</a>.<a href="_page_objects_confluencebase_.confluencebase.html#skipnotifications">skipNotifications</a></p>
+								<ul>
+									<li>Defined in page-objects/ConfluenceBase.ts:79</li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -698,7 +755,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#actions">actions</a></p>
 						<ul>
-							<li>Defined in page-objects/ConfluenceLogin.ts:23</li>
+							<li>Defined in page-objects/ConfluenceLogin.ts:21</li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -707,7 +764,7 @@
 						<div class="tsd-signature tsd-kind-icon">authenticate<span class="tsd-signature-symbol">:</span> <a href="_page_objects_confluenceaction_.confluenceaction.html" class="tsd-signature-type">ConfluenceAction</a><span class="tsd-signature-symbol"> =&nbsp;new ConfluenceAction({path: &quot;authenticate.action&quot;,})</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in page-objects/ConfluenceLogin.ts:24</li>
+								<li>Defined in page-objects/ConfluenceLogin.ts:22</li>
 							</ul>
 						</aside>
 					</section>
@@ -717,7 +774,7 @@
 						<div class="tsd-signature tsd-kind-icon">login<span class="tsd-signature-symbol">:</span> <a href="_page_objects_confluenceaction_.confluenceaction.html" class="tsd-signature-type">ConfluenceAction</a><span class="tsd-signature-symbol"> =&nbsp;new ConfluenceAction({path: &quot;login.action&quot;,})</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in page-objects/ConfluenceLogin.ts:27</li>
+								<li>Defined in page-objects/ConfluenceLogin.ts:25</li>
 							</ul>
 						</aside>
 					</section>
@@ -727,7 +784,7 @@
 						<div class="tsd-signature tsd-kind-icon">logout<span class="tsd-signature-symbol">:</span> <a href="_page_objects_confluenceaction_.confluenceaction.html" class="tsd-signature-type">ConfluenceAction</a><span class="tsd-signature-symbol"> =&nbsp;new ConfluenceAction({path: &quot;logout.action&quot;,})</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in page-objects/ConfluenceLogin.ts:30</li>
+								<li>Defined in page-objects/ConfluenceLogin.ts:28</li>
 							</ul>
 						</aside>
 					</section>
@@ -788,6 +845,12 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_page_objects_confluencepage_.confluencepage.html#currentusername" class="tsd-kind-icon">current<wbr>Username</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_page_objects_confluencepage_.confluencepage.html#disablenotifications" class="tsd-kind-icon">disable<wbr>Notifications</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_page_objects_confluencepage_.confluencepage.html#disablesynchrony" class="tsd-kind-icon">disable<wbr>Synchrony</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_page_objects_confluencepage_.confluencepage.html#getcomments" class="tsd-kind-icon">get<wbr>Comments</a>
 							</li>
@@ -838,6 +901,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_page_objects_confluencepage_.confluencepage.html#sendlabeltoinput" class="tsd-kind-icon">send<wbr>Label<wbr>ToInput</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_page_objects_confluencepage_.confluencepage.html#skipnotifications" class="tsd-kind-icon">skip<wbr>Notifications</a>
 							</li>
 							<li class=" tsd-kind-object-literal tsd-parent-kind-class tsd-is-inherited">
 								<a href="_page_objects_confluencepage_.confluencepage.html#actions" class="tsd-kind-icon">actions</a>

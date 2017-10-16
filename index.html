@@ -62,12 +62,14 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<h1 id="confluence-protractor-base">Confluence Protractor Base</h1>
+				<h1 id="confluence-protractor-base-npm-version-https-img-shields-io-npm-v-confluence-protractor-base-svg-https-www-npmjs-com-package-confluence-protractor-base-">Confluence Protractor Base <a href="https://www.npmjs.com/package/confluence-protractor-base"><img src="https://img.shields.io/npm/v/confluence-protractor-base.svg" alt="Npm version"></a></h1>
+				<p><a href="https://david-dm.org/seibert-media/confluence-protractor-base"><img src="https://img.shields.io/david/seibert-media/confluence-protractor-base.svg" alt="Npm dependencies"></a>
+				<a href="https://david-dm.org/seibert-media/confluence-protractor-base#info=devDependencies"><img src="https://img.shields.io/david/dev/seibert-media/confluence-protractor-base.svg" alt="devDependency Status"></a></p>
 				<p>The Confluence&reg; Protractor Base is a simple solution to implement und run UI tests for <a href="https://www.atlassian.com/software/confluence">Atlassian&reg; Confluence&reg;</a>.
 				It provides basic functionality like creating pages, spaces, users and groups as well as login, authenticate as admin and open pages.  </p>
-				<h1 id="installation">Installation</h1>
+				<h2 id="installation">Installation</h2>
 				<p><code>npm install confluence-protractor-base</code></p>
-				<h1 id="first-steps">First Steps</h1>
+				<h2 id="first-steps">First Steps</h2>
 				<ol>
 					<li>Start a <a href="#localConf">local Confluence instance</a></li>
 					<li>Checkout the project and switch to the directory</li>
@@ -80,25 +82,32 @@
 					<li>run UI tests in another console window (e2e means End-to-End)\
 					<code>npm run test-e2e</code></li>
 				</ol>
-				<h1 id="local-confluence-instance-a-name-localconf-a-">Local Confluence instance<a name="localConf"></a></h1>
+				<h2 id="local-confluence-instance-a-name-localconf-a-">Local Confluence instance<a name="localConf"></a></h2>
 				<p>First of all you need a local Confluence instance. </p>
 				<p>The instance should be locally available under <a href="http://confluence:8090">http://confluence:8090</a>\
 					Note: There may be changes needed in the <code>/etc/hosts</code> file\
 				<code>127.0.0.1      confluence</code></p>
 				<p>This can be done via the Atlassian SDK or with a Docker container</p>
-				<h2 id="atlassian-sdk">Atlassian SDK</h2>
+				<h3 id="atlassian-sdk">Atlassian SDK</h3>
 				<p>Start a local Confluence test instance using the <a href="https://developer.atlassian.com/docs/getting-started/set-up-the-atlassian-plugin-sdk-and-build-a-project">Atlassian&reg; SDK</a></p>
 				<p><code>atlas-run-standalone --product confluence --http-port 8090 --server confluence --context-path ROOT --jvmargs &quot;-Xms4g -Xmx4g -server&quot;</code></p>
-				<h2 id="docker-container">Docker container</h2>
+				<h3 id="docker-container">Docker container</h3>
 				<p>Start a local <a href="https://hub.docker.com/r/atlassian/confluence-server/">Confluence&reg; docker instance</a>\</p>
-				<h1 id="supported-platforms">Supported Platforms</h1>
+				<h2 id="supported-platforms">Supported Platforms</h2>
 				<p>We have tested the confluence-protractor-base with </p>
 				<ul>
-					<li>Confluence 5.7 - 6.3</li>
+					<li>Confluence 5.7 - 6.4</li>
 					<li>PSQL, MYSQL, MSSQL</li>
 				</ul>
-				<h1 id="troubleshooting">Troubleshooting</h1>
+				<h2 id="troubleshooting">Troubleshooting</h2>
 				<p>See <a href="https://github.com/seibert-media/confluence-protractor-base/issues">Issues</a></p>
+				<h2 id="known-issues">Known issues</h2>
+				<h3 id="page-edit-with-synchrony-concurrent-editing-">Page edit with synchrony (concurrent editing)</h3>
+				<p>Page edit with synchrony enabled may be unstable. All page objects inheriting from <code>ConfluenceBase</code> have a
+				<code>disableSynchrony()</code> method to prevent problems. Example:</p>
+				<pre><code>const upm = <span class="hljs-function"><span class="hljs-keyword">new</span> <span class="hljs-title">UniversalPluginManager</span>();
+<span class="hljs-title">upm</span>.<span class="hljs-title">disableSynchrony</span>();</span>
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -106,6 +115,9 @@
 				<ul>
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_confluenceconfig_.html">"<wbr>Confluence<wbr>Config"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_index_.html">"index"</a>
@@ -145,6 +157,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_page_objects_universalpluginmanager_.html">"page-<wbr>objects/<wbr>Universal<wbr>Plugin<wbr>Manager"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_page_objects_useractions_.html">"page-<wbr>objects/<wbr>User<wbr>Actions"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_page_objects_editor_confluenceeditorfakeinput_.html">"page-<wbr>objects/editor/<wbr>Confluence<wbr>Editor<wbr>Fake<wbr>Input"</a>
@@ -192,10 +207,19 @@
 						<a href="modules/_specs_universalpluginmanager_spec_.html">"specs/universal<wbr>Plugin<wbr>Manager.spec"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_customlocation_.html">"utils/<wbr>Custom<wbr>Location"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_timebomblicenses_.html">"utils/<wbr>Time<wbr>Bomb<wbr>Licenses"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_version_.html">"utils/<wbr>Version"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_confluencespacetestutils_.html">"utils/confluence<wbr>Space<wbr>Test<wbr>Utils"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_elements_autocomplete_.html">"utils/elements/<wbr>Autocomplete"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_elements_autocompletesearch_.html">"utils/elements/<wbr>Autocomplete<wbr>Search"</a>

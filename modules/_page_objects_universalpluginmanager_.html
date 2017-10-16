@@ -82,10 +82,10 @@
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_universalpluginmanager_.html#default_upm_loading_time" class="tsd-kind-icon">DEFAULT_<wbr>UPM_<wbr>LOADING_<wbr>TIME</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_universalpluginmanager_.html#upload_button_visibility_timeout" class="tsd-kind-icon">UPLOAD_<wbr>BUTTON_<wbr>VISIBILITY_<wbr>TIMEOUT</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_universalpluginmanager_.html#asyncelement" class="tsd-kind-icon">async<wbr>Element</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_universalpluginmanager_.html#clickifclickable" class="tsd-kind-icon">click<wbr>IfClickable</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_universalpluginmanager_.html#clickifpresent" class="tsd-kind-icon">click<wbr>IfPresent</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_universalpluginmanager_.html#path" class="tsd-kind-icon">path</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_universalpluginmanager_.html#remote" class="tsd-kind-icon">remote</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_page_objects_universalpluginmanager_.html#waitforelementtobeclickable" class="tsd-kind-icon">wait<wbr>For<wbr>Element<wbr>ToBe<wbr>Clickable</a></li>
 							</ul>
 						</section>
 					</div>
@@ -136,32 +136,67 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="asyncelement" class="tsd-anchor"></a>
 					<h3>async<wbr>Element</h3>
-					<div class="tsd-signature tsd-kind-icon">async<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.asyncElement</span></div>
+					<div class="tsd-signature tsd-kind-icon">async<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.asyncElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in page-objects/UniversalPluginManager.ts:10</li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="clickifclickable" class="tsd-anchor"></a>
-					<h3>click<wbr>IfClickable</h3>
-					<div class="tsd-signature tsd-kind-icon">click<wbr>IfClickable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.clickIfClickable</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in page-objects/UniversalPluginManager.ts:9</li>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">By</span>, timeout<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementFinder</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>selector: <span class="tsd-signature-type">By</span></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeout: <span class="tsd-signature-type">number</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ElementFinder</span></h4>
+									</li>
+								</ul>
+							</li>
 						</ul>
-					</aside>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="clickifpresent" class="tsd-anchor"></a>
 					<h3>click<wbr>IfPresent</h3>
-					<div class="tsd-signature tsd-kind-icon">click<wbr>IfPresent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.clickIfPresent</span></div>
+					<div class="tsd-signature tsd-kind-icon">click<wbr>IfPresent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.clickIfPresent</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in page-objects/UniversalPluginManager.ts:8</li>
 						</ul>
 					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementFinder</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>element: <span class="tsd-signature-type">ElementFinder</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="path" class="tsd-anchor"></a>
@@ -182,6 +217,40 @@
 							<li>Defined in page-objects/UniversalPluginManager.ts:6</li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="waitforelementtobeclickable" class="tsd-anchor"></a>
+					<h3>wait<wbr>For<wbr>Element<wbr>ToBe<wbr>Clickable</h3>
+					<div class="tsd-signature tsd-kind-icon">wait<wbr>For<wbr>Element<wbr>ToBe<wbr>Clickable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;pageObjectUtils.waitForElementToBeClickable</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in page-objects/UniversalPluginManager.ts:9</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ElementFinder</span>, timeout<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>element: <span class="tsd-signature-type">ElementFinder</span></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> timeout: <span class="tsd-signature-type">number</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -217,9 +286,6 @@
 						<a href="_page_objects_universalpluginmanager_.html#asyncelement" class="tsd-kind-icon">async<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_page_objects_universalpluginmanager_.html#clickifclickable" class="tsd-kind-icon">click<wbr>IfClickable</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_page_objects_universalpluginmanager_.html#clickifpresent" class="tsd-kind-icon">click<wbr>IfPresent</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
@@ -227,6 +293,9 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_page_objects_universalpluginmanager_.html#remote" class="tsd-kind-icon">remote</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_page_objects_universalpluginmanager_.html#waitforelementtobeclickable" class="tsd-kind-icon">wait<wbr>For<wbr>Element<wbr>ToBe<wbr>Clickable</a>
 					</li>
 				</ul>
 			</nav>

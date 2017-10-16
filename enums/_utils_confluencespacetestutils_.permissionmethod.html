@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;specs/universalPluginManager.spec&quot; | confluence-protractor-base</title>
+	<title>PermissionMethod | confluence-protractor-base</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_specs_universalpluginmanager_spec_.html">&quot;specs/universalPluginManager.spec&quot;</a>
+					<a href="../modules/_utils_confluencespacetestutils_.html">&quot;utils/confluenceSpaceTestUtils&quot;</a>
+				</li>
+				<li>
+					<a href="_utils_confluencespacetestutils_.permissionmethod.html">PermissionMethod</a>
 				</li>
 			</ul>
-			<h1>External module &quot;specs/universalPluginManager.spec&quot;</h1>
+			<h1>Enumeration PermissionMethod</h1>
 		</div>
 	</div>
 </header>
@@ -69,97 +72,47 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
+							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_specs_universalpluginmanager_spec_.html#brokenpluginpath" class="tsd-kind-icon">broken<wbr>Plugin<wbr>Path</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_specs_universalpluginmanager_spec_.html#licensedpluginpath" class="tsd-kind-icon">licensed<wbr>Plugin<wbr>Path</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_specs_universalpluginmanager_spec_.html#testpluginpath" class="tsd-kind-icon">test<wbr>Plugin<wbr>Path</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Functions</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_specs_universalpluginmanager_spec_.html#createtestpluginpath" class="tsd-kind-icon">create<wbr>Test<wbr>Plugin<wbr>Path</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_specs_universalpluginmanager_spec_.html#fakeuploadplugininput" class="tsd-kind-icon">fake<wbr>Upload<wbr>Plugin<wbr>Input</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported"><a href="_utils_confluencespacetestutils_.permissionmethod.html#anonymous" class="tsd-kind-icon">ANONYMOUS</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported"><a href="_utils_confluencespacetestutils_.permissionmethod.html#group" class="tsd-kind-icon">GROUP</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported"><a href="_utils_confluencespacetestutils_.permissionmethod.html#user" class="tsd-kind-icon">USER</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="brokenpluginpath" class="tsd-anchor"></a>
-					<h3>broken<wbr>Plugin<wbr>Path</h3>
-					<div class="tsd-signature tsd-kind-icon">broken<wbr>Plugin<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;createTestPluginPath(&quot;broken-plugin.jar&quot;)</span></div>
+				<h2>Enumeration members</h2>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported">
+					<a name="anonymous" class="tsd-anchor"></a>
+					<h3>ANONYMOUS</h3>
+					<div class="tsd-signature tsd-kind-icon">ANONYMOUS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;getAnonymousPermission&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in specs/universalPluginManager.spec.ts:25</li>
+							<li>Defined in utils/confluenceSpaceTestUtils.ts:19</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="licensedpluginpath" class="tsd-anchor"></a>
-					<h3>licensed<wbr>Plugin<wbr>Path</h3>
-					<div class="tsd-signature tsd-kind-icon">licensed<wbr>Plugin<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;createTestPluginPath(&quot;edit-lock-1.0.10.obr&quot;)</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported">
+					<a name="group" class="tsd-anchor"></a>
+					<h3>GROUP</h3>
+					<div class="tsd-signature tsd-kind-icon">GROUP<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;getGroupPermission&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in specs/universalPluginManager.spec.ts:26</li>
+							<li>Defined in utils/confluenceSpaceTestUtils.ts:20</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="testpluginpath" class="tsd-anchor"></a>
-					<h3>test<wbr>Plugin<wbr>Path</h3>
-					<div class="tsd-signature tsd-kind-icon">test<wbr>Plugin<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;createTestPluginPath(&quot;tutorial-confluence-macro-demo-1.0.0-SNAPSHOT.jar&quot;)</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported">
+					<a name="user" class="tsd-anchor"></a>
+					<h3>USER</h3>
+					<div class="tsd-signature tsd-kind-icon">USER<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;getUserPermission&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in specs/universalPluginManager.spec.ts:24</li>
+							<li>Defined in utils/confluenceSpaceTestUtils.ts:21</li>
 						</ul>
 					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="createtestpluginpath" class="tsd-anchor"></a>
-					<h3>create<wbr>Test<wbr>Plugin<wbr>Path</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Test<wbr>Plugin<wbr>Path<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in specs/universalPluginManager.spec.ts:6</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>path: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="fakeuploadplugininput" class="tsd-anchor"></a>
-					<h3>fake<wbr>Upload<wbr>Plugin<wbr>Input</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">fake<wbr>Upload<wbr>Plugin<wbr>Input<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in specs/universalPluginManager.spec.ts:10</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -170,26 +123,44 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_specs_universalpluginmanager_spec_.html">"specs/universal<wbr>Plugin<wbr>Manager.spec"</a>
+						<a href="../modules/_utils_confluencespacetestutils_.html">"utils/confluence<wbr>Space<wbr>Test<wbr>Utils"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-enum tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_utils_confluencespacetestutils_.permissionmethod.html" class="tsd-kind-icon">Permission<wbr>Method</a>
+						<ul>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported">
+								<a href="_utils_confluencespacetestutils_.permissionmethod.html#anonymous" class="tsd-kind-icon">ANONYMOUS</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported">
+								<a href="_utils_confluencespacetestutils_.permissionmethod.html#group" class="tsd-kind-icon">GROUP</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum tsd-is-not-exported">
+								<a href="_utils_confluencespacetestutils_.permissionmethod.html#user" class="tsd-kind-icon">USER</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_specs_universalpluginmanager_spec_.html#brokenpluginpath" class="tsd-kind-icon">broken<wbr>Plugin<wbr>Path</a>
+						<a href="../modules/_utils_confluencespacetestutils_.html#pageobjectutils" class="tsd-kind-icon">page<wbr>Object<wbr>Utils</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_specs_universalpluginmanager_spec_.html#licensedpluginpath" class="tsd-kind-icon">licensed<wbr>Plugin<wbr>Path</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_specs_universalpluginmanager_spec_.html#testpluginpath" class="tsd-kind-icon">test<wbr>Plugin<wbr>Path</a>
+						<a href="../modules/_utils_confluencespacetestutils_.html#screenshotreporter" class="tsd-kind-icon">screenshot<wbr>Reporter</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_specs_universalpluginmanager_spec_.html#createtestpluginpath" class="tsd-kind-icon">create<wbr>Test<wbr>Plugin<wbr>Path</a>
+						<a href="../modules/_utils_confluencespacetestutils_.html#createpermissionmapfromlist" class="tsd-kind-icon">create<wbr>Permission<wbr>Map<wbr>From<wbr>List</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_specs_universalpluginmanager_spec_.html#fakeuploadplugininput" class="tsd-kind-icon">fake<wbr>Upload<wbr>Plugin<wbr>Input</a>
+						<a href="../modules/_utils_confluencespacetestutils_.html#testpermissions" class="tsd-kind-icon">test<wbr>Permissions</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_utils_confluencespacetestutils_.html#confluencespacetestutils" class="tsd-kind-icon">confluence<wbr>Space<wbr>Test<wbr>Utils</a>
 					</li>
 				</ul>
 			</nav>
