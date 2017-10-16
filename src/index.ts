@@ -52,6 +52,7 @@ export const confluenceProtractorBase = {
 		ConfluenceGroup: require("./page-objects/ConfluenceGroup").ConfluenceGroup,
 		ConfluenceUser: require("./page-objects/ConfluenceUser").ConfluenceUser,
 		ConfluenceEditor: require("./page-objects/ConfluenceEditor").ConfluenceEditor,
+		ConfluenceSecurityConfig: require("./page-objects/ConfluenceSecurityConfig").ConfluenceSecurityConfig,
 		UniversalPluginManager: require("./page-objects/UniversalPluginManager").UniversalPluginManager,
 	},
 	utils: {
