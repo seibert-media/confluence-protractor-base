@@ -4,32 +4,14 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 
 	const confluenceSecurityConfig = new ConfluenceSecurityConfig();
 
-	let savedWebSudoState: boolean;
-
 	beforeAll(() => {
-		confluenceSecurityConfig.loginAsAdmin();
-
-		confluenceSecurityConfig.isWebSudoEnabled().then((isWebSudoEnabled) => {
-			savedWebSudoState = isWebSudoEnabled;
-
-			// enable before test
-			confluenceSecurityConfig.disableWebSudo();
-		});
+		confluenceSecurityConfig.authenticateAsAdmin();
+		confluenceSecurityConfig.disableWebSudo();
 	});
 
 	afterAll(() => {
-		// reset web sudo
-		confluenceSecurityConfig.isWebSudoEnabled().then((isWebSudoEnabled) => {
-			if (savedWebSudoState === isWebSudoEnabled) {
-				return;
-			}
-
-			if (savedWebSudoState) {
-				confluenceSecurityConfig.enableWebSudo();
-			} else {
-				confluenceSecurityConfig.disableWebSudo();
-			}
-		});
+		confluenceSecurityConfig.authenticateAsAdmin();
+		confluenceSecurityConfig.disableWebSudo();
 	});
 
 	describe("disableWebSudo()", () => {
