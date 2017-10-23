@@ -62,8 +62,11 @@ export class ConfluenceBase extends ConfluenceLogin {
 
 	public disableNotifications() {
 		if (this.confluenceVersion().greaterThan("5.9")) {
-			console.log("disable notifications");
-			this.openAdminPage("plugins/servlet/stp/view/?source=notification");
+			if (this.confluenceVersion().lessThan("6.5")) {
+				this.openAdminPage("plugins/servlet/stp/view/?source=notification");
+			} else {
+				this.openAdminPage("plugins/servlet/troubleshooting/view");
+			}
 			takeScreenshot("disabling_notifications.png");
 
 			asyncElement(by.css(".notification-toggle"), DEFAULT_LOADING_TIMEOUT).click();
