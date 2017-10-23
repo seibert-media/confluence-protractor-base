@@ -1,6 +1,6 @@
 import {browser, by, element, ExpectedConditions} from "protractor";
 import {Locator} from "protractor/built/locators";
-import {promise} from "selenium-webdriver";
+import {By, promise} from "selenium-webdriver";
 import {CheckboxOption} from "../utils/elements/CheckboxOption";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceBase} from "./ConfluenceBase";
@@ -133,7 +133,7 @@ export class ConfluenceUser extends ConfluenceBase {
 		this.personalSpace.remove();
 	}
 
-	private groupSelector(groupName: string): Locator {
+	private groupSelector(groupName: string): By {
 		return by.css('[href="domembersofgroupsearch.action?membersOfGroupTerm=' + groupName + '"]');
 	}
 
