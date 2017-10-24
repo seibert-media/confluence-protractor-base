@@ -15,14 +15,14 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 	});
 
 	describe("disableWebSudo()", () => {
-		fit("disables the web sudo configuration", () => {
+		it("disables the web sudo configuration", () => {
 			confluenceSecurityConfig.disableWebSudo();
 			expect(confluenceSecurityConfig.isWebSudoEnabled()).toBe(false);
 		});
 	});
 
 	describe("enableWebSudo()", () => {
-		fit("enable the web sudo configuration", () => {
+		it("enable the web sudo configuration", () => {
 			confluenceSecurityConfig.enableWebSudo();
 			expect(confluenceSecurityConfig.isWebSudoEnabled()).toBe(true);
 		});
