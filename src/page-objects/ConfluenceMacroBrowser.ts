@@ -1,5 +1,4 @@
 import {by, element, ElementFinder} from "protractor";
-import {Locator} from "protractor/built/locators";
 import {promise} from "selenium-webdriver";
 import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
@@ -13,7 +12,7 @@ export class ConfluenceMacroBrowser {
 	public dataMacroName: string;
 
 	public pageEditor: ConfluenceEditor = new ConfluenceEditor();
-	public macroLocator: Locator = by.css('[data-macro-name="' + this.dataMacroName + '"]');
+	public macroLocator: any; // Locator causes tsc error (TS2345)
 
 	/**
 	 *
@@ -24,6 +23,7 @@ export class ConfluenceMacroBrowser {
 	constructor(macroName: string, dataMacroName: string) {
 		this.macroName = macroName;
 		this.dataMacroName = dataMacroName;
+		this.macroLocator = by.css('[data-macro-name="' + dataMacroName + '"]');
 
 		pageObjectUtils.assertNotNull(this.macroName, 'First param "macroName" must be set');
 		pageObjectUtils.assertNotNull(this.dataMacroName, 'First param "dataMacroName" must be set');

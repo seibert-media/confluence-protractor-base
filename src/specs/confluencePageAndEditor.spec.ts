@@ -48,11 +48,16 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 			page.remove();
 		});
 
-		it("opens and closes the editor", () => {
+		it("opens the editor", () => {
 			page.edit();
+
 			expect(pageEditor.hasEditor()).toBe(true);
+		});
+
+		it("closes the editor", () => {
 			page.getEditor().cancel();
 			pageEditor.waitUntilEditorClosed();
+
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
 
@@ -61,6 +66,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 				page.edit();
 				pageEditor.editor.sendKeys("Some Content");
 				pageEditor.cancel();
+				pageEditor.keepDraftIfPresent();
 				pageEditor.waitUntilEditorClosed();
 				pageObjectUtils.asyncElement(by.id("editPageLink")).click();
 			});
@@ -70,12 +76,10 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 				pageEditor.waitUntilEditorClosed();
 			});
 
-			it("has a draft message", () => {
+			it("has and discards draft message", () => {
 				pageEditor.waitUntilEditorOpened();
-				expect(element(by.id("draft-messages")).isPresent()).toBe(true);
-
+				expectDraftDialog(true);
 				pageEditor.discardDraftIfPresent();
-				expect(element(by.id("draft-messages")).isPresent()).toBe(false);
 			});
 		});
 	});
@@ -120,4 +124,15 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
 	});
+
+	function expectDraftDialog(hasDialog: Boolean) {
+		let draftDialog = element(by.id("draft-messages"));
+
+		if (pageEditor.confluenceVersion().greaterThanEquals("6.4")) {
+			draftDialog = element(by.id("qed-discard-button"));
+		}
+
+		expect(draftDialog.isPresent()).toBe(hasDialog);
+	}
 });
+

@@ -13,40 +13,41 @@ describe("ConfluenceMacroBrowser (page object)", () => {
 
 	beforeAll(() => {
 		pageEditor.authenticateAsAdmin();
+		page.create();
+		pageEditor.waitUntilEditorClosed();
 	});
 
-	describe("insertMacroViaBracket()", () => {
-		beforeAll(() => {
-			page.create();
-			pageEditor.waitUntilEditorClosed();
+	afterAll(() => {
+		browser.getTitle().then((pageTitle) => {
+			if (pageTitle.indexOf(uniquePageTitle) >= 0) {
+				page.remove();
+			}
 		});
+	});
 
-		afterAll(() => {
-			browser.getTitle().then((pageTitle) => {
-				if (pageTitle.indexOf(uniquePageTitle) >= 0) {
-					page.remove();
-				}
-			});
-		});
-
-		it("inserts Macro", () => {
+	describe("with bracket save", () => {
+		it("opens editor", () => {
 			page.edit();
 			pageEditor.waitUntilEditorOpened();
+		});
 
+		it("inserts macro", () => {
 			macroBrowser.insertMacroViaBracket();
 
 			macroBrowser.getMacroElement().then((macro) => {
-				// browser.wait(macro.isPresent(), DEFAULT_LOADING_TIMEOUT);
-
 				page.getEditor().executeInEditorContext(() => {
 					expect(macro.isPresent()).toBe(true);
 				});
-
-				pageEditor.cancel();
-				pageEditor.waitUntilEditorClosed();
 			});
+		});
 
+		it("saves and closes the editor", () => {
+			pageEditor.save();
+			pageEditor.waitUntilEditorClosed();
+
+			macroBrowser.getMacroElement().then((macro) => {
+				expect(macro.isPresent()).toBe(true);
+			});
 		});
 	});
-
 });
