@@ -15,7 +15,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 	const pageEditor = new ConfluenceEditor();
 
 	beforeAll(() => {
-		pageEditor.authenticateAsAdmin();
+		pageEditor.loginAsAdmin();
 	});
 
 	describe("create()", () => {

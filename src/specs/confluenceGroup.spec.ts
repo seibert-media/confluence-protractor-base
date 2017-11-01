@@ -5,7 +5,7 @@ describe("ConfluenceGroup (page object)", () => {
 	const group = new ConfluenceGroup("department-legals");
 
 	beforeAll(() => {
-		group.authenticateAsAdmin();
+		group.loginAsAdmin();
 	});
 
 	it("group does NOT exist before test", () => {
