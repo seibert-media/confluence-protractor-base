@@ -35,8 +35,8 @@ export class ConfluenceEditor extends ConfluenceBase {
 		return browser.wait(ExpectedConditions.not(this.hasEditor.bind(this)), DEFAULT_LOADING_TIMEOUT);
 	}
 
-	private discardDraftInternal(discardButtonSelector: string) {
-		let discardButton = element(by.css(discardButtonSelector));
+	public discardDraftInternal(discardButtonSelector: string) {
+		const discardButton = element(by.css(discardButtonSelector));
 
 		browser.wait(ExpectedConditions.visibilityOf(discardButton), DEFAULT_ELEMENT_TIMEOUT)
 			.then((isVisible) => {
@@ -57,7 +57,7 @@ export class ConfluenceEditor extends ConfluenceBase {
 	}
 
 	public keepDraftIfPresent() {
-		let discardButtonSelector = "#qed-save-exit-button";
+		const discardButtonSelector = "#qed-save-exit-button";
 		this.discardDraftInternal(discardButtonSelector);
 	}
 

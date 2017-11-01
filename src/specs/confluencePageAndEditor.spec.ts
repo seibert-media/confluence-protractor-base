@@ -125,7 +125,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		});
 	});
 
-	function expectDraftDialog(hasDialog: Boolean) {
+	function expectDraftDialog(hasDialog: boolean) {
 		let draftDialog = element(by.id("draft-messages"));
 
 		if (pageEditor.confluenceVersion().greaterThanEquals("6.4")) {
@@ -135,4 +135,3 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		expect(draftDialog.isPresent()).toBe(hasDialog);
 	}
 });
-
