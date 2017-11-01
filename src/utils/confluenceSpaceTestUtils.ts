@@ -75,7 +75,7 @@ function testPermissions(spacePageObject: ConfluenceSpace, permissions: any, per
 				return;
 			}
 
-			expect((spacePermissionsAction[permissionMethod] as Function)(permissionName, additionalPermissionParam)).toBe("" + permitted);
+			expect((spacePermissionsAction[permissionMethod] as (permission: string, permissionType?: string) => void)(permissionName, additionalPermissionParam)).toBe("" + permitted);
 		});
 	});
 
