@@ -50,7 +50,7 @@ export class ConfluenceEditor extends ConfluenceBase {
 
 	public discardDraftIfPresent() {
 		let discardButtonSelector = ".discard-draft";
-		if (this.confluenceVersion().greaterThanEquals("6.4")) {
+		if (this.confluenceVersion().greaterThanEquals("6.0")) {
 			discardButtonSelector = "#qed-discard-button";
 		}
 		this.discardDraftInternal(discardButtonSelector);

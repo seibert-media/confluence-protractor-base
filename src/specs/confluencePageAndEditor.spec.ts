@@ -11,23 +11,21 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 	const uniquePageTitle = "Test Page - " + timestamp;
 	const uniqueCommentContent = "Test Comment - " + timestamp;
 
-	const page = new ConfluencePage(uniquePageTitle, "ds");
+	const page = new ConfluencePage(uniquePageTitle + " - page", "ds");
 	const pageEditor = new ConfluenceEditor();
 
 	beforeAll(() => {
 		pageEditor.loginAsAdmin();
 	});
 
+	afterAll(() => {
+		page.remove();
+	});
+
 	describe("create()", () => {
-		beforeAll(() => {
-			page.create();
-		});
-
-		afterAll(() => {
-			page.remove();
-		});
-
 		it("closes editor after save", () => {
+			page.create();
+
 			pageEditor.waitUntilEditorClosed();
 
 			expect(pageEditor.hasEditor()).toBe(false);
@@ -39,15 +37,6 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 	});
 
 	describe("edit()", () => {
-		beforeAll(() => {
-			page.create();
-			pageEditor.waitUntilEditorClosed();
-		});
-
-		afterAll(() => {
-			page.remove();
-		});
-
 		it("opens the editor", () => {
 			page.edit();
 
@@ -128,7 +117,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 	function expectDraftDialog(hasDialog: boolean) {
 		let draftDialog = element(by.id("draft-messages"));
 
-		if (pageEditor.confluenceVersion().greaterThanEquals("6.4")) {
+		if (pageEditor.confluenceVersion().greaterThanEquals("6.0")) {
 			draftDialog = element(by.id("qed-discard-button"));
 		}
 
