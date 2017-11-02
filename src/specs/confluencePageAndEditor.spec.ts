@@ -40,6 +40,12 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		it("can create a page", () => {
 			expect(browser.getTitle()).toContain(uniquePageTitle);
 		});
+
+		it( "can open editor", () => {
+			page.openEditor();
+			expect(pageEditor.hasEditor()).toBe(true);
+			pageEditor.cancel();
+		});
 	});
 
 	describe("comments", () => {

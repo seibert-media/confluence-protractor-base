@@ -48,6 +48,12 @@ export class ConfluencePage extends ConfluenceBase {
 		browser.wait(ExpectedConditions.visibilityOf(element(by.id("title-text"))), DEFAULT_LOADING_TIMEOUT);
 	}
 
+	public openEditor() {
+		this.pageActions.displayPage.open();
+		asyncElement(by.id("editPageLink")).click();
+		this.pageEditor.waitUntilEditorOpened();
+	}
+
 	public remove() {
 		this.openActionMenu();
 
