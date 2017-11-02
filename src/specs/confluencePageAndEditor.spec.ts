@@ -68,6 +68,12 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 				pageEditor.discardDraftIfPresent();
 			});
 		});
+
+		it( "can open editor", () => {
+			page.openEditor();
+			expect(pageEditor.hasEditor()).toBe(true);
+			pageEditor.cancel();
+		});
 	});
 
 	describe("comments", () => {
