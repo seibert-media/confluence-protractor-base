@@ -12,7 +12,7 @@ describe("ConfluenceMacroBrowser (page object)", () => {
 	const macroBrowser = new ConfluenceMacroBrowser("Info", "info");
 
 	beforeAll(() => {
-		pageEditor.authenticateAsAdmin();
+		pageEditor.loginAsAdmin();
 		page.create();
 		pageEditor.waitUntilEditorClosed();
 	});
@@ -25,7 +25,7 @@ describe("ConfluenceMacroBrowser (page object)", () => {
 		});
 	});
 
-	describe("with bracket save", () => {
+	describe("insertMacroViaBracket()", () => {
 		it("opens editor", () => {
 			page.edit();
 			pageEditor.waitUntilEditorOpened();

@@ -5,13 +5,13 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 	const confluenceSecurityConfig = new ConfluenceSecurityConfig();
 
 	beforeAll(() => {
-		confluenceSecurityConfig.authenticateAsAdmin();
+		confluenceSecurityConfig.loginAsAdmin();
+
 		confluenceSecurityConfig.enableWebSudo();
 		confluenceSecurityConfig.authenticateAsAdmin();
 	});
 
 	afterAll(() => {
-		confluenceSecurityConfig.authenticateAsAdmin();
 		confluenceSecurityConfig.disableWebSudo();
 	});
 

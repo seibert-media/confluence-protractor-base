@@ -146,7 +146,6 @@ describe("ConfluenceSpace (page object)", () => {
 		});
 
 		it("removes a space", () => {
-			usersTestSpace.authenticate();
 			usersTestSpace.remove();
 		});
 

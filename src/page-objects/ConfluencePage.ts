@@ -52,6 +52,13 @@ export class ConfluencePage extends ConfluenceBase {
 		this.pageActions.displayPage.open();
 	}
 
+	// TODO remove redundant method
+	public openEditor() {
+		this.pageActions.displayPage.open();
+		asyncElement(by.id("editPageLink")).click();
+		this.pageEditor.waitUntilEditorOpened();
+	}
+
 	public edit() {
 		this.open();
 		this.pageEditor.hasEditor().then((hasEditor) => {

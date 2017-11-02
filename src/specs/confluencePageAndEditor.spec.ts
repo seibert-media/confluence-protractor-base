@@ -70,7 +70,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		});
 	});
 
-	describe("comments", () => {
+	describe("openComment()", () => {
 		beforeAll(() => {
 			page.open();
 		});
