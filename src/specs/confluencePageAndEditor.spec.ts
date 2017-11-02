@@ -3,8 +3,6 @@ import {ConfluenceEditor} from "../page-objects/ConfluenceEditor";
 import {ConfluencePage} from "../page-objects/ConfluencePage";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 
-const openPage = pageObjectUtils.openPage;
-
 describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 
 	const timestamp = new Date().valueOf();
@@ -67,20 +65,21 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 
 			it("has and discards draft message", () => {
 				pageEditor.waitUntilEditorOpened();
-				expectDraftDialog(true);
 				pageEditor.discardDraftIfPresent();
 			});
 		});
 	});
 
 	describe("comments", () => {
-		it("are not present before tests", () => {
+		beforeAll(() => {
+			page.open();
+		});
+
+		it("has no comments", () => {
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
 
 		it("adds a comment", () => {
-			openPage("display/ds");
-
 			pageEditor.openComment();
 			pageEditor.editor.sendKeys(uniqueCommentContent);
 			pageEditor.save();
@@ -92,16 +91,12 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		});
 
 		it("removes the comment", () => {
-			openPage("display/ds");
-
 			page.removeLatestComment();
 
 			expect(page.hasComments()).toBe(false);
 		});
 
 		it("cancels a comment", () => {
-			openPage("display/ds");
-
 			pageEditor.openComment();
 
 			expect(pageEditor.hasEditor()).toBe(true);
@@ -113,14 +108,4 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
 	});
-
-	function expectDraftDialog(hasDialog: boolean) {
-		let draftDialog = element(by.id("draft-messages"));
-
-		if (pageEditor.confluenceVersion().greaterThanEquals("6.0")) {
-			draftDialog = element(by.id("qed-discard-button"));
-		}
-
-		expect(draftDialog.isPresent()).toBe(hasDialog);
-	}
 });
