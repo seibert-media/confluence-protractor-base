@@ -1,8 +1,11 @@
-import {by, element} from "protractor";
+import {by} from "protractor";
 import {promise} from "selenium-webdriver";
+import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {CheckboxOption} from "../utils/elements/CheckboxOption";
 import {ConfluenceAction} from "./ConfluenceAction";
 import {ConfluenceBase} from "./ConfluenceBase";
+
+const asyncElement = pageObjectUtils.asyncElement;
 
 export class ConfluenceSecurityConfig extends ConfluenceBase {
 
@@ -28,23 +31,22 @@ export class ConfluenceSecurityConfig extends ConfluenceBase {
 	}
 
 	public enableWebSudo(): void {
-		this.executeAndSave(() => {
-			this.getWebSudoCheckBox().select();
-		});
+		this.edit();
+		this.getWebSudoCheckBox().select();
+		this.save();
 	}
 
 	public disableWebSudo(): void {
-		this.executeAndSave(() => {
-			this.getWebSudoCheckBox().unselect();
-		});
+		this.edit();
+		this.getWebSudoCheckBox().unselect();
+		this.save();
 	}
 
-	private executeAndSave(changeOptionsFn: () => void) {
+	private edit(): void {
 		this.editSecurityAction.open({refreshAlways: true});
-
-		changeOptionsFn();
-
-		element(by.id("confirm")).click();
 	}
 
+	private save(): void {
+		asyncElement(by.id("confirm")).click();
+	}
 }

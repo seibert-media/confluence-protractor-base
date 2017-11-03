@@ -5,10 +5,9 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 	const confluenceSecurityConfig = new ConfluenceSecurityConfig();
 
 	beforeAll(() => {
-		confluenceSecurityConfig.loginAsAdmin();
+		confluenceSecurityConfig.authenticateAsAdmin();
 
 		confluenceSecurityConfig.enableWebSudo();
-		confluenceSecurityConfig.authenticateAsAdmin();
 	});
 
 	afterAll(() => {
