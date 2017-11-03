@@ -1,10 +1,10 @@
 import {by} from "protractor";
 import {promise} from "selenium-webdriver";
-import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {CheckboxOption} from "../utils/elements/CheckboxOption";
 import {ConfluenceAction} from "./ConfluenceAction";
 import {ConfluenceBase} from "./ConfluenceBase";
 
+import {pageObjectUtils} from "../utils/pageObjectUtils";
 const asyncElement = pageObjectUtils.asyncElement;
 
 export class ConfluenceSecurityConfig extends ConfluenceBase {
