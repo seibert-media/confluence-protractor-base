@@ -10,11 +10,19 @@ describe("Prepare Test Setup", () => {
 	beforeAll(() => {
 		failFastReporter.enable();
 		user.authenticateAsAdmin();
-		const confluenceSecurityConfig = new ConfluenceSecurityConfig();
-		confluenceSecurityConfig.disableWebSudo();
 	});
 
 	afterAll(failFastReporter.disable);
+
+	describe("disableWebSudo()", () => {
+
+		it("disables websudo", () => {
+			const confluenceSecurityConfig = new ConfluenceSecurityConfig();
+			confluenceSecurityConfig.disableWebSudo();
+
+			expect(confluenceSecurityConfig.isWebSudoEnabled()).toBe(false);
+		});
+	});
 
 	describe("create()", () => {
 
@@ -38,4 +46,5 @@ describe("Prepare Test Setup", () => {
 			user.personalSpace.waitForSpaceToAppearInSpaceDirectory();
 		});
 	});
+
 });

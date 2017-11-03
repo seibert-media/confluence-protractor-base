@@ -14,26 +14,28 @@ export class ConfluenceSecurityConfig extends ConfluenceBase {
 		path: "admin/editsecurityconfig.action",
 	});
 
-	private webSudoCheckbox = new CheckboxOption(by.name("webSudoEnabled"));
-
 	constructor() {
 		super();
 	}
 
+	public getWebSudoCheckBox(): CheckboxOption {
+		return new CheckboxOption(by.name("webSudoEnabled"));
+	}
+
 	public isWebSudoEnabled(): promise.Promise<boolean> {
 		this.viewSecurityAction.open({refreshAlways: true});
-		return this.webSudoCheckbox.isSelected();
+		return this.getWebSudoCheckBox().isSelected();
 	}
 
 	public enableWebSudo(): void {
 		this.executeAndSave(() => {
-			this.webSudoCheckbox.select();
+			this.getWebSudoCheckBox().select();
 		});
 	}
 
 	public disableWebSudo(): void {
 		this.executeAndSave(() => {
-			this.webSudoCheckbox.unselect();
+			this.getWebSudoCheckBox().unselect();
 		});
 	}
 
