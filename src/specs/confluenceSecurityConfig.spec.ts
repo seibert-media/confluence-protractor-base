@@ -18,7 +18,9 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 	describe("disableWebSudo()", () => {
 		it("disables the web sudo configuration", () => {
 			confluenceSecurityConfig.disableWebSudo();
+		});
 
+		it("is disabled", () => {
 			expect(confluenceSecurityConfig.isWebSudoEnabled()).toBe(false);
 		});
 	});
@@ -27,7 +29,9 @@ describe("ConfluenceSecurityConfig (page object)", () => {
 		it("enable the web sudo configuration", () => {
 			confluenceSecurityConfig.enableWebSudo();
 			confluenceSecurityConfig.authenticateAsAdmin();
+		});
 
+		it("is enabled", () => {
 			expect(confluenceSecurityConfig.isWebSudoEnabled()).toBe(true);
 		});
 	});
