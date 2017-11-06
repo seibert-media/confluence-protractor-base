@@ -52,18 +52,14 @@
   },
   "config": {
     "pre-git": {
-      "pre-commit": [
-        "npm run build"
-      ],
+      "pre-commit": [],
       "pre-push": [
         "git diff --exit-code --stat",
         "npm run build",
         "npm run tslint"
       ],
       "post-commit": [],
-      "post-checkout": [
-        "npm install"
-      ],
+      "post-checkout": [],
       "post-merge": []
     }
   }
