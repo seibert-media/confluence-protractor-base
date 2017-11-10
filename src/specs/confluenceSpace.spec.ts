@@ -5,7 +5,7 @@ describe("ConfluenceSpace (page object)", () => {
 
 	const demonstrationSpace = new ConfluenceSpace("ds", "Demonstration Space");
 	beforeAll(() => {
-		demonstrationSpace.authenticateAsAdmin();
+		demonstrationSpace.loginAsAdmin();
 	});
 
 	describe("assertSpaceExists", () => {
@@ -146,7 +146,6 @@ describe("ConfluenceSpace (page object)", () => {
 		});
 
 		it("removes a space", () => {
-			usersTestSpace.authenticate();
 			usersTestSpace.remove();
 		});
 

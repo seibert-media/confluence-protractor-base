@@ -1,6 +1,6 @@
 {
   "name": "confluence-protractor-base",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Base project for protractor e2e tests with confluence",
   "main": "./built/index.js",
   "types": "./built/index.d.ts",
@@ -31,7 +31,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/jasmine": "^2.5.53",
+    "@types/jasmine": "^2.6.2",
     "@types/jasminewd2": "^2.0.2",
     "@types/lodash": "^4.14.68",
     "@types/node": "^8.0.17",
@@ -45,25 +45,21 @@
   "devDependencies": {
     "eclint": "^2.3.0",
     "pre-git": "^3.15.3",
-    "typedoc": "^0.8.0"
+    "typedoc": "^0.9.0"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
   },
   "config": {
     "pre-git": {
-      "pre-commit": [
-        "npm run build"
-      ],
+      "pre-commit": [],
       "pre-push": [
         "git diff --exit-code --stat",
         "npm run build",
         "npm run tslint"
       ],
       "post-commit": [],
-      "post-checkout": [
-        "npm install"
-      ],
+      "post-checkout": [],
       "post-merge": []
     }
   }

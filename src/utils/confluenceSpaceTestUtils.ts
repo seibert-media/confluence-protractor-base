@@ -5,21 +5,17 @@ const pageObjectUtils = require("../utils/pageObjectUtils").pageObjectUtils;
 
 export const confluenceSpaceTestUtils = {
 	testAnonymousPermissions: (spacePageObject: ConfluenceSpace, permissions: any) => {
-		testPermissions(spacePageObject, permissions, PermissionMethod.ANONYMOUS);
+		testPermissions(spacePageObject, permissions, "getAnonymousPermission");
 	},
 	testGroupPermissions: (spacePageObject: ConfluenceSpace, permissions: any, group: any) => {
-		testPermissions(spacePageObject, permissions, PermissionMethod.GROUP, group);
+		testPermissions(spacePageObject, permissions, "getGroupPermission", group);
 	},
 	testUserPermissions: (spacePageObject: ConfluenceSpace, permissions: any, user: any) => {
-		testPermissions(spacePageObject, permissions, PermissionMethod.USER, user);
+		testPermissions(spacePageObject, permissions, "getUserPermission", user);
 	},
 };
 
-enum PermissionMethod {
-	ANONYMOUS = "getAnonymousPermission",
-	GROUP = "getGroupPermission",
-	USER = "getUserPermission",
-}
+type PermissionMethod = "getAnonymousPermission" | "getGroupPermission" | "getUserPermission";
 
 function createPermissionMapFromList(permissionList: string[]) {
 	const allPermissions = {
@@ -79,7 +75,8 @@ function testPermissions(spacePageObject: ConfluenceSpace, permissions: any, per
 				return;
 			}
 
-			expect(spacePermissionsAction[permissionMethod](permissionName, additionalPermissionParam)).toBe("" + permitted);
+			expect((spacePermissionsAction[permissionMethod] as (permission: string, permissionType?: string) => void)(permissionName, additionalPermissionParam))
+				.toBe("" + permitted);
 		});
 	});
 

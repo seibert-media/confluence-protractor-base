@@ -12,7 +12,7 @@ describe("AutocompleteSearch (page object)", () => {
 	const AUTOCOMPLETE_TIMEOUT = 45 * 1000;
 
 	beforeAll(() => {
-		pageEditor.authenticateAsAdmin();
+		pageEditor.loginAsAdmin();
 	});
 
 	it("adds a comment with a mention", () => {

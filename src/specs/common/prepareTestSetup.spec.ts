@@ -1,5 +1,6 @@
 import {browser} from "protractor";
 import {failFastReporter} from "../../jasmineReporters/failFastReporter";
+import {ConfluenceSecurityConfig} from "../../page-objects/ConfluenceSecurityConfig";
 import {ConfluenceUser} from "../../page-objects/ConfluenceUser";
 
 describe("Prepare Test Setup", () => {
@@ -12,6 +13,16 @@ describe("Prepare Test Setup", () => {
 	});
 
 	afterAll(failFastReporter.disable);
+
+	describe("disableWebSudo()", () => {
+
+		it("disables websudo", () => {
+			const confluenceSecurityConfig = new ConfluenceSecurityConfig();
+			confluenceSecurityConfig.disableWebSudo();
+
+			expect(confluenceSecurityConfig.isWebSudoEnabled()).toBe(false);
+		});
+	});
 
 	describe("create()", () => {
 
@@ -35,4 +46,5 @@ describe("Prepare Test Setup", () => {
 			user.personalSpace.waitForSpaceToAppearInSpaceDirectory();
 		});
 	});
+
 });
