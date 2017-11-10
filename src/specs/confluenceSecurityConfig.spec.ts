@@ -1,6 +1,6 @@
 import {ConfluenceSecurityConfig} from "../page-objects/ConfluenceSecurityConfig";
 
-describe("ConfluenceSecurityConfig (page object)", () => {
+xdescribe("ConfluenceSecurityConfig (page object)", () => {
 
 	const confluenceSecurityConfig = new ConfluenceSecurityConfig();
 
