@@ -48,10 +48,30 @@ export class ConfluencePage extends ConfluenceBase {
 		browser.wait(ExpectedConditions.visibilityOf(element(by.id("title-text"))), DEFAULT_LOADING_TIMEOUT);
 	}
 
+	public open() {
+		this.pageActions.displayPage.open();
+	}
+
+	// TODO remove redundant method
 	public openEditor() {
 		this.pageActions.displayPage.open();
 		asyncElement(by.id("editPageLink")).click();
 		this.pageEditor.waitUntilEditorOpened();
+	}
+
+	public edit() {
+		this.open();
+		this.pageEditor.hasEditor().then((hasEditor) => {
+			if (!hasEditor) {
+				asyncElement(by.id("editPageLink")).click();
+				this.pageEditor.waitUntilEditorOpened();
+				this.pageEditor.discardDraftIfPresent();
+			}
+		});
+	}
+
+	public getEditor() {
+		return this.pageEditor;
 	}
 
 	public remove() {

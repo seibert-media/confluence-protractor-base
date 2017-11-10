@@ -1,8 +1,11 @@
-import {by, element} from "protractor";
+import {by} from "protractor";
 import {promise} from "selenium-webdriver";
 import {CheckboxOption} from "../utils/elements/CheckboxOption";
 import {ConfluenceAction} from "./ConfluenceAction";
 import {ConfluenceBase} from "./ConfluenceBase";
+
+import {pageObjectUtils} from "../utils/pageObjectUtils";
+const asyncElement = pageObjectUtils.asyncElement;
 
 export class ConfluenceSecurityConfig extends ConfluenceBase {
 
@@ -14,35 +17,36 @@ export class ConfluenceSecurityConfig extends ConfluenceBase {
 		path: "admin/editsecurityconfig.action",
 	});
 
-	private webSudoCheckbox = new CheckboxOption(by.name("webSudoEnabled"));
-
 	constructor() {
 		super();
 	}
 
+	public getWebSudoCheckBox(): CheckboxOption {
+		return new CheckboxOption(by.name("webSudoEnabled"));
+	}
+
 	public isWebSudoEnabled(): promise.Promise<boolean> {
 		this.viewSecurityAction.open({refreshAlways: true});
-		return this.webSudoCheckbox.isSelected();
+		return this.getWebSudoCheckBox().isSelected();
 	}
 
 	public enableWebSudo(): void {
-		this.executeAndSave(() => {
-			this.webSudoCheckbox.select();
-		});
+		this.edit();
+		this.getWebSudoCheckBox().select();
+		this.save();
 	}
 
 	public disableWebSudo(): void {
-		this.executeAndSave(() => {
-			this.webSudoCheckbox.unselect();
-		});
+		this.edit();
+		this.getWebSudoCheckBox().unselect();
+		this.save();
 	}
 
-	private executeAndSave(changeOptionsFn: () => void) {
+	private edit(): void {
 		this.editSecurityAction.open({refreshAlways: true});
-
-		changeOptionsFn();
-
-		element(by.id("confirm")).click();
 	}
 
+	private save(): void {
+		asyncElement(by.id("confirm")).click();
+	}
 }

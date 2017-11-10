@@ -7,6 +7,7 @@ import {ConfluenceEditorFakeInput} from "./editor/ConfluenceEditorFakeInput";
 const asyncElement = pageObjectUtils.asyncElement;
 const skipAlertIfPresent = pageObjectUtils.skipAlertIfPresent;
 const DEFAULT_LOADING_TIMEOUT = pageObjectUtils.DEFAULT_LOADING_TIMEOUT;
+const DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
 
 export class ConfluenceEditor extends ConfluenceBase {
 
@@ -34,6 +35,32 @@ export class ConfluenceEditor extends ConfluenceBase {
 		return browser.wait(ExpectedConditions.not(this.hasEditor.bind(this)), DEFAULT_LOADING_TIMEOUT);
 	}
 
+	public discardDraftInternal(discardButtonSelector: string) {
+		const discardButton = element(by.css(discardButtonSelector));
+
+		browser.wait(ExpectedConditions.visibilityOf(discardButton), DEFAULT_ELEMENT_TIMEOUT)
+			.then((isVisible) => {
+				if (isVisible) {
+					discardButton.click();
+				}
+			}, () => {
+				// ignore
+			});
+	}
+
+	public discardDraftIfPresent() {
+		let discardButtonSelector = ".discard-draft";
+		if (this.confluenceVersion().greaterThanEquals("6.0")) {
+			discardButtonSelector = "#qed-discard-button";
+		}
+		this.discardDraftInternal(discardButtonSelector);
+	}
+
+	public keepDraftIfPresent() {
+		const discardButtonSelector = "#qed-save-exit-button";
+		this.discardDraftInternal(discardButtonSelector);
+	}
+
 	public executeInEditorContext(fn: (element: ElementFinder) => any) {
 		this.waitUntilEditorOpened();
 
@@ -52,6 +79,11 @@ export class ConfluenceEditor extends ConfluenceBase {
 
 	public cancel() {
 		asyncElement(by.id("rte-button-cancel")).click();
+	}
+
+	public cancelAndDiscardDraft() {
+		this.cancel();
+		this.discardDraftIfPresent();
 	}
 
 	public cancelAndSkipAlert() {

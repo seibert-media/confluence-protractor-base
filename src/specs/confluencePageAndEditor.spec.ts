@@ -1,9 +1,7 @@
-import {browser} from "protractor";
+import {browser, by, element} from "protractor";
 import {ConfluenceEditor} from "../page-objects/ConfluenceEditor";
 import {ConfluencePage} from "../page-objects/ConfluencePage";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
-
-const openPage = pageObjectUtils.openPage;
 
 describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 
@@ -11,27 +9,21 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 	const uniquePageTitle = "Test Page - " + timestamp;
 	const uniqueCommentContent = "Test Comment - " + timestamp;
 
-	const page = new ConfluencePage(uniquePageTitle, "ds");
+	const page = new ConfluencePage(uniquePageTitle + " - page", "ds");
 	const pageEditor = new ConfluenceEditor();
 
 	beforeAll(() => {
 		pageEditor.loginAsAdmin();
 	});
 
+	afterAll(() => {
+		page.remove();
+	});
+
 	describe("create()", () => {
-		beforeAll(() => {
-			page.create();
-		});
-
-		afterAll(() => {
-			browser.getTitle().then((pageTitle) => {
-				if (pageTitle.indexOf(uniquePageTitle) >= 0) {
-					page.remove();
-				}
-			});
-		});
-
 		it("closes editor after save", () => {
+			page.create();
+
 			pageEditor.waitUntilEditorClosed();
 
 			expect(pageEditor.hasEditor()).toBe(false);
@@ -40,22 +32,54 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		it("can create a page", () => {
 			expect(browser.getTitle()).toContain(uniquePageTitle);
 		});
+	});
 
-		it( "can open editor", () => {
-			page.openEditor();
+	describe("edit()", () => {
+		it("opens the editor", () => {
+			page.edit();
+
 			expect(pageEditor.hasEditor()).toBe(true);
-			pageEditor.cancel();
+		});
+
+		it("closes the editor", () => {
+			page.getEditor().cancel();
+			pageEditor.waitUntilEditorClosed();
+
+			expect(pageEditor.hasEditor()).toBe(false);
+		});
+
+		describe("discardDraftIfPresent()", () => {
+			beforeAll(() => {
+				page.edit();
+				pageEditor.editor.sendKeys("Some Content");
+				pageEditor.cancel();
+				pageEditor.keepDraftIfPresent();
+				pageEditor.waitUntilEditorClosed();
+				pageObjectUtils.asyncElement(by.id("editPageLink")).click();
+			});
+
+			afterAll(() => {
+				pageEditor.cancel();
+				pageEditor.waitUntilEditorClosed();
+			});
+
+			it("has and discards draft message", () => {
+				pageEditor.waitUntilEditorOpened();
+				pageEditor.discardDraftIfPresent();
+			});
 		});
 	});
 
-	describe("comments", () => {
-		it("are not present before tests", () => {
+	describe("openComment()", () => {
+		beforeAll(() => {
+			page.open();
+		});
+
+		it("has no comments", () => {
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
 
 		it("adds a comment", () => {
-			openPage("display/ds");
-
 			pageEditor.openComment();
 			pageEditor.editor.sendKeys(uniqueCommentContent);
 			pageEditor.save();
@@ -67,16 +91,12 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		});
 
 		it("removes the comment", () => {
-			openPage("display/ds");
-
 			page.removeLatestComment();
 
 			expect(page.hasComments()).toBe(false);
 		});
 
 		it("cancels a comment", () => {
-			openPage("display/ds");
-
 			pageEditor.openComment();
 
 			expect(pageEditor.hasEditor()).toBe(true);
