@@ -1,8 +1,8 @@
 import {ConfluenceEditor} from "../page-objects/ConfluenceEditor";
-import {ConfluenceMacroBrowser} from "../page-objects/ConfluenceMacroBrowser";
+import {ConfluenceMacro} from "../page-objects/ConfluenceMacro";
 import {ConfluencePage} from "../page-objects/ConfluencePage";
 
-describe("ConfluenceMacroBrowser (page object)", () => {
+describe("ConfluenceMacro (page object)", () => {
 	const timestamp = new Date().valueOf();
 	const uniquePageTitle = "Test Page - " + timestamp + " - macro";
 	const page = new ConfluencePage(uniquePageTitle, "ds");
@@ -10,8 +10,8 @@ describe("ConfluenceMacroBrowser (page object)", () => {
 	const pageEditor = new ConfluenceEditor();
 
 	const macros = [
-		new ConfluenceMacroBrowser("Info"),
-		new ConfluenceMacroBrowser("Status"),
+		new ConfluenceMacro("Info"),
+		new ConfluenceMacro("Status"),
 	];
 
 	beforeAll(() => {

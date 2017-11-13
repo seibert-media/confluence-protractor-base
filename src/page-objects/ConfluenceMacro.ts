@@ -7,7 +7,7 @@ import {ConfluenceEditor} from "./ConfluenceEditor";
 const asyncElement = pageObjectUtils.asyncElement;
 const DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
 
-export class ConfluenceMacroBrowser {
+export class ConfluenceMacro {
 
 	public macroName: string;
 	public dataMacroName: string;
