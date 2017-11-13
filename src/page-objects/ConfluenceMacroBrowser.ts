@@ -25,10 +25,9 @@ export class ConfluenceMacroBrowser {
 	constructor(macroName: string, dataMacroName?: string) {
 		this.macroName = macroName;
 		this.dataMacroName = dataMacroName || macroName.toLowerCase();
-		this.macroLocator = by.css('[data-macro-name="' + dataMacroName + '"]');
+		this.macroLocator = by.css('[data-macro-name="' + this.dataMacroName + '"]');
 
 		pageObjectUtils.assertNotNull(this.macroName, 'First param "macroName" must be set');
-		pageObjectUtils.assertNotNull(this.dataMacroName, 'First param "dataMacroName" must be set');
 	}
 
 	// At this point we can only handle macros without settings or required settings with defaults
