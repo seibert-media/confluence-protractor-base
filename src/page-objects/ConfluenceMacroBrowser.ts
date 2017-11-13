@@ -42,15 +42,27 @@ export class ConfluenceMacroBrowser {
 			.selectResult();
 	}
 
-	public getMacroElement(): promise.Promise<ElementFinder> {
+	public executeInContext(fnToExecute: () => any): any {
 		return this.pageEditor.hasEditor().then((hasEditor) => {
 			if (hasEditor) {
 				return this.pageEditor.executeInEditorContext(() => {
-					return asyncElement(this.macroLocator);
+					return fnToExecute();
 				});
 			} else {
-				return asyncElement(this.macroLocator);
+				return fnToExecute();
 			}
+		});
+	}
+
+	public getMacroElement(): promise.Promise<ElementFinder> {
+		return this.executeInContext(() => {
+			return asyncElement(this.macroLocator);
+		});
+	}
+
+	public isMacroPresent() {
+		return this.executeInContext(() => {
+			return asyncElement(this.macroLocator).isPresent();
 		});
 	}
 }

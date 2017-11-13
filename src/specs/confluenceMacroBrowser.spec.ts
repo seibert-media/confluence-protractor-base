@@ -3,7 +3,7 @@ import {ConfluenceEditor} from "../page-objects/ConfluenceEditor";
 import {ConfluenceMacroBrowser} from "../page-objects/ConfluenceMacroBrowser";
 import {ConfluencePage} from "../page-objects/ConfluencePage";
 
-describe("ConfluenceMacroBrowser (page object)", () => {
+fdescribe("ConfluenceMacroBrowser (page object)", () => {
 	const timestamp = new Date().valueOf();
 	const uniquePageTitle = "Test Page - " + timestamp + " - macro";
 
@@ -34,20 +34,14 @@ describe("ConfluenceMacroBrowser (page object)", () => {
 		it("inserts macro", () => {
 			macroBrowser.insertMacroViaBracket();
 
-			macroBrowser.getMacroElement().then((macro) => {
-				page.getEditor().executeInEditorContext(() => {
-					expect(macro.isPresent()).toBe(true);
-				});
-			});
+			expect(macroBrowser.isMacroPresent()).toBe(true);
 		});
 
 		it("saves and closes the editor", () => {
 			pageEditor.save();
 			pageEditor.waitUntilEditorClosed();
 
-			macroBrowser.getMacroElement().then((macro) => {
-				expect(macro.isPresent()).toBe(true);
-			});
+			expect(macroBrowser.isMacroPresent()).toBe(true);
 		});
 	});
 });
