@@ -6,7 +6,6 @@ import {ConfluenceEditor} from "./ConfluenceEditor";
 
 const asyncElement = pageObjectUtils.asyncElement;
 const DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
-const EC = ExpectedConditions;
 
 export class ConfluenceMacroBrowser {
 
@@ -47,6 +46,8 @@ export class ConfluenceMacroBrowser {
 	}
 
 	public saveDefaultMacroSettingsIfPresent() {
+		const EC = ExpectedConditions;
+
 		const macroSettings = element(by.css("#macro-details-page"));
 		browser.wait(EC.visibilityOf(macroSettings), DEFAULT_ELEMENT_TIMEOUT).then((isVisible: boolean) => {
 			if (isVisible) {

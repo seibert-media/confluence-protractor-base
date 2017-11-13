@@ -5,18 +5,18 @@ import {ConfluencePage} from "../page-objects/ConfluencePage";
 describe("ConfluenceMacroBrowser (page object)", () => {
 	const timestamp = new Date().valueOf();
 	const uniquePageTitle = "Test Page - " + timestamp + " - macro";
+	const page = new ConfluencePage(uniquePageTitle, "ds");
+
+	const pageEditor = new ConfluenceEditor();
 
 	const macros = [
-		new ConfluenceMacroBrowser("Info", "info"),
-		new ConfluenceMacroBrowser("Status", "status"),
+		new ConfluenceMacroBrowser("Info"),
+		new ConfluenceMacroBrowser("Status"),
 	];
-	const page = new ConfluencePage(uniquePageTitle, "ds");
-	const pageEditor = new ConfluenceEditor();
 
 	beforeAll(() => {
 		pageEditor.login();
 		page.create();
-		pageEditor.waitUntilEditorClosed();
 	});
 
 	afterAll(() => {
