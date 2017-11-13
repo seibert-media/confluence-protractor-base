@@ -1,4 +1,4 @@
-import {by, element, ElementFinder, ExpectedConditions} from "protractor";
+import {browser, by, element, ElementFinder, ExpectedConditions} from "protractor";
 import {promise} from "selenium-webdriver";
 import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
@@ -49,7 +49,7 @@ export class ConfluenceMacroBrowser {
 
 	public saveDefaultMacroSettingsIfPresent() {
 		let macroSettings = element(by.css('#macro-details-page'));
-		browser.wait(EC.visibilityOf(macroSettings), DEFAULT_ELEMENT_TIMEOUT).then((isVisible) => {
+		browser.wait(EC.visibilityOf(macroSettings), DEFAULT_ELEMENT_TIMEOUT).then((isVisible: boolean) => {
 			if (isVisible) {
 				element(by.css('#macro-details-page .button-panel-button')).click();
 			}
