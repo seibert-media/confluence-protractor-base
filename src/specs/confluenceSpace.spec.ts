@@ -6,6 +6,7 @@ describe("ConfluenceSpace (page object)", () => {
 	const demonstrationSpace = new ConfluenceSpace("ds", "Demonstration Space");
 	beforeAll(() => {
 		demonstrationSpace.loginAsAdmin();
+		demonstrationSpace.spaceActions.spaceDirectory.open({refreshAlways: true});
 	});
 
 	describe("assertSpaceExists", () => {
