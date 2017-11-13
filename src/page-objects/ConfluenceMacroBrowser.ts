@@ -1,10 +1,12 @@
-import {by, element, ElementFinder} from "protractor";
+import {by, element, ElementFinder, ExpectedConditions} from "protractor";
 import {promise} from "selenium-webdriver";
 import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceEditor} from "./ConfluenceEditor";
 
 const asyncElement = pageObjectUtils.asyncElement;
+const DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
+const EC = ExpectedConditions;
 
 export class ConfluenceMacroBrowser {
 
@@ -20,15 +22,16 @@ export class ConfluenceMacroBrowser {
 	 * @param dataMacroName Name of macro that is used in the macro's data attribute in DOM
 	 * @constructor
 	 */
-	constructor(macroName: string, dataMacroName: string) {
+	constructor(macroName: string, dataMacroName?: string) {
 		this.macroName = macroName;
-		this.dataMacroName = dataMacroName;
+		this.dataMacroName = dataMacroName || macroName.toLowerCase();
 		this.macroLocator = by.css('[data-macro-name="' + dataMacroName + '"]');
 
 		pageObjectUtils.assertNotNull(this.macroName, 'First param "macroName" must be set');
 		pageObjectUtils.assertNotNull(this.dataMacroName, 'First param "dataMacroName" must be set');
 	}
 
+	// At this point we can only handle macros without settings or required settings with defaults
 	public insertMacroViaBracket() {
 		const macroAutocomplete = new AutocompleteSearch({
 			searchTerm: this.macroName,
@@ -40,6 +43,19 @@ export class ConfluenceMacroBrowser {
 			.search({searchPrefix: "{", skipClear: true})
 			.waitForMatchingResult()
 			.selectResult();
+
+		this.saveDefaultMacroSettingsIfPresent();
+	}
+
+	public saveDefaultMacroSettingsIfPresent() {
+		let macroSettings = element(by.css('#macro-details-page'));
+		browser.wait(EC.visibilityOf(macroSettings), DEFAULT_ELEMENT_TIMEOUT).then((isVisible) => {
+			if (isVisible) {
+				element(by.css('#macro-details-page .button-panel-button')).click();
+			}
+		}).catch(() => {
+			// skip
+		});
 	}
 
 	public executeInContext(fnToExecute: () => any): any {
