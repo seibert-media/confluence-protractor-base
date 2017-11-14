@@ -174,7 +174,9 @@ export class ConfluencePage extends ConfluenceBase {
 	}
 
 	private setPageName(pageName: string) {
-		element(by.id("content-title")).sendKeys(pageName);
+		let titleInputField = element(by.id("content-title"));
+		titleInputField.clear();
+		titleInputField.sendKeys(pageName);
 	}
 
 }
