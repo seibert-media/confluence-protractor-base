@@ -41,22 +41,19 @@ export class ConfluencePage extends ConfluenceBase {
 		};
 	}
 
-	public create() {
+	public newPage() {
 		this.pageActions.createPage.open();
 		this.setPageName(this.pageName);
+	}
+
+	public create() {
+		this.newPage();
 		this.pageEditor.save();
 		browser.wait(ExpectedConditions.visibilityOf(element(by.id("title-text"))), DEFAULT_LOADING_TIMEOUT);
 	}
 
 	public open() {
 		this.pageActions.displayPage.open();
-	}
-
-	// TODO remove redundant method
-	public openEditor() {
-		this.pageActions.displayPage.open();
-		asyncElement(by.id("editPageLink")).click();
-		this.pageEditor.waitUntilEditorOpened();
 	}
 
 	public edit() {
@@ -88,7 +85,7 @@ export class ConfluencePage extends ConfluenceBase {
 	}
 
 	public skipRemovalNotificationIfPresent() {
-		const removalNotification = element(by.css(".aui-message-success icon-close"));
+		const removalNotification = element(by.css(".aui-message-success .icon-close"));
 		pageObjectUtils.clickIfPresentAsync(removalNotification);
 	}
 
