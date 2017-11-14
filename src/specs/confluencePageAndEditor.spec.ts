@@ -20,7 +20,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		page.remove();
 	});
 
-	fdescribe("create()", () => {
+	describe("create()", () => {
 		it("closes editor after save", () => {
 			page.create();
 
@@ -109,7 +109,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 		});
 	});
 
-	fdescribe("copyPage()", () => {
+	describe("copyPage()", () => {
 		const pageTitles = ["", uniquePageTitle + " - copy"];
 		let copiedPage: ConfluencePage;
 
