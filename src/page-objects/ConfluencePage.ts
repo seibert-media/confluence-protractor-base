@@ -43,7 +43,7 @@ export class ConfluencePage extends ConfluenceBase {
 
 	public create() {
 		this.pageActions.createPage.open();
-		element(by.id("content-title")).sendKeys(this.pageName);
+		this.setPageName(this.pageName);
 		this.pageEditor.save();
 		browser.wait(ExpectedConditions.visibilityOf(element(by.id("title-text"))), DEFAULT_LOADING_TIMEOUT);
 	}
@@ -89,6 +89,19 @@ export class ConfluencePage extends ConfluenceBase {
 		element(by.id("action-menu-link")).click();
 	}
 
+	public copyPage(pageName?: string): ConfluencePage {
+		this.open();
+		this.openActionMenu();
+		asyncElement(by.id("action-copy-page-link")).click();
+		asyncElement(by.id("copy-dialog-next")).click();
+		let newPageName = "Copy of " + this.pageName;
+		if (pageName) {
+			newPageName = pageName;
+			this.setPageName(newPageName);
+		}
+		return new ConfluencePage(newPageName, this.spaceKey);
+	}
+
 	public addLabels(labels: string[]) {
 		this.pageActions.displayPage.open();
 
@@ -108,6 +121,14 @@ export class ConfluencePage extends ConfluenceBase {
 		browser.wait(EC.visibilityOf(element(by.css("#labels-autocomplete-list .aui-dropdown ol.last"))),
 			DEFAULT_LOADING_TIMEOUT);
 		return element.all(by.css("#labels-autocomplete-list .aui-dropdown ol.last li"));
+	}
+
+	public getPageName(): string {
+		return this.pageName;
+	}
+
+	public getSpaceKey(): string {
+		return this.pageName;
 	}
 
 	public getComments() {
@@ -144,6 +165,10 @@ export class ConfluencePage extends ConfluenceBase {
 	private openLabelEditor() {
 		element(by.css("a.show-labels-editor")).click();
 		return by.id("edit-labels-dialog");
+	}
+
+	private setPageName(pageName: string) {
+		element(by.id("content-title")).sendKeys(pageName);
 	}
 
 }

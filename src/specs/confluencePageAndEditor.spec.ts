@@ -11,6 +11,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 
 	const page = new ConfluencePage(uniquePageTitle + " - page", "ds");
 	const pageEditor = new ConfluenceEditor();
+	let copiedPage: ConfluencePage;
 
 	beforeAll(() => {
 		pageEditor.loginAsAdmin();
@@ -18,6 +19,7 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 
 	afterAll(() => {
 		page.remove();
+		copiedPage.remove();
 	});
 
 	describe("create()", () => {
@@ -107,5 +109,21 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
+	});
+
+	describe("copyPage()", () => {
+		beforeAll(() => {
+			page.open();
+		});
+
+		it("copies page with default title", () => {
+			copiedPage = page.copyPage();
+		});
+
+		it("saves copied page", () => {
+			copiedPage.pageEditor.save();
+			expect(copiedPage.getPageName()).toBe("Copy of " + page.getPageName());
+		});
+
 	});
 });
