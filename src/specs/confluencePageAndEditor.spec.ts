@@ -11,7 +11,6 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 
 	const page = new ConfluencePage(uniquePageTitle + " - page", "ds");
 	const pageEditor = new ConfluenceEditor();
-	let copiedPage: ConfluencePage;
 
 	beforeAll(() => {
 		pageEditor.loginAsAdmin();
@@ -19,7 +18,6 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 
 	afterAll(() => {
 		page.remove();
-		copiedPage.remove();
 	});
 
 	describe("create()", () => {
@@ -112,17 +110,31 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 	});
 
 	describe("copyPage()", () => {
+		const pageTitles = ["", uniquePageTitle + " - copy"];
+		let copiedPage: ConfluencePage;
+
 		beforeAll(() => {
 			page.open();
 		});
 
-		it("copies page with default title", () => {
-			copiedPage = page.copyPage();
-		});
+		pageTitles.forEach((pageTitle) => {
+			describe("", () => {
+				afterAll(() => {
+					copiedPage.remove();
+					copiedPage = null;
+				});
 
-		it("saves copied page", () => {
-			copiedPage.pageEditor.save();
-			expect(copiedPage.getPageName()).toBe("Copy of " + page.getPageName());
+				it("copies page with title '" + pageTitle + "'", () => {
+					copiedPage = page.copyPage(pageTitle);
+				});
+
+				it("saves copied page", () => {
+					copiedPage.pageEditor.save();
+					copiedPage.getEditor().waitUntilEditorClosed();
+
+					expect(element(by.css("#title-text")).getText()).toBe(copiedPage.getPageName());
+				});
+			});
 		});
 
 	});

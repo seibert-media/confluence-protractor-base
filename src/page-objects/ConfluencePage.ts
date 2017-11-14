@@ -75,6 +75,7 @@ export class ConfluencePage extends ConfluenceBase {
 	}
 
 	public remove() {
+		this.open();
 		this.openActionMenu();
 
 		asyncElement(by.id("action-remove-content-link")).click();
@@ -83,6 +84,12 @@ export class ConfluencePage extends ConfluenceBase {
 			confirmSelector = "delete-dialog-next";
 		}
 		asyncElement(by.id(confirmSelector)).click();
+		this.skipRemovalNotificationIfPresent();
+	}
+
+	public skipRemovalNotificationIfPresent() {
+		const removalNotification = element(by.css(".aui-message-success icon-close"));
+		pageObjectUtils.clickIfPresentAsync(removalNotification);
 	}
 
 	public openActionMenu() {
@@ -93,7 +100,9 @@ export class ConfluencePage extends ConfluenceBase {
 		this.open();
 		this.openActionMenu();
 		asyncElement(by.id("action-copy-page-link")).click();
-		asyncElement(by.id("copy-dialog-next")).click();
+
+		pageObjectUtils.clickIfPresentAsync(element(by.id("copy-dialog-next")));
+
 		let newPageName = "Copy of " + this.pageName;
 		if (pageName) {
 			newPageName = pageName;

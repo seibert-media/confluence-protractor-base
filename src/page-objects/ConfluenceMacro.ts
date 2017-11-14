@@ -1,11 +1,10 @@
-import {browser, by, element, ElementFinder, ExpectedConditions} from "protractor";
+import {browser, by, element, ElementFinder} from "protractor";
 import {promise} from "selenium-webdriver";
 import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceEditor} from "./ConfluenceEditor";
 
 const asyncElement = pageObjectUtils.asyncElement;
-const DEFAULT_ELEMENT_TIMEOUT = pageObjectUtils.DEFAULT_ELEMENT_TIMEOUT;
 
 export class ConfluenceMacro {
 
@@ -46,16 +45,8 @@ export class ConfluenceMacro {
 	}
 
 	public saveDefaultMacroSettingsIfPresent() {
-		const EC = ExpectedConditions;
-
-		const macroSettings = element(by.css("#macro-details-page"));
-		browser.wait(EC.visibilityOf(macroSettings), DEFAULT_ELEMENT_TIMEOUT).then((isVisible: boolean) => {
-			if (isVisible) {
-				element(by.css("#macro-details-page .button-panel-button")).click();
-			}
-		}).catch(() => {
-			// skip
-		});
+		const macroSettingsSaveButton = element(by.css("#macro-details-page .button-panel-button"));
+		pageObjectUtils.clickIfPresentAsync(macroSettingsSaveButton);
 	}
 
 	public executeInContext(fnToExecute: () => any): any {
