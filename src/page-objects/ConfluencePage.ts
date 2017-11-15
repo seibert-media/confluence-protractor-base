@@ -98,7 +98,7 @@ export class ConfluencePage extends ConfluenceBase {
 		this.openActionMenu();
 		asyncElement(by.id("action-copy-page-link")).click();
 
-		pageObjectUtils.clickIfPresentAsync(element(by.id("copy-dialog-next")));
+		pageObjectUtils.clickIfPresentAndClickableAsync(element(by.id("copy-dialog-next")));
 
 		let newPageName = "Copy of " + this.pageName;
 		if (pageName) {
