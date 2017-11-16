@@ -1,4 +1,4 @@
-import {by, element, ElementFinder} from "protractor";
+import {by, element} from "protractor";
 import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceEditor} from "./ConfluenceEditor";
@@ -24,13 +24,13 @@ export class ConfluenceMacro {
 	constructor(options: {
 		macroName: string,
 		dataMacroName?: string,
-		macroViewLocator?: any
+		macroViewLocator?: any,
 	}) {
 		pageObjectUtils.assertNotNull(options, 'Options with param "macroName" must be set');
 		this.macroName = options.macroName;
 		this.dataMacroName = options.dataMacroName || this.macroName.toLowerCase();
-		this.macroViewLocator = options.macroViewLocator || by.css('.' + this.dataMacroName);
-		this.macroEditorLocator = by.css('[data-macro-name="' + this.dataMacroName + '"]');
+		this.macroViewLocator = options.macroViewLocator || by.css("." + this.dataMacroName);
+		this.macroEditorLocator = by.css("[data-macro-name='" + this.dataMacroName + "']");
 	}
 
 	// At this point we can only handle macros without settings or required settings with defaults
@@ -54,7 +54,7 @@ export class ConfluenceMacro {
 		pageObjectUtils.clickIfPresentAsync(macroSettingsSaveButton);
 	}
 
-	public isMacroPresent() {
+	public isMacroPresent(): any {
 		return this.pageEditor.hasEditor().then((hasEditor) => {
 			if (hasEditor) {
 				return this.pageEditor.executeInEditorContext(() => {

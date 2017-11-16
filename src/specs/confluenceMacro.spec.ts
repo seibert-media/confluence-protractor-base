@@ -14,13 +14,12 @@ describe("ConfluenceMacro (page object)", () => {
 	const macros = [
 		new ConfluenceMacro({
 			macroName: "Code Block",
-			dataMacroName: "code"
+			dataMacroName: "code",
 		}),
 		new ConfluenceMacro({
 			macroName: "Status",
-			macroViewLocator: by.css(".status-macro")
+			macroViewLocator: by.css(".status-macro"),
 		})];
-
 
 	beforeAll(() => {
 		pageEditor.login();
