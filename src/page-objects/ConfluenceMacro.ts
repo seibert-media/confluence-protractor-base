@@ -1,5 +1,4 @@
-import {browser, by, element, ElementFinder} from "protractor";
-import {promise} from "selenium-webdriver";
+import {by, element, ElementFinder} from "protractor";
 import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceEditor} from "./ConfluenceEditor";
@@ -10,22 +9,28 @@ export class ConfluenceMacro {
 
 	public macroName: string;
 	public dataMacroName: string;
+	public macroViewLocator: any; // Locator causes tsc error (TS2345)
+	public macroEditorLocator: any; // Locator causes tsc error (TS2345)
 
 	public pageEditor: ConfluenceEditor = new ConfluenceEditor();
-	public macroLocator: any; // Locator causes tsc error (TS2345)
 
 	/**
-	 *
-	 * @param macroName Name of macro in UI
-	 * @param dataMacroName Name of macro that is used in the macro's data attribute in DOM
+	 * @param options
+	 * @param options.macroName Name of macro in UI
+	 * @param options.dataMacroName Name of macro that is used in the macro's data attribute in Editor DOM
+	 * @param options.macroViewLocator Used to locate the macro in View DOM
 	 * @constructor
 	 */
-	constructor(macroName: string, dataMacroName?: string) {
-		this.macroName = macroName;
-		this.dataMacroName = dataMacroName || macroName.toLowerCase();
-		this.macroLocator = by.css('[data-macro-name="' + this.dataMacroName + '"]');
-
-		pageObjectUtils.assertNotNull(this.macroName, 'First param "macroName" must be set');
+	constructor(options: {
+		macroName: string,
+		dataMacroName?: string,
+		macroViewLocator?: any
+	}) {
+		pageObjectUtils.assertNotNull(options, 'Options with param "macroName" must be set');
+		this.macroName = options.macroName;
+		this.dataMacroName = options.dataMacroName || this.macroName.toLowerCase();
+		this.macroViewLocator = options.macroViewLocator || by.css('.' + this.dataMacroName);
+		this.macroEditorLocator = by.css('[data-macro-name="' + this.dataMacroName + '"]');
 	}
 
 	// At this point we can only handle macros without settings or required settings with defaults
@@ -49,27 +54,15 @@ export class ConfluenceMacro {
 		pageObjectUtils.clickIfPresentAsync(macroSettingsSaveButton);
 	}
 
-	public executeInContext(fnToExecute: () => any): any {
+	public isMacroPresent() {
 		return this.pageEditor.hasEditor().then((hasEditor) => {
 			if (hasEditor) {
 				return this.pageEditor.executeInEditorContext(() => {
-					return fnToExecute();
+					return asyncElement(this.macroEditorLocator).isPresent();
 				});
 			} else {
-				return fnToExecute();
+				return asyncElement(this.macroViewLocator).isPresent();
 			}
-		});
-	}
-
-	public getMacroElement(): promise.Promise<ElementFinder> {
-		return this.executeInContext(() => {
-			return asyncElement(this.macroLocator);
-		});
-	}
-
-	public isMacroPresent() {
-		return this.executeInContext(() => {
-			return asyncElement(this.macroLocator).isPresent();
 		});
 	}
 }
