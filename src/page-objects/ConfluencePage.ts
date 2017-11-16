@@ -43,6 +43,7 @@ export class ConfluencePage extends ConfluenceBase {
 
 	public newPage() {
 		this.pageActions.createPage.open();
+		this.pageEditor.waitUntilEditorOpened();
 		this.setPageName(this.pageName);
 	}
 
