@@ -1,3 +1,5 @@
+import {by} from "protractor";
+
 import {ConfluenceEditor} from "../page-objects/ConfluenceEditor";
 import {ConfluenceMacro} from "../page-objects/ConfluenceMacro";
 import {ConfluencePage} from "../page-objects/ConfluencePage";
@@ -10,9 +12,14 @@ describe("ConfluenceMacro (page object)", () => {
 	const pageEditor = new ConfluenceEditor();
 
 	const macros = [
-		new ConfluenceMacro("Info"),
-		new ConfluenceMacro("Status"),
-	];
+		new ConfluenceMacro({
+			macroName: "Code Block",
+			dataMacroName: "code",
+		}),
+		new ConfluenceMacro({
+			macroName: "Status",
+			macroViewLocator: by.css(".status-macro"),
+		})];
 
 	beforeAll(() => {
 		pageEditor.login();

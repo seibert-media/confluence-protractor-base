@@ -108,4 +108,34 @@ describe("ConfluencePage und ConfluenceEditor (page object)", () => {
 			expect(pageEditor.hasEditor()).toBe(false);
 		});
 	});
+
+	describe("copyPage()", () => {
+		const pageTitles = ["", uniquePageTitle + " - copy"];
+		let copiedPage: ConfluencePage;
+
+		beforeAll(() => {
+			page.open();
+		});
+
+		pageTitles.forEach((pageTitle) => {
+			describe("", () => {
+				afterAll(() => {
+					copiedPage.remove();
+					copiedPage = null;
+				});
+
+				it("copies page with title '" + pageTitle + "'", () => {
+					copiedPage = page.copyPage(pageTitle);
+				});
+
+				it("saves copied page", () => {
+					copiedPage.pageEditor.save();
+					copiedPage.getEditor().waitUntilEditorClosed();
+
+					expect(element(by.css("#title-text")).getText()).toBe(copiedPage.getPageName());
+				});
+			});
+		});
+
+	});
 });

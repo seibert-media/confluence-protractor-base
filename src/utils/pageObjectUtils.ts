@@ -78,6 +78,8 @@ export interface PageObjectUtils {
 	assertNotNull: (value: any, message?: string) => promise.Promise<any>;
 	clickIfPresent: (element: ElementFinder) => promise.Promise<void>;
 	clickIfClickable: (element: ElementFinder) => promise.Promise<void>;
+	clickIfPresentAsync: (element: ElementFinder) => promise.Promise<void>;
+	clickIfPresentAndClickableAsync: (element: ElementFinder) => promise.Promise<void>;
 	logPromise: (promise: Promise<any>) => Promise<void>;
 	takeScreenshot: (imageName: string) => Promise<string> | promise.Promise<void>;
 	cleanScreenshots: () => any;
@@ -123,6 +125,22 @@ export const pageObjectUtils: PageObjectUtils = {
 			return elementToClick.click();
 		}
 	}),
+	clickIfPresentAsync: (elementToClick) => browser.wait(EC().visibilityOf(elementToClick), DEFAULT_ELEMENT_TIMEOUT).then((isVisible: boolean) => {
+		if (isVisible) {
+			return elementToClick.click();
+		}
+	}).catch(() => {
+		// skip
+	}),
+	clickIfPresentAndClickableAsync: (elementToClick) => browser.wait(
+		EC().and(EC().visibilityOf(elementToClick), EC().elementToBeClickable(elementToClick)), DEFAULT_ELEMENT_TIMEOUT)
+		.then((isVisibleAndClickable: boolean) => {
+			if (isVisibleAndClickable) {
+				return elementToClick.click();
+			}
+		}).catch(() => {
+			// skip
+		}),
 	clickIfClickable: (elementToClick) => EC().elementToBeClickable(elementToClick)().then((isClickable: boolean) => {
 		if (isClickable) {
 			return elementToClick.click();

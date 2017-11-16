@@ -41,22 +41,20 @@ export class ConfluencePage extends ConfluenceBase {
 		};
 	}
 
-	public create() {
+	public newPage() {
 		this.pageActions.createPage.open();
-		element(by.id("content-title")).sendKeys(this.pageName);
+		this.pageEditor.waitUntilEditorOpened();
+		this.setPageName(this.pageName);
+	}
+
+	public create() {
+		this.newPage();
 		this.pageEditor.save();
 		browser.wait(ExpectedConditions.visibilityOf(element(by.id("title-text"))), DEFAULT_LOADING_TIMEOUT);
 	}
 
 	public open() {
 		this.pageActions.displayPage.open();
-	}
-
-	// TODO remove redundant method
-	public openEditor() {
-		this.pageActions.displayPage.open();
-		asyncElement(by.id("editPageLink")).click();
-		this.pageEditor.waitUntilEditorOpened();
 	}
 
 	public edit() {
@@ -75,6 +73,7 @@ export class ConfluencePage extends ConfluenceBase {
 	}
 
 	public remove() {
+		this.open();
 		this.openActionMenu();
 
 		asyncElement(by.id("action-remove-content-link")).click();
@@ -83,10 +82,31 @@ export class ConfluencePage extends ConfluenceBase {
 			confirmSelector = "delete-dialog-next";
 		}
 		asyncElement(by.id(confirmSelector)).click();
+		this.skipRemovalNotificationIfPresent();
+	}
+
+	public skipRemovalNotificationIfPresent() {
+		const removalNotification = element(by.css(".aui-message-success .icon-close"));
+		pageObjectUtils.clickIfPresentAsync(removalNotification);
 	}
 
 	public openActionMenu() {
 		element(by.id("action-menu-link")).click();
+	}
+
+	public copyPage(pageName?: string): ConfluencePage {
+		this.open();
+		this.openActionMenu();
+		asyncElement(by.id("action-copy-page-link")).click();
+
+		pageObjectUtils.clickIfPresentAndClickableAsync(element(by.id("copy-dialog-next")));
+
+		let newPageName = "Copy of " + this.pageName;
+		if (pageName) {
+			newPageName = pageName;
+			this.setPageName(newPageName);
+		}
+		return new ConfluencePage(newPageName, this.spaceKey);
 	}
 
 	public addLabels(labels: string[]) {
@@ -108,6 +128,14 @@ export class ConfluencePage extends ConfluenceBase {
 		browser.wait(EC.visibilityOf(element(by.css("#labels-autocomplete-list .aui-dropdown ol.last"))),
 			DEFAULT_LOADING_TIMEOUT);
 		return element.all(by.css("#labels-autocomplete-list .aui-dropdown ol.last li"));
+	}
+
+	public getPageName(): string {
+		return this.pageName;
+	}
+
+	public getSpaceKey(): string {
+		return this.pageName;
 	}
 
 	public getComments() {
@@ -144,6 +172,12 @@ export class ConfluencePage extends ConfluenceBase {
 	private openLabelEditor() {
 		element(by.css("a.show-labels-editor")).click();
 		return by.id("edit-labels-dialog");
+	}
+
+	private setPageName(pageName: string) {
+		const titleInputField = asyncElement(by.id("content-title"));
+		titleInputField.clear();
+		titleInputField.sendKeys(pageName);
 	}
 
 }
