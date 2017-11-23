@@ -1,6 +1,6 @@
-import {pageObjectUtils} from "../pageObjectUtils";
 import {ElementFinder} from "protractor/built";
 import {By} from "selenium-webdriver";
+import {pageObjectUtils} from "../pageObjectUtils";
 
 const asyncElement = pageObjectUtils.asyncElement;
 
@@ -18,5 +18,5 @@ export class Button {
 
 	public click(): any {
 		return this.element().click();
-	};
+	}
 }

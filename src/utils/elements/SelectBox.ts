@@ -15,13 +15,13 @@ export class SelectBox {
 
 	public element(): ElementFinder {
 		return asyncElement(this.selector);
-	};
+	}
 
 	public getSelectedValue(): promise.Promise<string> {
-		return this.element().element(by.css('option:checked')).getText();
-	};
+		return this.element().element(by.css("option:checked")).getText();
+	}
 
 	public selectValue(value: string): any {
-		return this.element().element(by.cssContainingText('option', value)).click();
-	};
+		return this.element().element(by.cssContainingText("option", value)).click();
+	}
 }
