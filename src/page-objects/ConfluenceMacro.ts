@@ -35,16 +35,17 @@ export class ConfluenceMacro {
 
 	// At this point we can only handle macros without settings or required settings with defaults
 	public insertMacroViaBracket() {
+		const resultElement = element(by.css(".autocomplete-macros span[title='" + this.macroName + "']"));
 		const macroAutocomplete = new AutocompleteSearch({
 			searchTerm: this.macroName,
 			inputElement: this.pageEditor.editor,
-			resultContainer: element(by.css(".autocomplete-macros")),
+			resultContainer: resultElement,
 		});
 
 		macroAutocomplete
 			.search({searchPrefix: "{", skipClear: true})
-			.waitForMatchingResult()
-			.selectResult();
+			.waitForMatchingResult();
+		resultElement.click();
 
 		this.saveDefaultMacroSettingsIfPresent();
 	}
