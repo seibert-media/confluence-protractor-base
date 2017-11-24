@@ -1,4 +1,4 @@
-import {by, element} from "protractor";
+import {by, element, ElementFinder} from "protractor";
 import {AutocompleteSearch} from "../utils/elements/AutocompleteSearch";
 import {pageObjectUtils} from "../utils/pageObjectUtils";
 import {ConfluenceEditor} from "./ConfluenceEditor";
@@ -33,25 +33,26 @@ export class ConfluenceMacro {
 		this.macroEditorLocator = by.css("[data-macro-name='" + this.dataMacroName + "']");
 	}
 
-	// At this point we can only handle macros without settings or required settings with defaults
-	public insertMacroViaBracket() {
-		const resultElement = element(by.css(".autocomplete-macros span[title='" + this.macroName + "']"));
-		const macroAutocomplete = new AutocompleteSearch({
-			searchTerm: this.macroName,
-			inputElement: this.pageEditor.editor,
-			resultContainer: resultElement,
-		});
+	public insertMacroParams() {
+		// to be defined in sub classes
+	}
 
-		macroAutocomplete
-			.search({searchPrefix: "{", skipClear: true})
-			.waitForMatchingResult();
-		resultElement.click();
+	// At this point we can only handle macros without settings or required settings with defaults.
+	// Otherwise you have to extend the macro class and implement `insertMacroParams` (see "../specs/macro/AnchorMacro.ts" for details)
+	public insertMacroViaBracket() {
+		this.insertMacroViaBracketInternal();
+
+		this.insertMacroParams();
 
 		this.saveDefaultMacroSettingsIfPresent();
 	}
 
+	public getMacroSaveButton(): ElementFinder {
+		return element(by.css("#macro-details-page .button-panel-button"));
+	}
+
 	public saveDefaultMacroSettingsIfPresent() {
-		const macroSettingsSaveButton = element(by.css("#macro-details-page .button-panel-button"));
+		const macroSettingsSaveButton = this.getMacroSaveButton();
 		pageObjectUtils.clickIfPresentAsync(macroSettingsSaveButton);
 	}
 
@@ -65,5 +66,19 @@ export class ConfluenceMacro {
 				return asyncElement(this.macroViewLocator).isPresent();
 			}
 		});
+	}
+
+	private insertMacroViaBracketInternal() {
+		const resultElement = element(by.css(".autocomplete-macros span[title='" + this.macroName + "']"));
+		const macroAutocomplete = new AutocompleteSearch({
+			searchTerm: this.macroName,
+			inputElement: this.pageEditor.editor,
+			resultContainer: resultElement,
+		});
+
+		macroAutocomplete
+			.search({searchPrefix: "{", skipClear: true})
+			.waitForMatchingResult();
+		resultElement.click();
 	}
 }

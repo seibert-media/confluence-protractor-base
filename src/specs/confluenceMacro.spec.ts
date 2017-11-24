@@ -3,6 +3,7 @@ import {by} from "protractor";
 import {ConfluenceEditor} from "../page-objects/ConfluenceEditor";
 import {ConfluenceMacro} from "../page-objects/ConfluenceMacro";
 import {ConfluencePage} from "../page-objects/ConfluencePage";
+import {AnchorMacro} from "./macro/AnchorMacro";
 
 describe("ConfluenceMacro (page object)", () => {
 	const timestamp = new Date().valueOf();
@@ -19,7 +20,8 @@ describe("ConfluenceMacro (page object)", () => {
 		new ConfluenceMacro({
 			macroName: "Status",
 			macroViewLocator: by.css(".status-macro"),
-		})];
+		}),
+		new AnchorMacro({anchorName: "anchor"})];
 
 	beforeAll(() => {
 		pageEditor.login();
@@ -33,6 +35,7 @@ describe("ConfluenceMacro (page object)", () => {
 	describe("insertMacroViaBracket()", () => {
 		macros.forEach((macro) => {
 			describe('"' + macro.macroName + '"', () => {
+
 				it("opens editor", () => {
 					page.edit();
 					pageEditor.waitUntilEditorOpened();
