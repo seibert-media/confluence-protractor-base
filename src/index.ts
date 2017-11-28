@@ -14,6 +14,8 @@ export {
 	RadioOption,
 	CheckboxOption,
 	AutocompleteSearch,
+	SelectBox,
+	Button,
 	failFastReporter,
 	screenshotReporter,
 	loadConfluenceConfig,
@@ -35,8 +37,10 @@ import {UniversalPluginManager} from "./page-objects/UniversalPluginManager";
 import {protractorConfig} from "./protractorConfig";
 import {confluenceSpaceTestUtils} from "./utils/confluenceSpaceTestUtils";
 import {AutocompleteSearch} from "./utils/elements/AutocompleteSearch";
+import {Button} from "./utils/elements/Button";
 import {CheckboxOption} from "./utils/elements/CheckboxOption";
 import {RadioOption} from "./utils/elements/RadioOption";
+import {SelectBox} from "./utils/elements/SelectBox";
 import {pageObjectUtils} from "./utils/pageObjectUtils";
 import {Version} from "./utils/Version";
 
@@ -64,6 +68,8 @@ export const confluenceProtractorBase = {
 			RadioOption: require("./utils/elements/RadioOption").RadioOption,
 			CheckboxOption: require("./utils/elements/CheckboxOption").CheckboxOption,
 			AutocompleteSearch: require("./utils/elements/AutocompleteSearch").AutocompleteSearch,
+			Button: require("./utils/elements/Button").Button,
+			SelectBox: require("./utils/elements/SelectBox").SelectBox,
 		},
 	},
 	jasmineReporters: {
