@@ -65,7 +65,7 @@ export class ConfluenceBase extends ConfluenceLogin {
 			if (this.confluenceVersion().greaterThanEquals("6.5")) {
 				this.openAdminPage("plugins/servlet/troubleshooting/view");
 				// fix for 6.6: reopen as .notification-toggle might not be displayed in the first call of the action
-				openPage("plugins/servlet/troubleshooting/view", {refreshAlways: true})
+				openPage("plugins/servlet/troubleshooting/view", {refreshAlways: true});
 			} else {
 				this.openAdminPage("plugins/servlet/stp/view/?source=notification");
 			}
