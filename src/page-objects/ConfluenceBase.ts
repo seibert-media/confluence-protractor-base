@@ -62,10 +62,12 @@ export class ConfluenceBase extends ConfluenceLogin {
 
 	public disableNotifications() {
 		if (this.confluenceVersion().greaterThan("5.9")) {
-			if (this.confluenceVersion().lessThan("6.5")) {
-				this.openAdminPage("plugins/servlet/stp/view/?source=notification");
-			} else {
+			if (this.confluenceVersion().greaterThanEquals("6.5")) {
 				this.openAdminPage("plugins/servlet/troubleshooting/view");
+				// fix for 6.6: reopen as .notification-toggle might not be displayed in the first call of the action
+				openPage("plugins/servlet/troubleshooting/view", {refreshAlways: true})
+			} else {
+				this.openAdminPage("plugins/servlet/stp/view/?source=notification");
 			}
 			takeScreenshot("disabling_notifications.png");
 
