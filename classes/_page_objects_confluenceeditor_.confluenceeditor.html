@@ -104,15 +104,19 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#authenticateasadmin" class="tsd-kind-icon">authenticate<wbr>AsAdmin</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#cancel" class="tsd-kind-icon">cancel</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#cancelandclear" class="tsd-kind-icon">cancel<wbr>And<wbr>Clear</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#cancelanddiscarddraft" class="tsd-kind-icon">cancel<wbr>And<wbr>Discard<wbr>Draft</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#cancelandskipalert" class="tsd-kind-icon">cancel<wbr>And<wbr>Skip<wbr>Alert</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#confluenceversion" class="tsd-kind-icon">confluence<wbr>Version</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#currentusername" class="tsd-kind-icon">current<wbr>Username</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#disablenotifications" class="tsd-kind-icon">disable<wbr>Notifications</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#disablesynchrony" class="tsd-kind-icon">disable<wbr>Synchrony</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#discarddraftifpresent" class="tsd-kind-icon">discard<wbr>Draft<wbr>IfPresent</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#discarddraftinternal" class="tsd-kind-icon">discard<wbr>Draft<wbr>Internal</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#executeineditorcontext" class="tsd-kind-icon">execute<wbr>InEditor<wbr>Context</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#geteditorframe" class="tsd-kind-icon">get<wbr>Editor<wbr>Frame</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#getparamfromajs" class="tsd-kind-icon">get<wbr>Param<wbr>FromAJS</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#haseditor" class="tsd-kind-icon">has<wbr>Editor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#keepdraftifpresent" class="tsd-kind-icon">keep<wbr>Draft<wbr>IfPresent</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#loadconfluenceversion" class="tsd-kind-icon">load<wbr>Confluence<wbr>Version</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#login" class="tsd-kind-icon">login</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_page_objects_confluenceeditor_.confluenceeditor.html#loginasadmin" class="tsd-kind-icon">login<wbr>AsAdmin</a></li>
@@ -148,7 +152,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_page_objects_confluencelogin_.confluencelogin.html">ConfluenceLogin</a>.<a href="_page_objects_confluencelogin_.confluencelogin.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:14</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:15</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_page_objects_confluenceeditor_.confluenceeditor.html" class="tsd-signature-type">ConfluenceEditor</a></h4>
@@ -190,7 +194,7 @@
 					<div class="tsd-signature tsd-kind-icon">editor<span class="tsd-signature-symbol">:</span> <a href="_page_objects_editor_confluenceeditorfakeinput_.confluenceeditorfakeinput.html" class="tsd-signature-type">ConfluenceEditorFakeInput</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in page-objects/ConfluenceEditor.ts:14</li>
+							<li>Defined in page-objects/ConfluenceEditor.ts:15</li>
 						</ul>
 					</aside>
 				</section>
@@ -249,7 +253,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:53</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:80</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -266,7 +270,24 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:63</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:95</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="cancelanddiscarddraft" class="tsd-anchor"></a>
+					<h3>cancel<wbr>And<wbr>Discard<wbr>Draft</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">cancel<wbr>And<wbr>Discard<wbr>Draft<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in page-objects/ConfluenceEditor.ts:84</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -283,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:57</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:89</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -363,6 +384,46 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="discarddraftifpresent" class="tsd-anchor"></a>
+					<h3>discard<wbr>Draft<wbr>IfPresent</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">discard<wbr>Draft<wbr>IfPresent<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in page-objects/ConfluenceEditor.ts:51</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="discarddraftinternal" class="tsd-anchor"></a>
+					<h3>discard<wbr>Draft<wbr>Internal</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">discard<wbr>Draft<wbr>Internal<span class="tsd-signature-symbol">(</span>discardButtonSelector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in page-objects/ConfluenceEditor.ts:38</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>discardButtonSelector: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="executeineditorcontext" class="tsd-anchor"></a>
 					<h3>execute<wbr>InEditor<wbr>Context</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -372,7 +433,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:37</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:64</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -413,7 +474,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:21</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:22</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ElementFinder</span></h4>
@@ -457,10 +518,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:25</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:26</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="keepdraftifpresent" class="tsd-anchor"></a>
+					<h3>keep<wbr>Draft<wbr>IfPresent</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">keep<wbr>Draft<wbr>IfPresent<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in page-objects/ConfluenceEditor.ts:59</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -579,7 +657,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:69</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:101</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -614,7 +692,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:49</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:76</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -632,7 +710,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_page_objects_confluencebase_.confluencebase.html">ConfluenceBase</a>.<a href="_page_objects_confluencebase_.confluencebase.html#skipnotifications">skipNotifications</a></p>
 								<ul>
-									<li>Defined in page-objects/ConfluenceBase.ts:79</li>
+									<li>Defined in page-objects/ConfluenceBase.ts:84</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -649,7 +727,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:33</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:34</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -666,7 +744,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in page-objects/ConfluenceEditor.ts:29</li>
+									<li>Defined in page-objects/ConfluenceEditor.ts:30</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -759,6 +837,9 @@
 								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#cancelandclear" class="tsd-kind-icon">cancel<wbr>And<wbr>Clear</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#cancelanddiscarddraft" class="tsd-kind-icon">cancel<wbr>And<wbr>Discard<wbr>Draft</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#cancelandskipalert" class="tsd-kind-icon">cancel<wbr>And<wbr>Skip<wbr>Alert</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -774,6 +855,12 @@
 								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#disablesynchrony" class="tsd-kind-icon">disable<wbr>Synchrony</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#discarddraftifpresent" class="tsd-kind-icon">discard<wbr>Draft<wbr>IfPresent</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#discarddraftinternal" class="tsd-kind-icon">discard<wbr>Draft<wbr>Internal</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#executeineditorcontext" class="tsd-kind-icon">execute<wbr>InEditor<wbr>Context</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -784,6 +871,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#haseditor" class="tsd-kind-icon">has<wbr>Editor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#keepdraftifpresent" class="tsd-kind-icon">keep<wbr>Draft<wbr>IfPresent</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_page_objects_confluenceeditor_.confluenceeditor.html#loadconfluenceversion" class="tsd-kind-icon">load<wbr>Confluence<wbr>Version</a>
@@ -825,6 +915,9 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_page_objects_confluenceeditor_.html#default_element_timeout" class="tsd-kind-icon">DEFAULT_<wbr>ELEMENT_<wbr>TIMEOUT</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_page_objects_confluenceeditor_.html#default_loading_timeout" class="tsd-kind-icon">DEFAULT_<wbr>LOADING_<wbr>TIMEOUT</a>
 					</li>
