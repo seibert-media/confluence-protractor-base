@@ -61,7 +61,7 @@ export class ConfluenceBase extends ConfluenceLogin {
 	}
 
 	public disableNotifications() {
-		if (this.confluenceVersion().greaterThan("5.9") && !this.confluenceVersion().equals("6.7.0")) {
+		if (this.confluenceVersion().greaterThan("5.9")) {
 			if (this.confluenceVersion().greaterThanEquals("6.5")) {
 				this.openAdminPage("plugins/servlet/troubleshooting/view");
 				// fix for 6.6: reopen as .notification-toggle might not be displayed in the first call of the action
@@ -77,7 +77,7 @@ export class ConfluenceBase extends ConfluenceLogin {
 
 			element(by.css('option[value="critical"]')).click();
 		} else {
-			console.log("skipped disable notifications as Confluence version is", this.confluenceVersion());
+			console.log("skipped disable notifications as Confluence version <= 5.9");
 		}
 	}
 
