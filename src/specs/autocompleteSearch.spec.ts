@@ -11,33 +11,38 @@ describe("AutocompleteSearch (page object)", () => {
 
 	const AUTOCOMPLETE_TIMEOUT = 45 * 1000;
 
+	const mentionAutocomplete = new AutocompleteSearch({
+		searchTerm: "user",
+		inputElement: pageEditor.editor,
+		resultContainer: element(by.css(".autocomplete-mentions")),
+	});
+
 	beforeAll(() => {
 		pageEditor.loginAsAdmin();
 	});
 
-	it("adds a comment with a mention", () => {
+	it("opens comments", () => {
 		openPage("display/ds");
 
 		pageEditor.openComment();
 
 		expect(pageEditor.hasEditor()).toBe(true);
+	});
 
-		const mentionAutocomplete = new AutocompleteSearch({
-			searchTerm: "user",
-			inputElement: pageEditor.editor,
-			resultContainer: element(by.css(".autocomplete-mentions")),
-		});
-
+	it("adds a mention", () => {
 		mentionAutocomplete.search({searchPrefix: "@"});
 
-		mentionAutocomplete.waitForResult();
-		expect(mentionAutocomplete.foundExpectedResult()).toBe(true);
+		mentionAutocomplete.waitForMatchingResult();
 
+		expect(mentionAutocomplete.foundExpectedResult()).toBe(true);
+	}, AUTOCOMPLETE_TIMEOUT);
+
+	it("closes comment", () => {
 		mentionAutocomplete.clearAndLeave();
 
 		pageEditor.cancelAndSkipAlert();
 
 		expect(pageEditor.hasEditor()).toBe(false);
-	}, AUTOCOMPLETE_TIMEOUT);
+	});
 
 });
