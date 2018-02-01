@@ -24,7 +24,7 @@
     "eclint": "eclint check",
     "eclint-fix": "eclint fix",
     "commit": "commit-wizard",
-    "test-e2e-atlas": "tsc; protractor built/protractorConfig.js --baseUrl http://localhost:1990/confluence/"
+    "test-e2e-atlas": "tsc; protractor built/protractorConfig.js --baseUrl http://localhost:1990/confluence/ --seleniumAddress http://localhost:4445/wd/hub"
   },
   "repository": {
     "type": "git",
