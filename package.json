@@ -23,7 +23,8 @@
     "tslint-fix": "tslint -c tslint.json 'src/**/*.ts' --fix ",
     "eclint": "eclint check",
     "eclint-fix": "eclint fix",
-    "commit": "commit-wizard"
+    "commit": "commit-wizard",
+    "test-e2e-atlas": "tsc; protractor built/protractorConfig.js --baseUrl http://localhost:1990/confluence"
   },
   "repository": {
     "type": "git",
