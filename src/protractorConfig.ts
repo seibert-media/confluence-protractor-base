@@ -7,7 +7,7 @@ const SCREEN_HEIGHT = 960;
 export {config as protractorConfig};
 
 export let config: Config = {
-	baseUrl: "http://confluence:8090/",
+	baseUrl: "http://localhost:1990/confluence",
 	capabilities: {
 		// default browser: chrome
 		"browserName": "chrome",
