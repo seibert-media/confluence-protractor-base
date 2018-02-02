@@ -4,3 +4,4 @@ built/
 *.xml
 npm-debug.log
 docs/
+package-lock.json
