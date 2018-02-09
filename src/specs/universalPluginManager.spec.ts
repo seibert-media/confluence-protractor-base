@@ -35,7 +35,7 @@ describe("UniversalPluginManager (page object)", () => {
 	const PLUGIN_UPLOAD_TIMEOUT = 4 * 60 * 1000;
 
 	beforeAll(() => {
-		universalPluginManager.loginAsAdmin();
+		universalPluginManager.authenticateAsAdmin();
 	});
 
 	describe("uploadPlugin()", () => {
