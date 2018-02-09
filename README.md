@@ -1,5 +1,6 @@
-# Confluence Protractor Base [![Npm version](https://img.shields.io/npm/v/confluence-protractor-base.svg)](https://www.npmjs.com/package/confluence-protractor-base)
-
+# Confluence Protractor Base
+ 
+[![Npm version](https://img.shields.io/npm/v/confluence-protractor-base.svg)](https://www.npmjs.com/package/confluence-protractor-base)
 [![Npm dependencies](https://img.shields.io/david/seibert-media/confluence-protractor-base.svg)](https://david-dm.org/seibert-media/confluence-protractor-base)
 [![devDependency Status](https://img.shields.io/david/dev/seibert-media/confluence-protractor-base.svg)](https://david-dm.org/seibert-media/confluence-protractor-base#info=devDependencies)
 
@@ -15,19 +16,17 @@ It provides basic functionality like creating pages, spaces, users and groups as
 1. Install requirements\
  `npm install`
 1. Update [webdriver manager](https://github.com/angular/webdriver-manager)\
- `webdriver-update`
+ `npm run webdriver-update`
 1. Start the webdriver manager\
- `./node_modules/.bin/webdriver-manager start --seleniumPort 4444`
+ `npm run webdriver-start`
 1. run UI tests in another console window (e2e means End-to-End)\
-`npm run test-e2e`
+ `npm run test-e2e`
 
 
 ## Local Confluence instance<a name="localConf"></a>
 First of all you need a local Confluence instance. 
 
-The instance should be locally available under <http://confluence:8090>\
-Note: There may be changes needed in the `/etc/hosts` file\
-`127.0.0.1      confluence`
+The instance should be locally available under <http://localhost:1990>\
 
 This can be done via the Atlassian SDK or with a Docker container
 
@@ -35,7 +34,7 @@ This can be done via the Atlassian SDK or with a Docker container
 ### Atlassian SDK
 Start a local Confluence test instance using the [Atlassian&reg; SDK](https://developer.atlassian.com/docs/getting-started/set-up-the-atlassian-plugin-sdk-and-build-a-project)
 
-`atlas-run-standalone --product confluence --http-port 8090 --server confluence --context-path ROOT --jvmargs "-Xms4g -Xmx4g -server"
+`atlas-run-standalone --product confluence
 `
 
 ### Docker container
@@ -43,7 +42,7 @@ Start a local [Confluence&reg; docker instance](https://hub.docker.com/r/atlassi
 
 ## Supported Platforms
 We have tested the confluence-protractor-base with 
-* Confluence 5.7 - 6.4
+* Confluence 5.7 - 6.7
 * PSQL, MYSQL, MSSQL
 
 ## Troubleshooting
