@@ -26,7 +26,7 @@ It provides basic functionality like creating pages, spaces, users and groups as
 ## Local Confluence instance<a name="localConf"></a>
 First of all you need a local Confluence instance. 
 
-The instance should be locally available under <http://localhost:1990>\
+The instance should be locally available under <http://localhost:1990/confluence> (Atlassian&reg; SDK standard)
 
 This can be done via the Atlassian SDK or with a Docker container
 
