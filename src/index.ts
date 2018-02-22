@@ -5,6 +5,7 @@ export {
 	ConfluenceUser,
 	ConfluenceSpace,
 	ConfluenceAction,
+	ConfluenceMacro,
 	UniversalPluginManager,
 	ConfluenceGroup,
 	ConfluencePage,
@@ -30,6 +31,7 @@ import {ConfluenceBase} from "./page-objects/ConfluenceBase";
 import {ConfluenceEditor} from "./page-objects/ConfluenceEditor";
 import {ConfluenceGroup} from "./page-objects/ConfluenceGroup";
 import {ConfluenceLogin} from "./page-objects/ConfluenceLogin";
+import {ConfluenceMacro} from "./page-objects/ConfluenceMacro";
 import {ConfluencePage} from "./page-objects/ConfluencePage";
 import {ConfluenceSpace} from "./page-objects/ConfluenceSpace";
 import {ConfluenceUser} from "./page-objects/ConfluenceUser";

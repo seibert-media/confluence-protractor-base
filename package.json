@@ -1,6 +1,6 @@
 {
   "name": "confluence-protractor-base",
-  "version": "0.7.10",
+  "version": "0.7.11",
   "description": "Base project for protractor e2e tests with confluence",
   "main": "./built/index.js",
   "types": "./built/index.d.ts",
@@ -15,8 +15,6 @@
     "test-e2e": "tsc; protractor built/protractorConfig.js",
     "test-e2e-prepare": "tsc; protractor built/protractorConfig.js --specs built/specs/common/prepareTestSetup.spec.js",
     "test-local": "tsc; protractor built/protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
-    "test-e2e-local": "tsc; protractor built/protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
-    "test-local-e2e": "tsc; protractor built/protractorConfig.js --seleniumAddress http://localhost:4445/wd/hub",
     "webdriver-start": "webdriver-manager start --seleniumPort 4445",
     "webdriver-update": "webdriver-manager update",
     "tslint": "tslint -c tslint.json 'src/**/*.ts'",
